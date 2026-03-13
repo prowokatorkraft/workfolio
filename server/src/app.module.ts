@@ -10,7 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: '.env.local',
       ignoreEnvFile: false,
     }),
     ServeStaticModule.forRoot({
