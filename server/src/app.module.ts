@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client', 'dist'), // путь к собранным файлам Vue
+      rootPath: join(__dirname, '..', '..', 'client', 'dist'), // путь к собранным файлам Vue
     }),
   ],
   controllers: [AppController],

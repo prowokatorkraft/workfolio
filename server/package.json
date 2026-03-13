@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"npm:start:dev\" \"npm:build:client:watch\"",
     "build:client:watch": "cd ./client && npm run build -- --watch",
-    "build:all": "nest build && cd ./client && npm run build",
+    "build:all": "nest build && cd ../client && npm run build",
 
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
