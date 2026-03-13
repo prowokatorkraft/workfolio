@@ -1,17 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  {{data}}
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import {onMounted, ref} from "vue";
 
-export default {
+/*export default {
   name: 'App',
   components: {
     HelloWorld
   }
-}
+}*/
+
+const data = ref('dd');
+const loading = ref(true);
+const error = ref('');
+
+const fetchData = async () => {
+  try {
+    const baseUrl = window.location.origin;
+    const response = await fetch(baseUrl + '/api/');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    data.value = await response.text();
+  } catch (err) {
+    error.value = `Ошибка загрузки: ${err.message}`;
+  } finally {
+    loading.value = false;
+  }
+};
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style>
