@@ -1,47 +1,73 @@
-<template>
-  {{data}}
-</template>
-
-<script setup>
-import {onMounted, ref} from "vue";
-
-/*export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}*/
-
-const data = ref('dd');
-const loading = ref(true);
-const error = ref('');
-
-const fetchData = async () => {
-  try {
-    const baseUrl = window.location.origin;
-    const response = await fetch(baseUrl + '/api/');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    data.value = await response.text();
-  } catch (err) {
-    error.value = `Ошибка загрузки: ${err.message}`;
-  } finally {
-    loading.value = false;
-  }
-};
-onMounted(() => {
-  fetchData();
-});
+<script setup lang="ts">
+  import PageHeader from './components/PageHeader.vue';
+  import PageFooter from './components/PageFooter.vue';
+  import SideBar from './components/SideBar.vue';
 </script>
 
+<template>
+  <PageHeader />
+  <div class="layout">
+    <main class="main">
+      <div class="main-container">
+        <section class="content">
+          <RouterView />
+        </section>
+        <SideBar />
+      </div>
+    </main>
+  </div>
+  <PageFooter />
+</template>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .layout {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  }
+
+  .main {
+    flex: 1;
+    padding: 30px 20px;
+  }
+
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+  }
+
+  .content {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    min-height: 600px;
+  }
+
+  @media (max-width: 1024px) {
+    .main-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      padding: 20px;
+    }
+  }
+
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>

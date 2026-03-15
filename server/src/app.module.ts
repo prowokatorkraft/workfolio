@@ -11,10 +11,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env.local',
-      ignoreEnvFile: false,
+      ignoreEnvFile: false
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client', 'dist'), // путь к собранным файлам Vue
+      rootPath: join(__dirname, '..', '..', 'client', 'dist') // путь к собранным файлам Vue
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -25,35 +25,24 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           host: config.get('POSTGRES_HOST') ?? config.get('DB_HOST'),
           port: config.get('DB_PORT', 5432),
           username: config.get('POSTGRES_USER') ?? config.get('DB_USERNAME'),
-          password:
-            config.get('POSTGRES_PASSWORD') ?? config.get('DB_PASSWORD'),
+          password: config.get('POSTGRES_PASSWORD') ?? config.get('DB_PASSWORD'),
           database: config.get('POSTGRES_DATABASE') ?? config.get('DB_NAME'),
           //entities: [],
           namingStrategy: undefined,
           logging: config.get('NODE_ENV') === 'development',
-          ssl: isProduction
-            ? {
-                rejectUnauthorized: false,
-              }
-            : false,
-          extra: isProduction
-            ? {
-                ssl: {
-                  rejectUnauthorized: false,
-                },
-              }
-            : undefined,
+          ssl: isProduction ? { rejectUnauthorized: false } : false,
+          extra: isProduction ? { ssl: { rejectUnauthorized: false } } : undefined,
           poolSize: 5,
           connectTimeoutMS: 10000,
           maxQueryExecutionTime: 30000,
           synchronize: false,
-          migrationsRun: false,
+          migrationsRun: false
         };
       },
-      inject: [ConfigService],
-    }),
+      inject: [ConfigService]
+    })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
