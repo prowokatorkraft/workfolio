@@ -1,20 +1,16 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="education-header">
     <h3 class="education-title">
       🎓 Образование
       <span class="education-label-right-block">
-        <span class="education-label-right">🏛️ СГУ, Прикладная математика</span>
+        <span class="education-label-right">🏛️ СГАУ, Агроинженерия</span>
         <span class="education-label-right">🇬🇧 Английский A2</span>
       </span>
     </h3>
 
-    <RouterLink
-      to="/education"
-      class="more-btn"
-    >
+    <RouterLink to="/education" class="more-btn">
       <span>Подробнее</span>
       <span class="more-arrow">→</span>
     </RouterLink>
@@ -80,6 +76,16 @@
       display: block;
       margin-top: 10px;
       width: max-content;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .education-header {
+      display: table-column;
+    }
+
+    .more-btn {
+      padding: 10px 15px;
     }
   }
 </style>
