@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import Contacts from './Contacts.vue';
+  import Location from './Location.vue';
+  import { useUserStore } from '../../stores/User.ts';
+
+  const user = useUserStore().user;
+</script>
 
 <template>
   <aside class="sidebar">
@@ -13,33 +19,16 @@
 
     <div class="user-info">
       <h1 class="user-name">
-        Иван Иванов
+        {{ user.name }}
       </h1>
       <p class="user-title">
-        Full-stack разработчик
+        {{ user.position }}
       </p>
       <p class="user-location">
-        📍 Москва, Россия
+        {{ user.comment }}
       </p>
-
-      <div class="user-contacts">
-        <a
-          href="mailto:ivan@example.com"
-          class="contact-link"
-        >📧 ivan@example.com</a>
-        <a
-          href="tel:+79991234567"
-          class="contact-link"
-        >📞 +7 (999) 123-45-67</a>
-        <a
-          href="#"
-          class="contact-link"
-        >💼 LinkedIn</a>
-        <a
-          href="#"
-          class="contact-link"
-        >🐙 GitHub</a>
-      </div>
+      <Location />
+      <Contacts />
     </div>
   </aside>
 </template>
@@ -103,34 +92,6 @@
   .user-location {
     color: #666;
     font-size: 0.9rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .user-contacts {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .contact-link {
-    color: #2c3e50;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background: #f8f9fa;
-  }
-
-  .contact-link:hover {
-    background: #42b983;
-    color: white;
-    transform: translateX(5px);
   }
 
   .photo {

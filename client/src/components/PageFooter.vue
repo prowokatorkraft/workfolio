@@ -1,13 +1,14 @@
 <script setup lang="ts">
+  import { useUserStore } from '../stores/User.ts';
+
   const currentYear = new Date().getFullYear();
+  const user = useUserStore().user;
 </script>
 
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <p class="copyright">
-        © {{ currentYear }} Иван Иванов
-      </p>
+      <p class="copyright">© {{ currentYear }} {{ user.name }}</p>
       <p class="made-with">
         Сделано с
         <span class="heart">❤️</span>

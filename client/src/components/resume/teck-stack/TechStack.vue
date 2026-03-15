@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import GroupSkills from "./GroupSkills.vue";
+  import GroupSkills from './GroupSkills.vue';
 
   const techStacks = {
     frontend: [
@@ -66,7 +66,9 @@
   }
 
   .skills-header {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #42b983;
   }
 
   .skills-title {
