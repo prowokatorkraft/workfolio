@@ -1,4 +1,4 @@
-import {createProxyMiddleware} from "http-proxy-middleware";
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const API_URL = process.env.API_URL;
 
@@ -10,12 +10,12 @@ const proxy = createProxyMiddleware({
   target: API_URL,
   changeOrigin: true,
   pathRewrite: {
-    '^/api': '',
+    '^/api': ''
   },
   logLevel: 'debug'
 });
 
-module.exports = (req, res) => {
+export default (req, res) => {
   console.log(`[Proxy] Запрос к: ${req.url} -> ${API_URL}${req.url}`);
   return proxy(req, res);
 };
