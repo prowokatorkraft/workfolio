@@ -85,7 +85,7 @@
     }
 
     .more-btn {
-      padding: 10px 15px;
+      margin: 10px 13px;
     }
   }
 </style>

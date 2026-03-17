@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type {Skill} from "../../../types/Skill.ts";
+  import type { Technology } from '../../../types/Technology.ts';
 
   const getLevelColor = (level: number) => {
     if (level >= 80) return '#7cff902e'; // зеленый
@@ -9,7 +9,7 @@
 
   defineProps<{
     label: string;
-    skills: Skill[];
+    skills: Technology[];
   }>();
 </script>
 

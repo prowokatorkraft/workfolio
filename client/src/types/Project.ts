@@ -1,12 +1,12 @@
-export interface WorkProject {
+export interface Project {
   id: number;
-  period: string;
-  duration: string;
+  periodStart: string;
+  periodEnd?: string | undefined;
   title: string;
   company: string;
   shortDescription: string;
   detailedDescription: string;
-  technologies: string[];
+  technologyIds: number[];
   achievements: string[];
   isExpanded: boolean;
 }

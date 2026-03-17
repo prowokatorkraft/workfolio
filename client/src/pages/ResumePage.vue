@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import TechStack from '../components/resume/teck-stack/TechStack.vue';
-  import Experience from '../components/resume/Experience.vue';
+  import Technology from '../components/resume//technology/Technology.vue';
+  import Projects from '../components/resume/Projects.vue';
   import Education from '../components/resume/Education.vue';
 </script>
 
 <template>
   <main class="main-layout">
-    <TechStack />
-    <Experience />
+    <Technology />
+    <Projects />
     <Education />
   </main>
 </template>

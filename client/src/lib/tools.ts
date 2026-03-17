@@ -1,0 +1,55 @@
+// ISO формат
+export function parsePeriod(start: string, end: string | undefined) {
+  const startDate = new Date(start);
+  const endDate = end ? new Date(end) : new Date();
+
+  const months =
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (endDate.getMonth() - startDate.getMonth());
+
+  return {
+    start: {
+      year: startDate.getFullYear(),
+      month: startDate.getMonth() + 1,
+    },
+    end: end
+      ? {
+          year: endDate.getFullYear(),
+          month: endDate.getMonth() + 1,
+        }
+      : null,
+    durationMonths: months + 1,
+    period: startDate.getFullYear() + ' — ' + endDate.getFullYear()
+  };
+}
+
+export function formatDate(date: Date): string {
+  const months = [
+    'янв',
+    'фев',
+    'мар',
+    'апр',
+    'май',
+    'июн',
+    'июл',
+    'авг',
+    'сен',
+    'окт',
+    'ноя',
+    'дек'
+  ];
+  return `${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+export function formatDuration(months: number): string {
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  if (years === 0) {
+    return `${remainingMonths} мес.`;
+  } else if (remainingMonths === 0) {
+    return `${years} ${years === 1 ? 'год' : 'года'}`;
+  } else {
+    return `${years} ${years === 1 ? 'год' : 'года'} ${remainingMonths} мес.`;
+  }
+}

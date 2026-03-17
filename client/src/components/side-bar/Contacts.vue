@@ -16,7 +16,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      <span>{{ contacts.phoneInfo }}</span>
+      <span class="contact-name">{{ contacts.phoneInfo }}</span>
     </a>
 
     <a :href="contacts.vk" target="_blank" rel="noopener noreferrer" class="contact-badge vk">
@@ -33,7 +33,7 @@
           d="M12.9 17.5C7.3 17.5 4.1 13.6 3.9 8.5H5.7C5.9 12.4 8.1 14.6 11.5 15.1V8.5H13.3V12.4C16.6 12.1 19.1 9.8 19.8 8.5H21.6C21.1 10.4 19.2 13.1 16.8 14.6C19.2 16.1 21.5 18.2 22.2 20.5H20.3C19.7 18.8 18.1 16.8 15.7 15.6C13.3 17 11.5 17.5 11.5 17.5H12.9Z"
         />
       </svg>
-      <span>ВКонтакте</span>
+      <span class="contact-name">ВКонтакте</span>
     </a>
 
     <a :href="'mailto:' + contacts.mail" class="contact-badge email">
@@ -53,7 +53,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      <span>{{ contacts.mail }}</span>
+      <span class="contact-name">{{ contacts.mail }}</span>
     </a>
 
     <a
@@ -78,7 +78,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      <span>{{ contacts.telegramInfo }}</span>
+      <span class="contact-name">{{ contacts.telegramInfo }}</span>
     </a>
   </div>
 </template>
@@ -138,9 +138,15 @@
     color: white;
   }
 
+  @media (max-width: 690px) {
+    .contact-name {
+      display: none;
+    }
+  }
+
   @media (max-width: 480px) {
     .contact-badge {
-      width: 100%;
+      width: fit-content;
       justify-content: center;
     }
   }
