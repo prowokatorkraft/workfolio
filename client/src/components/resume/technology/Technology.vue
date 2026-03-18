@@ -2,7 +2,17 @@
   import GroupSkills from './GroupSkills.vue';
   import { TechnologyGroup } from '../../../types/Technology.ts';
   import { useExperienceStore } from '../../../stores/Experience.ts';
+  import { computed } from 'vue';
+  
   const expStore = useExperienceStore();
+  const backendSkills = computed(
+    () => expStore.getTechnologyByGroup(TechnologyGroup.backend).value
+  );
+  const frontendSkills = computed(
+    () => expStore.getTechnologyByGroup(TechnologyGroup.frontend).value
+  );
+  const dataSkills = computed(() => expStore.getTechnologyByGroup(TechnologyGroup.data).value);
+  const toolsSkills = computed(() => expStore.getTechnologyByGroup(TechnologyGroup.none).value);
 </script>
 
 <template>
@@ -15,10 +25,10 @@
     </div>
 
     <div class="technology-minimal">
-      <GroupSkills label="Backend" :skills="expStore.getTechnologyByGroup(TechnologyGroup.backend)" />
-      <GroupSkills label="Frontend" :skills="expStore.getTechnologyByGroup(TechnologyGroup.frontend)" />
-      <GroupSkills label="Data" :skills="expStore.getTechnologyByGroup(TechnologyGroup.data)" />
-      <GroupSkills label="Tools" :skills="expStore.getTechnologyByGroup(TechnologyGroup.none)" />
+      <GroupSkills label="Backend" :skills="backendSkills" />
+      <GroupSkills label="Frontend" :skills="frontendSkills" />
+      <GroupSkills label="Data" :skills="dataSkills" />
+      <GroupSkills label="Tools" :skills="toolsSkills" />
     </div>
   </div>
 </template>

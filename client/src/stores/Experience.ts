@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 import { type Technology, TechnologyGroup, type TechnologyGroupType } from '../types/Technology.ts';
 import type { Project } from '../types/Project.ts';
 import { formatDuration, parsePeriod } from '../lib/tools.ts';
@@ -75,45 +76,139 @@ const initialProjects: Project[] = [
   }
 ];
 
-export const useExperienceStore = defineStore('experience', {
-  state: () => ({
-    technology: initialSkills,
-    projects: initialProjects
-  }),
+export const useExperienceStore = defineStore('experience', () => {
+  // State
+  const technology = ref<Technology[]>([...initialSkills]);
+  const projects = ref<Project[]>([...initialProjects]);
 
-  getters: {
-    getTechnologyByGroup: (state) => (group: TechnologyGroupType) =>
-      state.technology.filter((s) => s.group == group),
-    getTechnologyByIds: (state) => (ids: number[]) =>
-      state.technology.filter((s) => ids.includes(s.id)),
-    getProjectPeriod: (state) => (id: number) => {
-      const project = state.projects.find((p) => p.id === id);
+  const getTechnologyByGroup = (group: TechnologyGroupType) => {
+    return computed(() => technology.value.filter((s) => s.group === group));
+  };
+
+  const getTechnologyByIds = (ids: number[]) => {
+    return computed(() => technology.value.filter((s) => ids.includes(s.id)));
+  };
+
+  const getProjectPeriod = (id: number) => {
+    return computed(() => {
+      const project = projects.value.find((p) => p.id === id);
       if (project) {
         return parsePeriod(project.periodStart, project.periodEnd).period;
       }
-    },
-    getProjectDuration: (state) => (id: number) => {
-      const project = state.projects.find((p) => p.id === id);
+      return '';
+    });
+  };
+
+  const getProjectDuration = (id: number) => {
+    return computed(() => {
+      const project = projects.value.find((p) => p.id === id);
       if (project) {
         const period = parsePeriod(project.periodStart, project.periodEnd);
         return formatDuration(period.durationMonths);
       }
-    },
-    duration: (state) => {
-      let durationMonths = 0;
-      state.projects.forEach(
-        (p) => (durationMonths += parsePeriod(p.periodStart, p.periodEnd).durationMonths)
-      );
-      return formatDuration(durationMonths);
-    }
-  },
+      return '';
+    });
+  };
 
-  actions: {
-    toggleProject(id: number) {
-      const project = this.projects.find((p) => p.id === id);
-      if (project) {
-        project.isExpanded = !project.isExpanded;
-      }
+  const duration = computed(() => {
+    let durationMonths = 0;
+    projects.value.forEach(
+      (p) => (durationMonths += parsePeriod(p.periodStart, p.periodEnd).durationMonths)
+    );
+    return formatDuration(durationMonths);
+  });
+
+  function toggleProject(id: number) {
+    const project = projects.value.find((p) => p.id === id);
+    if (project) {
+      project.isExpanded = !project.isExpanded;
     }
   }
+
+  function addTechnology(tech: Technology) {
+    technology.value.push(tech);
+  }
+
+  function updateTechnology(id: number, updates: Partial<Technology>) {
+    const index = technology.value.findIndex((t) => t.id === id);
+    if (index !== -1) {
+      technology.value[index] = { ...technology.value[index], ...updates };
+    }
+  }
+
+  function removeTechnology(id: number) {
+    const index = technology.value.findIndex((t) => t.id === id);
+    if (index !== -1) {
+      technology.value.splice(index, 1);
+    }
+  }
+
+  function addProject(project: Project) {
+    projects.value.push(project);
+  }
+
+  function updateProject(id: number, updates: Partial<Project>) {
+    const index = projects.value.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      projects.value[index] = { ...projects.value[index], ...updates };
+    }
+  }
+
+  function removeProject(id: number) {
+    const index = projects.value.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      projects.value.splice(index, 1);
+    }
+  }
+
+  function expandProject(id: number) {
+    const project = projects.value.find((p) => p.id === id);
+    if (project) {
+      project.isExpanded = true;
+    }
+  }
+
+  function collapseProject(id: number) {
+    const project = projects.value.find((p) => p.id === id);
+    if (project) {
+      project.isExpanded = false;
+    }
+  }
+
+  function collapseAllProjects() {
+    projects.value.forEach((p) => (p.isExpanded = false));
+  }
+
+  function expandAllProjects() {
+    projects.value.forEach((p) => (p.isExpanded = true));
+  }
+
+  function resetToInitial() {
+    technology.value = [...initialSkills];
+    projects.value = [...initialProjects];
+  }
+
+  return {
+    technology,
+    projects,
+    duration,
+
+    getTechnologyByGroup,
+    getTechnologyByIds,
+    getProjectPeriod,
+    getProjectDuration,
+
+    addTechnology,
+    updateTechnology,
+    removeTechnology,
+    addProject,
+    updateProject,
+    removeProject,
+    toggleProject,
+    expandProject,
+    collapseProject,
+    collapseAllProjects,
+    expandAllProjects,
+    resetToInitial
+  };
 });

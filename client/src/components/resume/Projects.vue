@@ -34,7 +34,7 @@
 
           <div class="technologies-items">
             <span
-              v-for="tech in experienceStore.getTechnologyByIds(project.technologyIds)"
+              v-for="tech in experienceStore.getTechnologyByIds(project.technologyIds).value"
               :key="tech.id"
               class="skill-badge"
               :style="{
