@@ -1,33 +1,16 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header class="header">
     <nav class="nav">
-      <RouterLink
-        to="/"
-        class="nav-link"
-      >
+      <RouterLink to="/" class="nav-link">
         Резюме
       </RouterLink>
-      <RouterLink
-        to="/education"
-        class="nav-link"
-      >
-        Образование
+      <RouterLink to="/training" class="nav-link">
+        Обучение
       </RouterLink>
-      <RouterLink
-        to="/analytics"
-        class="nav-link"
-      >
+      <RouterLink to="/analytics" class="nav-link">
         Аналитика
-      </RouterLink>
-      <RouterLink
-        to="/about"
-        class="nav-link"
-      >
-        Обо мне
       </RouterLink>
     </nav>
   </header>

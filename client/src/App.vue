@@ -61,4 +61,24 @@
       padding: 20px;
     }
   }
+
+  .highlight-pulse {
+    animation: pulse 1.5s ease;
+    outline: none !important;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(66, 185, 131, 0.4);
+      background-color: rgba(66, 185, 131, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(66, 185, 131, 0);
+      background-color: rgba(66, 185, 131, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(66, 185, 131, 0);
+      background-color: rgba(66, 185, 131, 0);
+    }
+  }
 </style>

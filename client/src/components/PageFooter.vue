@@ -11,8 +11,8 @@
       <p class="copyright">© {{ currentYear }} {{ user.name }}</p>
       <p class="made-with">
         Сделано с
-        <span class="heart">❤️</span>
-        на Vue.js
+        <span class="heart">❤️</span>на
+        <RouterLink to="/training#pet-project1" class="nav-link"> Vue.js </RouterLink>
       </p>
     </div>
   </footer>
@@ -52,6 +52,10 @@
     color: #ff6b6b;
     animation: heartbeat 1.5s ease infinite;
     display: inline-block;
+  }
+
+  .nav-link {
+    text-decoration: none;
   }
 
   @keyframes heartbeat {

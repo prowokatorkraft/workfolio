@@ -10,7 +10,7 @@
       </span>
     </h3>
 
-    <RouterLink to="/education" class="more-btn">
+    <RouterLink to="/training#education" class="more-btn nav-link">
       <span>Подробнее</span>
       <span class="more-arrow">→</span>
     </RouterLink>
@@ -59,6 +59,10 @@
 
   .more-btn:hover {
     background: #e8f5e9;
+  }
+
+  .nav-link {
+    text-decoration: none;
   }
 
   @media (min-width: 1025px) and (max-width: 1190px) {

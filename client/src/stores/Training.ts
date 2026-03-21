@@ -19,8 +19,11 @@ interface Certificate {
   date: string;
   hours?: number;
   credentialId?: string;
+  credentialLink?: string;
   skills: string[];
-  link: string;
+  courseLink?: string;
+  gitLink?: string;
+  petProjectId?: number;
 }
 
 interface PetProject {
@@ -38,7 +41,7 @@ const initialFormalEducation: FormalEducation[] = [
   {
     id: 1,
     period: '2018 — 2023',
-    status: 'Диплом с отличием',
+    status: 'Высшее техническое',
     degree: 'Магистр прикладной математики и информатики',
     institution: 'СГАУ, Агроинженерия',
     description:
@@ -59,58 +62,39 @@ const initialFormalEducation: FormalEducation[] = [
 const initialCertificates: Certificate[] = [
   {
     id: 1,
-    icon: '📘',
-    name: 'NestJS: Современная серверная разработка',
-    issuer: 'Udemy',
-    date: '2024',
-    hours: 42,
-    credentialId: 'UC-1234-5678',
-    skills: ['NestJS', 'TypeORM', 'PostgreSQL', 'JWT', 'WebSockets'],
-    link: '#'
+    icon: 'placeholder.svg',
+    name: 'JavaScript Developer. Professional',
+    issuer: 'Otus',
+    date: '2026',
+    hours: 49,
+    skills: ['TypeScript', 'Redux', 'SPA', 'CI/CD', 'Vite/Webpack',
+      'React', 'Hooks', 'Zustand', 'React Query', 'React Router',
+      'React Testing Library', 'Jest', 'End2End', 'Vue3', 'Composition API',
+      'Pinia', 'Nuxt', 'Nx', 'Next', 'Node.js', 'REST API', 'Express',
+      'Event Loop', 'NestJS', 'TypeORM'
+    ],
+    courseLink: 'https://otus.ru/lessons/javascript-professional/'
   },
   {
     id: 2,
-    icon: '📗',
-    name: 'TypeORM - Работа с базами данных',
-    issuer: 'Stepik',
+    icon: 'certificate_postgres.png',
+    name: 'PostgreSQL для администраторов баз данных и разработчиков',
+    issuer: 'Otus',
     date: '2023',
-    hours: 36,
-    credentialId: 'ST-9876-5432',
-    skills: ['TypeORM', 'SQL', 'PostgreSQL', 'MongoDB', 'Relations'],
-    link: '#'
+    hours: 126,
+    credentialId: '1718-373607',
+    credentialLink: 'https://otus.ru/certificate/e317649f56324453b042f56b7ea628bb/',
+    skills: ['PostgreSQL', 'SQL', 'Query Optimization', 'Indexes', 'Transactions'],
+    courseLink: 'https://otus.ru/lessons/postgresql-dba/'
   },
   {
     id: 3,
-    icon: '📕',
-    name: 'PostgreSQL для профессионалов',
-    issuer: 'Coursera',
-    date: '2023',
-    hours: 48,
-    credentialId: 'CR-5678-1234',
-    skills: ['PostgreSQL', 'SQL', 'Query Optimization', 'Indexes', 'Transactions'],
-    link: '#'
-  },
-  {
-    id: 4,
-    icon: '📙',
-    name: 'JavaScript / TypeScript: Продвинутый уровень',
-    issuer: 'HTML Academy',
-    date: '2022',
-    hours: 60,
-    credentialId: 'HA-4321-8765',
-    skills: ['JavaScript', 'TypeScript', 'OOP', 'Generics', 'Decorators'],
-    link: '#'
-  },
-  {
-    id: 5,
-    icon: '🇬🇧',
-    name: 'Английский язык для IT-специалистов',
-    issuer: 'Skyeng',
-    date: '2023',
-    hours: 72,
-    credentialId: 'SE-2468-1357',
-    skills: ['Technical English', 'IT Terminology', 'Business English'],
-    link: '#'
+    icon: 'epam_training.png',
+    name: 'Основы программного обеспечения разработка на .NET/WEB-сайтах',
+    issuer: 'EPAM Systems',
+    date: '2020',
+    hours: 0,
+    skills: ['JavaScript', 'TypeScript', 'OOP', 'Generics', 'Decorators']
   }
 ];
 
@@ -185,7 +169,7 @@ const initialPetProjects: PetProject[] = [
   }
 ];
 
-export const useEducationStore = defineStore('education', () => {
+export const useTrainingStore = defineStore('training', () => {
   const totalCourses = ref<number>(24);
   const githubUrl = ref<string>('https://github.com/username');
   const formalEducation = ref<FormalEducation[]>([...initialFormalEducation]);
