@@ -4,13 +4,13 @@
   const modalVisible = ref(false);
   const modalImage = ref('');
 
-  //@click="openModal(`/certificates/` + cert.icon)"
   const openModal = (imageUrl: string) => {
     modalImage.value = imageUrl;
     modalVisible.value = true;
     document.body.style.overflow = 'hidden';
   };
 
+  //@click.stop
   const closeModal = () => {
     modalVisible.value = false;
     modalImage.value = '';
@@ -25,7 +25,7 @@
 
 <template>
   <div v-if="modalVisible" class="modal-overlay" @click="closeModal">
-    <div class="modal-content" @click.stop>
+    <div class="modal-content">
       <button class="modal-close" @click="closeModal">✕</button>
       <img :src="modalImage" alt="modal" class="modal-image" />
     </div>

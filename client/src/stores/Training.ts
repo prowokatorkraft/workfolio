@@ -1,41 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-
-interface FormalEducation {
-  id: number;
-  period: string;
-  status: string;
-  degree: string;
-  institution: string;
-  description: string;
-  specialization?: string;
-}
-
-interface Certificate {
-  id: number;
-  icon: string;
-  name: string;
-  issuer: string;
-  date: string;
-  hours?: number;
-  credentialId?: string;
-  credentialLink?: string;
-  skills: string[];
-  courseLink?: string;
-  gitLink?: string;
-  petProjectId?: number;
-}
-
-interface PetProject {
-  id: number;
-  name: string;
-  year: string;
-  description: string;
-  techStack: string[];
-  features?: string[];
-  repo: string;
-  demo?: string;
-}
+import type { Certificate } from '../types/Certificate.ts';
+import type { PetProject } from '../types/PetProject.ts';
+import type { FormalEducation } from '../types/FormalEducation.ts';
 
 const initialFormalEducation: FormalEducation[] = [
   {
@@ -46,7 +13,7 @@ const initialFormalEducation: FormalEducation[] = [
     institution: 'СГАУ, Агроинженерия',
     description:
       'Фундаментальная подготовка в области математического моделирования и разработки программного обеспечения.',
-    specialization: 'Математическое моделирование и программная инженерия',
+    specialization: 'Математическое моделирование и программная инженерия'
   },
   {
     id: 2,
@@ -67,13 +34,35 @@ const initialCertificates: Certificate[] = [
     issuer: 'Otus',
     date: '2026',
     hours: 49,
-    skills: ['TypeScript', 'Redux', 'SPA', 'CI/CD', 'Vite/Webpack',
-      'React', 'Hooks', 'Zustand', 'React Query', 'React Router',
-      'React Testing Library', 'Jest', 'End2End', 'Vue3', 'Composition API',
-      'Pinia', 'Nuxt', 'Nx', 'Next', 'Node.js', 'REST API', 'Express',
-      'Event Loop', 'NestJS', 'TypeORM'
+    skills: [
+      'TypeScript',
+      'SPA',
+      'CI/CD',
+      'Vite/Webpack',
+      'React',
+      'Hooks',
+      'Redux',
+      'Zustand',
+      'React Query',
+      'React Router',
+      'React Testing Library',
+      'Jest',
+      'Vue3',
+      'Composition API',
+      'Pinia',
+      'Nuxt',
+      'Next',
+      'Nx',
+      'Node.js',
+      'REST API',
+      'Express',
+      'Event Loop',
+      'NestJS',
+      'TypeORM'
     ],
-    courseLink: 'https://otus.ru/lessons/javascript-professional/'
+    courseLink: 'https://otus.ru/lessons/javascript-professional/',
+    repo: 'https://github.com/prowokatorkraft/Otus_javascript_professional',
+    petProjectId: 1
   },
   {
     id: 2,
@@ -84,8 +73,18 @@ const initialCertificates: Certificate[] = [
     hours: 126,
     credentialId: '1718-373607',
     credentialLink: 'https://otus.ru/certificate/e317649f56324453b042f56b7ea628bb/',
-    skills: ['PostgreSQL', 'SQL', 'Query Optimization', 'Indexes', 'Transactions'],
-    courseLink: 'https://otus.ru/lessons/postgresql-dba/'
+    skills: [
+      'PSQL',
+      'Query Optimization',
+      'Indexes',
+      'Transactions',
+      'MVCC',
+      'Vacuum/Autovacuum',
+      'Interlocks',
+      'Replication'
+    ],
+    courseLink: 'https://otus.ru/lessons/postgresql-dba/',
+    repo: 'https://github.com/prowokatorkraft/Otus_PostgreSQL'
   },
   {
     id: 3,
@@ -94,7 +93,30 @@ const initialCertificates: Certificate[] = [
     issuer: 'EPAM Systems',
     date: '2020',
     hours: 0,
-    skills: ['JavaScript', 'TypeScript', 'OOP', 'Generics', 'Decorators']
+    skills: [
+      'OOP',
+      '.NET Framework/Core',
+      'ASP.NET',
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Bootstrap',
+      'Razor',
+      'AJAX',
+      'MVC',
+      'Web API',
+      'ADO.NET',
+      'MsSql',
+      'Ninject',
+      'NUnit',
+      'Log4Net',
+      'Git',
+      'Swagger',
+      'Automapper',
+      'FluentValidation'
+    ],
+    repo: 'https://github.com/prowokatorkraft/My_Development_at_EPAM',
+    petProjectId: 2
   }
 ];
 

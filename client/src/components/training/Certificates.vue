@@ -2,6 +2,10 @@
   import { useTrainingStore } from '../../stores/Training.ts';
   import ImageModal from '../ImageModal.vue';
   import { ref } from 'vue';
+  import Link from '../Link.vue';
+  import RouteLink from '../RouteLink.vue';
+  import GitHubIcon from '../icons/GitHubIcon.vue';
+  import LinkIcon from '../icons/LinkIcon.vue';
   const educationStore = useTrainingStore();
   const openImage = ref<(imageUrl: string) => void>(() => {});
 
@@ -34,21 +38,29 @@
         />
         <div class="certificate-content">
           <div class="certificate-header">
-            <a v-if="cert.courseLink" :href="cert.courseLink" class="nav-link certificate-name">
+            <Link :value="cert.courseLink" class="certificate-name">
               {{ cert.name }}
-            </a>
-            <span v-else class="certificate-name">{{ cert.name }}</span>
+            </Link>
             <span class="certificate-issuer">{{ cert.issuer }}</span>
           </div>
           <div class="certificate-meta">
-            <span class="certificate-date">{{ cert.date }}</span>
+            <div v-if="cert.credentialId" class="certificate-credential">
+              <Link :value="cert.credentialLink" class="certificate-credential">
+                {{ cert.credentialId }}
+              </Link>
+            </div>
             <span v-if="cert.hours" class="certificate-hours">{{ cert.hours }} часов</span>
+            <span class="certificate-date">{{ cert.date }}</span>
           </div>
-          <div v-if="cert.credentialId" class="certificate-credential">
-            <a v-if="cert.credentialLink" :href="cert.credentialLink" class="nav-link">
-              {{ cert.credentialId }}
-            </a>
-            <span v-else>{{ cert.credentialId }}</span>
+          <div class="certificate-link">
+            <Link v-if="cert.repo" :value="cert.repo" class="project-link">
+              <GitHubIcon />
+              Репозиторий
+            </Link>
+            <RouteLink v-if="cert.petProjectId" :to="`/training#pet-project` + cert.petProjectId">
+              <LinkIcon />
+              Курсовая работа
+            </RouteLink>
           </div>
           <div class="certificate-skills">
             <span v-for="skill in cert.skills" :key="skill" class="skill-badge">
@@ -126,6 +138,7 @@
   .certificate-icon:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 
   .certificate-content {
@@ -162,8 +175,16 @@
   .certificate-credential {
     color: #999;
     font-size: 0.8rem;
-    margin-bottom: 10px;
-    padding: 2px 0;
+  }
+
+  .certificate-link {
+    color: #999;
+    font-size: 0.8rem;
+    gap: 15px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    flex-flow: row;
+    display: flex;
   }
 
   .certificate-skills {
@@ -190,10 +211,6 @@
     border-color: #42b983 !important;
   }
 
-  .nav-link {
-    text-decoration: none;
-  }
-
   @media (max-width: 768px) {
     .certificate-card {
       flex-direction: column;
@@ -211,6 +228,13 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 10px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .certificate-link {
+      flex-flow: column;
+      gap: 5px;
     }
   }
 </style>

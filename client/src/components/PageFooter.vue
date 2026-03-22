@@ -8,11 +8,15 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <p class="copyright">© {{ currentYear }} {{ user.name }}</p>
+      <p class="copyright">
+        © {{ currentYear }} {{ user.name }}
+      </p>
       <p class="made-with">
         Сделано с
         <span class="heart">❤️</span>на
-        <RouterLink to="/training#pet-project1" class="nav-link"> Vue.js </RouterLink>
+        <RouterLink to="/training#pet-project1" class="nav-link">
+          Vue.js
+        </RouterLink>
       </p>
     </div>
   </footer>
