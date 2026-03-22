@@ -30,8 +30,8 @@
             {{ edu.description }}
           </p>
 
-          <div class="education-details">
-            <div v-if="edu.specialization" class="detail-item">
+          <div v-if="edu.specialization" class="education-details">
+            <div class="detail-item">
               <span class="detail-label">Специализация:</span>
               <span class="detail-value">{{ edu.specialization }}</span>
             </div>

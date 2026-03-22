@@ -7,22 +7,20 @@ import type { FormalEducation } from '../types/FormalEducation.ts';
 const initialFormalEducation: FormalEducation[] = [
   {
     id: 1,
-    period: '2018 — 2023',
+    period: '2015 — 2020',
     status: 'Высшее техническое',
-    degree: 'Магистр прикладной математики и информатики',
-    institution: 'СГАУ, Агроинженерия',
-    description:
-      'Фундаментальная подготовка в области математического моделирования и разработки программного обеспечения.',
-    specialization: 'Математическое моделирование и программная инженерия'
+    degree: 'Бакалавр по агроинженерным специальностям',
+    institution: 'СГАУ имени Н.И. Вавилова',
+    description: 'Фундаментальная подготовка в области электрооборудования и электротехнологий.'
   },
   {
     id: 2,
-    period: '2016 — 2018',
-    status: 'Среднее профессиональное',
+    period: '2010 — 2013',
+    status: 'Начальное профессиональное',
     degree: 'Специалист по информационным системам',
-    institution: 'Колледж информационных технологий',
-    description: 'Базовая подготовка в области программирования, баз данных и веб-технологий.',
-    specialization: 'Программирование и администрирование БД'
+    institution: 'Профессиональное училище',
+    description: 'Начальная подготовка в области информационных технологий.',
+    specialization: 'Оператор электронно-вычислительных и вычислительных машин 3 разряда'
   }
 ];
 
@@ -95,6 +93,7 @@ const initialCertificates: Certificate[] = [
     hours: 0,
     skills: [
       'OOP',
+      'C#',
       '.NET Framework/Core',
       'ASP.NET',
       'HTML',
@@ -123,77 +122,97 @@ const initialCertificates: Certificate[] = [
 const initialPetProjects: PetProject[] = [
   {
     id: 1,
-    name: 'Task Manager API',
-    year: '2024',
+    name: 'WorkFolio',
+    year: '2026',
     description:
-      'REST API для управления задачами с аутентификацией JWT, ролевой моделью и документацией Swagger.',
-    techStack: ['NestJS', 'TypeORM', 'PostgreSQL', 'JWT', 'Swagger'],
-    features: [
-      'JWT аутентификация и авторизация',
-      'Ролевая модель (Admin/User)',
-      'CRUD операции с задачами',
-      'Валидация данных',
-      'Документация Swagger UI'
+      'Портфолио, отражающее профессиональный опыт и навыки пользователя, с функцией аналитики посещаемости и активности на платформе.',
+    techStack: [
+      'TypeScript',
+      'Vue3',
+      'Pinia',
+      'Vue router',
+      'Vite',
+      'ESLint/Prettier',
+      'Jest/Vitest',
+      'NestJS',
+      'TypeORM',
+      'PostgreSQL'
     ],
-    repo: 'https://github.com/username/task-manager-api',
-    demo: 'https://task-manager-api-demo.com'
+    features: [
+      'Адаптивный интерфейс',
+      'Бейджи с уровнем владения технологией',
+      'Гиппер-ссылки на страницах',
+      'Логирование событий и их аналитика'
+    ],
+    repo: 'https://github.com/prowokatorkraft/workfolio',
+    demo: 'https://workfolio-fe.vercel.app/'
   },
   {
     id: 2,
-    name: 'Blog Platform',
-    year: '2023',
+    name: 'Library',
+    year: '2021',
     description:
-      'Full-stack приложение для ведения блогов. Пользователи могут создавать посты, комментировать, ставить лайки.',
-    techStack: ['NestJS', 'Vue 3', 'TypeORM', 'PostgreSQL', 'WebSockets'],
-    features: [
-      'Регистрация и авторизация',
-      'Создание и редактирование постов',
-      'Комментарии в реальном времени',
-      'Система лайков',
-      'Поиск по постам'
+      'Библиотека книг и газет с использованием авторских прав.',
+    techStack: [
+      'C#',
+      '.NET Framework',
+      'ASP.NET',
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'AJAX',
+      'Razor',
+      'MVC',
+      'Web API',
+      'ADO.NET',
+      'MS SQL',
+      'Log4Net',
+      'Ninject',
+      'NUnit',
+      'Git'
     ],
-    repo: 'https://github.com/username/blog-platform',
-    demo: 'https://blog-platform-demo.com'
+    features: [
+      'Трехзвенное приложение',
+      'Реализована аутентификация и авторизация пользователя',
+      'Реализован веб-интерфейс с помощью MVC и Web API',
+      'Покрыто Unit и интеграционным тестированием',
+      'Развернута база данных'
+    ],
+    repo: 'https://github.com/username/blog-platform'
   },
   {
     id: 3,
-    name: 'Kanban Board (клон Trello)',
-    year: '2023',
+    name: 'Internet Store',
+    year: '2020',
     description:
-      'Drag-and-drop доска для управления задачами. Реальное время с WebSockets, сохранение состояния.',
-    techStack: ['NestJS', 'Vue 3', 'Pinia', 'PostgreSQL', 'Socket.io'],
-    features: [
-      'Drag-and-drop задачи',
-      'Колонки и задачи',
-      'Обновления в реальном времени',
-      'Сохранение состояния',
-      'История действий'
+      'Проект интернет‑магазина в качестве итоговой курсовой работы, иллюстрирующей приобретённые знания и умения',
+    techStack: [
+      'C#',
+      '.NET Framework',
+      'ASP.NET',
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'AJAX',
+      'Razor',
+      'ADO.NET',
+      'MS SQL',
+      'Log4Net',
+      'Git'
     ],
-    repo: 'https://github.com/username/kanban-clone',
-    demo: 'https://kanban-clone-demo.com'
-  },
-  {
-    id: 4,
-    name: 'GitHub Analytics',
-    year: '2024',
-    description:
-      'Приложение для анализа активности в GitHub репозиториях, статистика коммитов, графики.',
-    techStack: ['NestJS', 'Vue 3', 'Chart.js', 'GitHub API', 'Redis'],
     features: [
-      'Статистика коммитов',
-      'Графики активности',
-      'Кэширование Redis',
-      'Анализ языков программирования',
-      'Сравнение репозиториев'
+      'Трехзвенное приложение',
+      'Реализован функционал логирования с использованием библиотеки log4net',
+      'Разработана клиентская часть с использованием HTML, CSS и JavaScript',
+      'Развернута база данных'
     ],
-    repo: 'https://github.com/username/github-analytics',
-    demo: 'https://github-analytics-demo.com'
+    repo: 'https://github.com/prowokatorkraft/My_Development_at_EPAM/tree/master/Internet_shop'
   }
 ];
 
 export const useTrainingStore = defineStore('training', () => {
   const totalCourses = ref<number>(24);
-  const githubUrl = ref<string>('https://github.com/username');
+  const githubUrl = ref<string>('https://github.com/prowokatorkraft');
   const formalEducation = ref<FormalEducation[]>([...initialFormalEducation]);
   const certificates = ref<Certificate[]>([...initialCertificates]);
   const petProjects = ref<PetProject[]>([...initialPetProjects]);

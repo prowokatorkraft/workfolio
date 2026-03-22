@@ -9,12 +9,12 @@
 <template>
   <aside class="sidebar">
     <div class="photo-container">
-      <div class="photo-placeholder">
-        <span class="photo-icon">📷</span>
-      </div>
       <!--      <div class="photo-placeholder">
-        <img src="/path/to/your/photo.jpg" alt="Фото" class="photo" />
+        <span class="photo-icon">📷</span>
       </div>-->
+      <div class="photo-placeholder">
+        <img src="/PersonaPhoto.jpg" alt="Фото" class="photo" />
+      </div>
     </div>
 
     <div class="user-info">
@@ -48,7 +48,6 @@
   .photo-placeholder {
     width: 200px;
     height: 200px;
-    background: linear-gradient(135deg, #42b983 0%, #2c3e50 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -57,14 +56,18 @@
     font-size: 3rem;
     box-shadow: 0 10px 25px rgba(66, 185, 131, 0.3);
     transition: transform 0.3s ease;
+    z-index: 10;
   }
 
   .photo-placeholder:hover {
     transform: scale(1.05);
   }
 
-  .photo-icon {
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+  .photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   .user-info {
@@ -73,7 +76,7 @@
     padding: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     text-align: left;
-    margin-top: -50px;
+    margin-top: -65px;
   }
 
   .user-name {
@@ -94,32 +97,40 @@
     font-size: 0.9rem;
   }
 
-  .photo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
   @media (max-width: 1024px) {
     .sidebar {
       order: -1;
+      gap: 0;
     }
 
+    .photo-container {
+      justify-content: flex-end;
+    }
+
+    .user-info {
+      margin-top: -120px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .photo-placeholder {
+      width: 150px;
+      height: 150px;
+      font-size: 2rem;
+    }
+
+    .user-info {
+      margin-top: -100px;
+    }
+  }
+
+  @media (max-width: 440px) {
     .photo-container {
       justify-content: center;
     }
 
     .user-info {
-      margin-top: 0;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .photo-placeholder {
-      width: 150px;
-      height: 150px;
-      font-size: 2rem;
+      margin-top: -45px;
     }
   }
 </style>

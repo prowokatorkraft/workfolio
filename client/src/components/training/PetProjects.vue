@@ -60,7 +60,7 @@
             <GitHubIcon />
             Репозиторий
           </Link>
-          <Link :value="project.demo" class="project-link">
+          <Link v-if="project.demo" :value="project.demo" class="project-link">
             <DemoIcon />
             Демо
           </Link>

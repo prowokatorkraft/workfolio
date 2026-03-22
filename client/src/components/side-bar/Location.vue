@@ -9,8 +9,8 @@
   <div class="location-block">
     <p class="user-location">
       <span>📍 {{ location.city }}, {{ location.country }}</span>
-      <span class="tooltip-icon" :title="userStore.canBusinessTrip">✈️</span>
-      <span class="tooltip-icon" :title="userStore.canRelocate">🏠</span>
+      <span class="tooltip-icon" :data-tooltip="userStore.canBusinessTrip">✈️</span>
+      <span class="tooltip-icon" :data-tooltip="userStore.canRelocate">🏠</span>
     </p>
   </div>
 </template>
@@ -42,7 +42,7 @@
   }
 
   .tooltip-icon:hover::after {
-    content: attr(title);
+    content: attr(data-tooltip);
     position: absolute;
     bottom: 100%;
     left: 50%;

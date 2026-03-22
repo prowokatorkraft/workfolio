@@ -15,5 +15,6 @@ export interface User {
     vk: string;
     telegram: string;
     telegramInfo: string;
+    max: string;
   };
 }

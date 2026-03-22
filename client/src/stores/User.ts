@@ -19,7 +19,8 @@ const initialUser: User = {
     mail: 'prowokatorkraft@gmail.com',
     vk: 'https://vk.com/dt_1995',
     telegram: 'https://t.me/DlTyurin',
-    telegramInfo: '@DlTyurin'
+    telegramInfo: '@DlTyurin',
+    max: 'https://max.ru/u/f9LHodD0cOLECxnye6Mdye4x0OkCKhb-M-CIxZSr6mRi4WnrCTevvUDI8bA'
   }
 };
 
