@@ -2,7 +2,8 @@ export const TechnologyGroup = {
   none: 0,
   backend: 1,
   frontend: 2,
-  data: 3
+  data: 3,
+  architecture: 4
 } as const;
 
 export type TechnologyGroupType = (typeof TechnologyGroup)[keyof typeof TechnologyGroup];
@@ -10,6 +11,6 @@ export type TechnologyGroupType = (typeof TechnologyGroup)[keyof typeof Technolo
 export interface Technology {
   id: number;
   name: string;
-  level: number;
+  level?: number;
   group: TechnologyGroupType;
 }

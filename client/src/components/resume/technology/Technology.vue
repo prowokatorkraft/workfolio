@@ -1,18 +1,17 @@
 <script setup lang="ts">
   import GroupSkills from './GroupSkills.vue';
-  import { TechnologyGroup } from '../../../types/Technology.ts';
+  import { TechnologyGroup, type TechnologyGroupType } from '../../../types/Technology.ts';
   import { useExperienceStore } from '../../../stores/Experience.ts';
-  import { computed } from 'vue';
-  
+
   const expStore = useExperienceStore();
-  const backendSkills = computed(
-    () => expStore.getTechnologyByGroup(TechnologyGroup.backend).value
-  );
-  const frontendSkills = computed(
-    () => expStore.getTechnologyByGroup(TechnologyGroup.frontend).value
-  );
-  const dataSkills = computed(() => expStore.getTechnologyByGroup(TechnologyGroup.data).value);
-  const toolsSkills = computed(() => expStore.getTechnologyByGroup(TechnologyGroup.none).value);
+  const getTechnologyByGroup = (group: TechnologyGroupType) => {
+    const items = expStore.getTechnologyByGroup(group).value.sort((a, b) => {
+      const levelA = a.level ?? -1;
+      const levelB = b.level ?? -1;
+      return levelB - levelA;
+    });
+    return [...items];
+  };
 </script>
 
 <template>
@@ -20,15 +19,19 @@
     <div class="technology-header">
       <h2 class="technology-title">
         <span class="title-icon">⚙️</span>
-        Стек технологий
+        Стек технологий и уровень взаимодействия
       </h2>
     </div>
 
     <div class="technology-minimal">
-      <GroupSkills label="Backend" :skills="backendSkills" />
-      <GroupSkills label="Frontend" :skills="frontendSkills" />
-      <GroupSkills label="Data" :skills="dataSkills" />
-      <GroupSkills label="Tools" :skills="toolsSkills" />
+      <GroupSkills label="Backend" :skills="getTechnologyByGroup(TechnologyGroup.backend)" />
+      <GroupSkills label="Frontend" :skills="getTechnologyByGroup(TechnologyGroup.frontend)" />
+      <GroupSkills label="Data" :skills="getTechnologyByGroup(TechnologyGroup.data)" />
+      <GroupSkills label="Tools" :skills="getTechnologyByGroup(TechnologyGroup.none)" />
+      <GroupSkills
+        label="Architecture"
+        :skills="getTechnologyByGroup(TechnologyGroup.architecture)"
+      />
     </div>
   </div>
 </template>
@@ -67,6 +70,9 @@
   }
 
   @media (max-width: 768px) {
+    .technology-minimal {
+      gap: 15px;
+    }
     .technology-title {
       font-size: 1.3rem;
     }

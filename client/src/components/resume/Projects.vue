@@ -32,21 +32,6 @@
 
           <p class="project-short-desc">{{ project.shortDescription }}</p>
 
-          <div class="technologies-items">
-            <span
-              v-for="tech in experienceStore.getTechnologyByIds(project.technologyIds).value"
-              :key="tech.id"
-              class="skill-badge"
-              :style="{
-                background: 'white',
-                borderColor: '#e0e0e0',
-                color: '#2c3e50'
-              }"
-            >
-              {{ tech.name }}
-            </span>
-          </div>
-
           <button
             class="expand-button"
             :class="{ expanded: project.isExpanded }"
@@ -71,6 +56,20 @@
           </button>
 
           <div class="detailed-info" :class="{ expanded: project.isExpanded }">
+            <div class="technologies-items">
+              <span
+                v-for="tech in experienceStore.getTechnologyByIds(project.technologyIds).value"
+                :key="tech.id"
+                class="skill-badge"
+                :style="{
+                  background: 'white',
+                  borderColor: '#e0e0e0',
+                  color: '#2c3e50'
+                }"
+              >
+                {{ tech.name }}
+              </span>
+            </div>
             <p class="detailed-description">
               {{ project.detailedDescription }}
             </p>
@@ -78,7 +77,7 @@
             <div class="achievements">
               <span class="achievements-label">Достижения:</span>
               <div class="achievements-items">
-                <span
+                <div
                   v-for="achievement in project.achievements"
                   :key="achievement"
                   class="achievement-badge"
@@ -88,8 +87,8 @@
                     color: '#2c3e50'
                   }"
                 >
-                  ✓ {{ achievement }}
-                </span>
+                  <span>✓</span>{{ achievement }}
+                </div>
               </div>
             </div>
           </div>
@@ -284,7 +283,7 @@
   }
 
   .detailed-info.expanded {
-    max-height: 300px;
+    max-height: max-content;
     opacity: 1;
     margin-top: 15px;
     padding-top: 15px;
@@ -313,6 +312,9 @@
   }
 
   .achievement-badge {
+    display: flex;
+    gap: 5px;
+    align-items: center;
     padding: 3px 10px;
     border-radius: 16px;
     font-size: 0.8rem;
@@ -350,10 +352,6 @@
     .project-header {
       flex-direction: column;
       gap: 4px;
-    }
-
-    .detailed-info.expanded {
-      max-height: 400px;
     }
   }
 

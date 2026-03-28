@@ -108,7 +108,7 @@
     }
 
     .user-info {
-      margin-top: -120px;
+      margin-top: -100px;
     }
   }
 
@@ -130,7 +130,7 @@
     }
 
     .user-info {
-      margin-top: -45px;
+      margin-top: -34px;
     }
   }
 </style>

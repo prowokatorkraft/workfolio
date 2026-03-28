@@ -45,11 +45,17 @@ export function formatDuration(months: number): string {
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
 
+  const getYearsWord = (n: number): string => {
+    if (n % 10 === 1 && n % 100 !== 11) return 'год';
+    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return 'года';
+    return 'лет';
+  };
+
   if (years === 0) {
-    return `${remainingMonths} мес.`;
-  } else if (remainingMonths === 0) {
-    return `${years} ${years === 1 ? 'год' : 'года'}`;
-  } else {
-    return `${years} ${years === 1 ? 'год' : 'года'} ${remainingMonths} мес.`;
+    return `${remainingMonths} ${remainingMonths === 1 ? 'мес.' : 'мес.'}`;
   }
+  else if (remainingMonths === 0) {
+    return `${years} ${getYearsWord(years)}`;
+  }
+  return `${years} ${getYearsWord(years)} ${remainingMonths} мес.`;
 }

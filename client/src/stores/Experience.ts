@@ -5,76 +5,88 @@ import type { Project } from '../types/Project.ts';
 import { formatDuration, parsePeriod } from '../lib/tools.ts';
 
 const initialSkills: Technology[] = [
-  { id: 1, name: 'Vue.js', level: 90, group: TechnologyGroup.frontend },
-  { id: 2, name: 'React', level: 75, group: TechnologyGroup.frontend },
-  { id: 3, name: 'TypeScript', level: 85, group: TechnologyGroup.frontend },
-  { id: 4, name: 'JavaScript', level: 95, group: TechnologyGroup.frontend },
-  { id: 5, name: 'HTML/CSS', level: 100, group: TechnologyGroup.frontend },
-  { id: 6, name: 'Tailwind', level: 3, group: TechnologyGroup.frontend },
-
-  { id: 7, name: 'Node.js', level: 85, group: TechnologyGroup.backend },
-  { id: 8, name: 'Python', level: 15, group: TechnologyGroup.backend },
-  { id: 9, name: 'NestJS', level: 75, group: TechnologyGroup.backend },
-  { id: 10, name: 'Express', level: 80, group: TechnologyGroup.backend },
-
-  { id: 11, name: 'PostgreSQL', level: 75, group: TechnologyGroup.data },
-  { id: 12, name: 'MongoDB', level: 5, group: TechnologyGroup.data },
-  { id: 13, name: 'Redis', level: 45, group: TechnologyGroup.data },
-
-  { id: 14, name: 'Docker', level: 60, group: TechnologyGroup.none },
-  { id: 15, name: 'Git', level: 85, group: TechnologyGroup.none },
-  { id: 16, name: 'Figma', level: 70, group: TechnologyGroup.none },
-  { id: 17, name: 'Jest', level: 65, group: TechnologyGroup.none }
+  { id: 1, name: 'Vue.js', level: 50, group: TechnologyGroup.frontend },
+  { id: 2, name: 'React', level: 50, group: TechnologyGroup.frontend },
+  { id: 3, name: 'TypeScript', level: 60, group: TechnologyGroup.frontend },
+  { id: 4, name: 'JavaScript', level: 80, group: TechnologyGroup.frontend },
+  { id: 5, name: 'HTML/CSS', level: 80, group: TechnologyGroup.frontend },
+  { id: 7, name: 'Node.js', level: 40, group: TechnologyGroup.backend },
+  { id: 9, name: 'NestJS', level: 40, group: TechnologyGroup.backend },
+  { id: 10, name: 'Express', level: 30, group: TechnologyGroup.backend },
+  { id: 11, name: 'PostgreSQL', level: 80, group: TechnologyGroup.data },
+  { id: 12, name: 'MSSQL', level: 80, group: TechnologyGroup.data },
+  { id: 14, name: 'Docker', group: TechnologyGroup.none },
+  { id: 15, name: 'GitLab', level: 90, group: TechnologyGroup.none },
+  { id: 17, name: 'Jest', level: 70, group: TechnologyGroup.none },
+  { id: 18, name: 'JIRA', group: TechnologyGroup.none },
+  { id: 19, name: '.NET Framework', level: 95, group: TechnologyGroup.backend },
+  { id: 20, name: 'ASP.NET', level: 75, group: TechnologyGroup.backend },
+  { id: 21, name: 'Web API', level: 90, group: TechnologyGroup.backend },
+  { id: 22, name: 'ActiveMQ', group: TechnologyGroup.backend },
+  { id: 23, name: 'Elasticsearch', level: 15, group: TechnologyGroup.data },
+  { id: 24, name: 'PDF reactor', level: 25, group: TechnologyGroup.backend },
+  { id: 25, name: 'ADO.NET', level: 95, group: TechnologyGroup.backend },
+  { id: 26, name: 'Entity Framework', level: 80, group: TechnologyGroup.backend },
+  { id: 27, name: 'C#', level: 100, group: TechnologyGroup.backend },
+  { id: 28, name: 'Web Forms', level: 50, group: TechnologyGroup.backend },
+  { id: 29, name: 'ExtJS', level: 60, group: TechnologyGroup.frontend },
+  { id: 30, name: 'Visual Basic', level: 30, group: TechnologyGroup.backend },
+  { id: 31, name: 'Works', group: TechnologyGroup.none },
+  { id: 32, name: 'Microservices', group: TechnologyGroup.architecture },
+  { id: 33, name: 'Monolith', group: TechnologyGroup.architecture },
+  { id: 34, name: '.NET Core', level: 80, group: TechnologyGroup.backend },
+  { id: 35, name: 'Razor', level: 50, group: TechnologyGroup.backend },
+  { id: 36, name: 'Kafka', level: 0, group: TechnologyGroup.backend },
+  { id: 37, name: 'Redmine', group: TechnologyGroup.backend },
+  { id: 38, name: 'Nx', group: TechnologyGroup.frontend },
+  { id: 39, name: 'Java', level: 45, group: TechnologyGroup.backend },
+  { id: 40, name: 'Spring', level: 30, group: TechnologyGroup.backend },
+  { id: 41, name: 'Hibernate', level: 30, group: TechnologyGroup.backend },
+  { id: 42, name: 'JUnit', level: 45, group: TechnologyGroup.backend }
 ];
 
 const initialProjects: Project[] = [
   {
     id: 1,
-    periodStart: '2024-05-01',
-    title: 'CRM система',
-    company: 'ООО "ТехноПрогресс"',
-    shortDescription: 'Разработка внутренней CRM системы для управления клиентами',
+    periodStart: '2024-03-11',
+    title: 'Комплекс расчетов оценки стоимости строительства 2.0',
+    company: 'Газпром ЦПС',
+    shortDescription:
+      'Разработка и поддержка инструмента стоимостного инжиниринга инвестиционных проектов для строительства, реконструкции, капитального ремонта и диагностики объектов газовой отрасли, а также строительства скважин.',
     detailedDescription:
-      'Полная переработка существующей CRM системы. Реализована система авторизации, дашборды с графиками, управление задачами в реальном времени, интеграция с внешними API. Оптимизация производительности увеличила скорость загрузки на 40%.',
-    technologyIds: [1, 2, 3, 4, 5, 6],
-    achievements: [
-      'Увеличил производительность на 40%',
-      'Внедрил 5 новых модулей',
-      'Сократил время загрузки'
-    ],
+      'В качестве бэкенд-разработчика участвовал в разработке кроссплатформенного микросервисного приложения, созданного на основе предыдущей версии программного обеспечения. Проект реализовывался в рамках импортозамещения, работа велась в составе одной из нескольких команд разработки.',
+    technologyIds: [27, 34, 25, 26, 11, 21, 20, 5, 3, 2, 38, 39, 40, 41, 42, 36, 14, 15, 31, 32],
+    achievements: ['Мигрировал данные из MSSQL в PSQL', 'Оптимизировал хранимые процедуры'],
     isExpanded: false
   },
   {
     id: 2,
-    periodStart: '2023-05-01',
-    periodEnd: '2024-04-01',
-    title: 'Мобильное приложение',
-    company: 'FoodDelivery Inc',
-    shortDescription: 'Разработка приложения для доставки еды',
+    periodStart: '2022-05-23',
+    periodEnd: '2024-03-10',
+    title: 'Комплекс расчетов оценки стоимости строительства 1.0',
+    company: 'Газпром ЦПС',
+    shortDescription:
+      'Разработка и поддержка инструмента стоимостного инжиниринга инвестиционных проектов для строительства, реконструкции, капитального ремонта и диагностики объектов газовой отрасли, а также строительства скважин.',
     detailedDescription:
-      'Создание кроссплатформенного приложения. Реализован функционал отслеживания заказов, интеграция с картами, система оплаты, push-уведомления. Приложение обслуживает более 10 000 пользователей ежемесячно.',
-    technologyIds: [7, 8, 9, 10],
-    achievements: [
-      '10 000+ активных пользователей',
-      'Интеграция с 3 платежными системами',
-      '4.8★ в сторах'
-    ],
+      'Поддерживаю и развиваю монолитную систему, работая как с клиентской частью, так и с серверной логикой. Выполняю доработку интерфейсов, расчетных алгоритмов, механизмов выгрузки данных, оптимизирую запросы к базам данных. Участвую в командном взаимодействии, обеспечивая согласованность решений на всех этапах разработки.',
+    technologyIds: [27, 19, 25, 26, 12, 20, 21, 5, 4, 35, 28, 29, 30, 15, 37, 33],
+    achievements: ['Разрабатывал динамику в системе настроек админа'],
     isExpanded: false
   },
   {
     id: 3,
-    periodStart: '2021-05-01',
-    periodEnd: '2021-11-01',
+    periodStart: '2021-05-17',
+    periodEnd: '2022-04-15',
     title: 'Raiffeisen Live',
     company: 'Epam Systems',
     shortDescription: 'Разработка и поддержка страховой платформы',
     detailedDescription:
       'В роли фулстек‑разработчика обеспечиваю поддержку страховой платформы и конфигурирование её ядра под потребности заказчика в рамках команды численностью около 15 человек.',
-    technologyIds: [11, 12, 13],
+    technologyIds: [4, 21, 20, 18, 15, 19, 22, 23, 24],
     achievements: [
-      'Внедрил новый функционал в библиотеку',
-      'Работал с пользовательским интерфейсом, выводом данных в форматы PDF и Excel, отправкой уведомлений клиентам',
+      'Внедрил новый функционал',
       'Исправлял ошибки в отладчике, внес массовые исправления в базу данных',
+      'Работал с пользовательским интерфейсом, выводом данных в форматы PDF и Excel, отправкой уведомлений клиентам',
       'Участвовал в совещаниях команды Scrum (ежедневные, планирование, демонстрации, ретроспектива)'
     ],
     isExpanded: false
@@ -91,7 +103,16 @@ export const useExperienceStore = defineStore('experience', () => {
   };
 
   const getTechnologyByIds = (ids: number[]) => {
-    return computed(() => technology.value.filter((s) => ids.includes(s.id)));
+    return computed(() => {
+      const techs: Technology[] = [];
+      ids.forEach((id) => {
+        const tech = technology.value.find((t) => t.id === id);
+        if (tech) {
+          techs.push(tech);
+        }
+      });
+      return techs;
+    });
   };
 
   const getProjectPeriod = (id: number) => {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import type { Technology } from '../../../types/Technology.ts';
 
-  const getLevelColor = (level: number) => {
+  const getLevelColor = (level: number | undefined) => {
+    if (level == undefined) return '#e0e0e0'; // зеленый
     if (level >= 80) return '#7cff902e'; // зеленый
     if (level >= 50) return '#ffd97d47'; // оранжевый
     return '#ffc6c06b'; // красный
@@ -44,7 +45,7 @@
 
   .skills-label {
     text-align: start;
-    min-width: 70px;
+    min-width: 80px;
     font-weight: 600;
     color: #2c3e50;
   }
@@ -83,6 +84,7 @@
     }
 
     .skills-label {
+      margin-left: 8px;
       min-width: auto;
     }
   }
