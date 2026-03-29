@@ -16,5 +16,6 @@ export const AppDataSource = new DataSource({
   migrations: ['./migrations/**/*{.ts,.js}'],
   schema: 'event',
   synchronize: false,
-  logging: true
+  logging: true,
+  ssl: process.env.DB_SSL == 'true'
 });
