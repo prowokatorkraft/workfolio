@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ['eslint.config.mjs']
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -15,14 +15,14 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,
+        ...globals.jest
       },
       sourceType: 'commonjs',
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
+        tsconfigRootDir: import.meta.dirname
+      }
+    }
   },
   {
     rules: {
@@ -30,7 +30,8 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
 
-      'prettier/prettier': [ 'error',
+      'prettier/prettier': [
+        'error',
         {
           endOfLine: 'auto',
           semi: true,
@@ -40,14 +41,15 @@ export default tseslint.config(
           useTabs: false,
           printWidth: 100,
           bracketSpacing: true,
-          arrowParens: 'always',
-        },
+          arrowParens: 'always'
+        }
       ],
 
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
       'comma-dangle': ['error', 'never'],
-      'indent': ['error', 2],
+      indent: 'off',
+      '@typescript-eslint/indent': ['error', 2],
       'max-len': ['warn', { code: 100 }],
       'no-multiple-empty-lines': ['error', { max: 1 }],
       //'space-before-function-paren': ['error', 'never'],
@@ -63,9 +65,9 @@ export default tseslint.config(
         'warn',
         {
           argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        },
-      ],
-    },
-  },
+          varsIgnorePattern: '^_'
+        }
+      ]
+    }
+  }
 );

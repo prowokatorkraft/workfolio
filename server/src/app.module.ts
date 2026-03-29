@@ -1,10 +1,10 @@
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { EventLoggerModule } from './event-logger/event-logger.module';
+import { EventEntity } from '../shared/entities/event.entity';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       ignoreEnvFile: false
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client', 'dist') // путь к собранным файлам Vue
+      rootPath: join(__dirname, '..', '..', '..', 'client', 'dist') // путь к собранным файлам Vue
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -27,7 +27,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           username: config.get('POSTGRES_USER') ?? config.get('DB_USERNAME'),
           password: config.get('POSTGRES_PASSWORD') ?? config.get('DB_PASSWORD'),
           database: config.get('POSTGRES_DATABASE') ?? config.get('DB_NAME'),
-          //entities: [],
+          entities: [EventEntity],
           namingStrategy: undefined,
           logging: config.get('NODE_ENV') === 'development',
           ssl: isProduction ? { rejectUnauthorized: false } : false,
@@ -40,9 +40,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         };
       },
       inject: [ConfigService]
-    })
-  ],
-  controllers: [AppController],
-  providers: [AppService]
+    }),
+    EventLoggerModule
+  ]
 })
 export class AppModule {}

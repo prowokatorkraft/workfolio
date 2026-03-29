@@ -11,7 +11,7 @@
   const fetchData = async () => {
     try {
       const baseUrl = window.location.origin;
-      const response = await fetch(baseUrl + '/api/');
+      const response = await fetch(baseUrl + '/api/logger');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
