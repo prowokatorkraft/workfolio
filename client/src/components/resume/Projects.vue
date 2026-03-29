@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import { useExperienceStore } from '../../stores/Experience.ts';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const experienceStore = useExperienceStore();
   const projects = experienceStore.projects;
+  const events = useEvents();
 </script>
 
 <template>
@@ -18,7 +21,13 @@
     </div>
 
     <div class="projects-container">
-      <div v-for="project in projects" :key="project.id" class="project-row">
+      <div
+        v-for="project in projects"
+        :key="project.id"
+        class="project-row"
+        @mouseover="events.handleFocus(EventEnum.resume_projects_block_focus, project.id)"
+        @mouseleave="events.handleBlur(EventEnum.resume_projects_block_focus, project.id)"
+      >
         <div class="project-period-block">
           <span class="project-period">{{ experienceStore.getProjectPeriod(project.id) }}</span>
           <span class="project-duration">{{ experienceStore.getProjectDuration(project.id) }}</span>
@@ -35,7 +44,14 @@
           <button
             class="expand-button"
             :class="{ expanded: project.isExpanded }"
-            @click="experienceStore.toggleProject(project.id)"
+            @click="
+              () => {
+                experienceStore.toggleProject(project.id);
+                if (project.isExpanded) {
+                  events.handleClick(EventEnum.resume_projects_block_more_click, project.id);
+                }
+              }
+            "
           >
             <span>{{ project.isExpanded ? 'Свернуть' : 'Подробнее' }}</span>
             <svg

@@ -1,19 +1,22 @@
 import type { EventEnumType } from './event-enum-type';
 import { EventEntity } from './event.entity';
 import { EventDto } from './event.dto';
+import { NotFoundError } from 'rxjs';
 
-export class Event {
+class Event {
   id?: number;
-
   userId: string;
-
   eventId: EventEnumType;
+  createdAt?: Date;
+  description?: string;
 
   static fromEntity(event: EventEntity): Event {
     const dto = new Event();
     dto.id = event.id ?? 0;
     dto.userId = event.userId;
     dto.eventId = event.eventId;
+    dto.createdAt = event.createdAt;
+    dto.description = event.description;
     return dto;
   }
 
@@ -22,23 +25,27 @@ export class Event {
   }
 
   static toEntity(event: Event): EventEntity {
-    const node = new EventEntity();
-    node.id = event.id ?? 0;
-    node.userId = event.userId;
-    node.eventId = event.eventId;
-    return node;
+    const entity = new EventEntity();
+    entity.id = event.id ?? 0;
+    entity.userId = event.userId;
+    entity.eventId = event.eventId;
+    entity.createdAt = event.createdAt;
+    entity.description = event.description;
+    return entity;
   }
 
   static toEntities(event: Event[]): EventEntity[] {
     return event.map((note) => Event.toEntity(note));
   }
 
-  static fromDto(event: EventDto): Event {
-    const dto = new Event();
-    dto.id = event.id ?? 0;
-    dto.userId = event.userId;
-    dto.eventId = event.eventId;
-    return dto;
+  static fromDto(dto: EventDto): Event {
+    const event = new Event();
+    event.id = dto.id ?? 0;
+    event.userId = dto.eventId ? (dto.userId as string) : '';
+    event.eventId = dto.eventId;
+    event.createdAt = dto.createdAt;
+    event.description = dto.description;
+    return event;
   }
 
   static fromDtos(events: EventDto[]): Event[] {
@@ -46,14 +53,18 @@ export class Event {
   }
 
   static toDto(event: Event): EventDto {
-    const node = new EventDto();
-    node.id = event.id ?? 0;
-    node.userId = event.userId;
-    node.eventId = event.eventId;
-    return node;
+    const dto = new EventDto();
+    dto.id = event.id ?? 0;
+    dto.userId = event.userId;
+    dto.eventId = event.eventId;
+    dto.createdAt = event.createdAt;
+    dto.description = event.description;
+    return dto;
   }
 
   static toDtos(event: Event[]): EventDto[] {
     return event.map((note) => Event.toDto(note));
   }
 }
+
+export default Event

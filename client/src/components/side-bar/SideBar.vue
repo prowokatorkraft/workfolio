@@ -2,17 +2,21 @@
   import Contacts from './Contacts.vue';
   import Location from './Location.vue';
   import { useUserStore } from '../../stores/User.ts';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const user = useUserStore().user;
+  const events = useEvents();
 </script>
 
 <template>
   <aside class="sidebar">
     <div class="photo-container">
-      <!--      <div class="photo-placeholder">
-        <span class="photo-icon">📷</span>
-      </div>-->
-      <div class="photo-placeholder">
+      <div
+        class="photo-placeholder"
+        @mouseover="events.handleFocus(EventEnum.user_info_image_focus)"
+        @mouseleave="events.handleBlur(EventEnum.user_info_image_focus)"
+      >
         <img src="/PersonaPhoto.jpg" alt="Фото" class="photo" />
       </div>
     </div>

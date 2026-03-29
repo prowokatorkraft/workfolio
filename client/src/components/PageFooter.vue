@@ -1,20 +1,25 @@
 <script setup lang="ts">
   import { useUserStore } from '../stores/User.ts';
+  import { useEvents } from '../composables/useEvents.ts';
+  import { EventEnum } from '../types/Event-enum-type.ts';
 
   const currentYear = new Date().getFullYear();
   const user = useUserStore().user;
+  const events = useEvents();
 </script>
 
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <p class="copyright">
-        © {{ currentYear }} {{ user.name }}
-      </p>
+      <p class="copyright">© {{ currentYear }} {{ user.name }}</p>
       <p class="made-with">
         Сделано с
         <span class="heart">❤️</span>на
-        <RouterLink to="/training#pet-project1" class="nav-link">
+        <RouterLink
+          to="/training#pet-project1"
+          class="nav-link"
+          @click="events.handleClick(EventEnum.footer_vue_link)"
+        >
           Vue.js
         </RouterLink>
       </p>

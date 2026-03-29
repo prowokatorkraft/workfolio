@@ -5,23 +5,46 @@
   import EmailIcon from '../icons/EmailIcon.vue';
   import TelegramIcon from '../icons/TelegramIcon.vue';
   import MaxIcon from '../icons/MaxIcon.vue';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const contacts = useUserStore().user.contacts;
+  const events = useEvents();
 </script>
 
 <template>
   <div class="contacts-row">
-    <a :href="'tel:' + contacts.phone" class="contact-badge phone">
+    <a
+      :href="'tel:' + contacts.phone"
+      class="contact-badge phone"
+      @mouseover="events.handleFocus(EventEnum.user_info_contact_focus, 'phone')"
+      @mouseleave="events.handleBlur(EventEnum.user_info_contact_focus, 'phone')"
+      @click="events.handleClick(EventEnum.user_info_contact_click, 'phone')"
+    >
       <PhoneIcon class="icon" />
       <span class="contact-name">{{ contacts.phoneInfo }}</span>
     </a>
 
-    <a :href="contacts.vk" target="_blank" rel="noopener noreferrer" class="contact-badge vk">
+    <a
+      :href="contacts.vk"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-badge vk"
+      @mouseover="events.handleFocus(EventEnum.user_info_contact_focus, 'vk')"
+      @mouseleave="events.handleBlur(EventEnum.user_info_contact_focus, 'vk')"
+      @click="events.handleClick(EventEnum.user_info_contact_click, 'vk')"
+    >
       <VkIcon class="icon" />
       <span class="contact-name">ВКонтакте</span>
     </a>
 
-    <a :href="'mailto:' + contacts.mail" class="contact-badge email">
+    <a
+      :href="'mailto:' + contacts.mail"
+      class="contact-badge email"
+      @mouseover="events.handleFocus(EventEnum.user_info_contact_focus, 'email')"
+      @mouseleave="events.handleBlur(EventEnum.user_info_contact_focus, 'email')"
+      @click="events.handleClick(EventEnum.user_info_contact_click, 'email')"
+    >
       <EmailIcon class="icon" />
       <span class="contact-name">{{ contacts.mail }}</span>
     </a>
@@ -31,12 +54,23 @@
       target="_blank"
       rel="noopener noreferrer"
       class="contact-badge telegram"
+      @mouseover="events.handleFocus(EventEnum.user_info_contact_focus, 'telegram')"
+      @mouseleave="events.handleBlur(EventEnum.user_info_contact_focus, 'telegram')"
+      @click="events.handleClick(EventEnum.user_info_contact_click, 'telegram')"
     >
       <TelegramIcon class="icon" />
       <span class="contact-name">{{ contacts.telegramInfo }}</span>
     </a>
 
-    <a :href="contacts.max" target="_blank" rel="noopener noreferrer" class="contact-badge max">
+    <a
+      :href="contacts.max"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contact-badge max"
+      @mouseover="events.handleFocus(EventEnum.user_info_contact_focus, 'max')"
+      @mouseleave="events.handleBlur(EventEnum.user_info_contact_focus, 'max')"
+      @click="events.handleClick(EventEnum.user_info_contact_click, 'max')"
+    >
       <MaxIcon class="icon" />
       <span class="contact-name">Max</span>
     </a>

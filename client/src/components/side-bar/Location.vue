@@ -1,16 +1,33 @@
 <script setup lang="ts">
   import { useUserStore } from '../../stores/User.ts';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const userStore = useUserStore();
   const location = userStore.user.location;
+  const events = useEvents();
 </script>
 
 <template>
   <div class="location-block">
     <p class="user-location">
       <span>📍 {{ location.city }}, {{ location.country }}</span>
-      <span class="tooltip-icon" :data-tooltip="userStore.canBusinessTrip">✈️</span>
-      <span class="tooltip-icon" :data-tooltip="userStore.canRelocate">🏠</span>
+      <span
+        class="tooltip-icon"
+        :data-tooltip="userStore.canBusinessTrip"
+        @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'businessTrip')"
+        @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'businessTrip')"
+      >
+        ✈️
+      </span>
+      <span
+        class="tooltip-icon"
+        :data-tooltip="userStore.canRelocate"
+        @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'relocate')"
+        @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'relocate')"
+      >
+        🏠
+      </span>
     </p>
   </div>
 </template>

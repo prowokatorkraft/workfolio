@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { EventEntity } from '../../shared/entities/event.entity';
-import { EventEnumType } from '../../shared/entities/event-enum-type';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Event } from '../../shared/entities/event';
+import Event from '../../shared/entities/event';
 
 @Injectable()
 export class EventLoggerService {
@@ -18,11 +17,7 @@ export class EventLoggerService {
     return (entities?.length ?? 0) > 0 ? Event.fromEntities(entities) : [];
   }
 
-  async addEvent(event: EventEnumType, userId: string): Promise<void> {
-    const entity: EventEntity = {
-      userId: userId,
-      eventId: event
-    };
-    const result = await this.notesRepository.save(entity);
+  async addEvent(event: Event): Promise<void> {
+    await this.notesRepository.save(Event.toEntity(event));
   }
 }

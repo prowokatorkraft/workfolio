@@ -1,14 +1,14 @@
-<script setup>
-  import { onMounted, ref } from 'vue';
+<script setup lang="ts">
+  import { onMounted } from 'vue';
+  import { useEvents } from '../composables/useEvents.ts';
   //import { useUserStore } from '@/stories/user.ts';
 
   //const counterStore = useUserStore();
 
-  const data = ref('Loading...');
-  const loading = ref(true);
-  const error = ref('');
+  /*const loading = ref(true);
+  const error = ref('');*/
 
-  const fetchData = async () => {
+  /*const fetchData = async () => {
     try {
       const baseUrl = window.location.origin;
       const response = await fetch(baseUrl + '/api/logger');
@@ -21,14 +21,19 @@
     } finally {
       loading.value = false;
     }
-  };
+  };*/
+
+  const events = useEvents();
   onMounted(() => {
-    fetchData();
+    events.fetchEvents();
+    //events.addEvent({ eventId: EventEnum.open, description: 'analytics' });
   });
 </script>
 
 <template>
-  {{ data }}
+  <div v-for="event in events.events.value" :key="event.id">
+    {{ `${event.eventId} - ${event.description}` }}
+  </div>
 </template>
 
 <style scoped></style>

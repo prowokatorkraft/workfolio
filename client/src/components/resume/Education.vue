@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useEvents } from '../../composables/useEvents.ts';
+import { EventEnum } from '../../types/Event-enum-type.ts';
+
+const events = useEvents();
+</script>
 
 <template>
   <div class="education-header">
@@ -10,7 +15,11 @@
       </span>
     </h3>
 
-    <RouterLink to="/training#education" class="more-btn nav-link">
+    <RouterLink
+      to="/training#education"
+      class="more-btn nav-link"
+      @click="events.handleClick(EventEnum.resume_education_more_link)"
+    >
       <span>Подробнее</span>
       <span class="more-arrow">→</span>
     </RouterLink>
