@@ -1,7 +1,6 @@
 export const EventEnum = {
-  footer_vue_link: 1,
-
   open: 1001,
+  footer_vue_link: 1101,
 
   user_info_image_focus: 2001,
   user_info_contact_focus: 2101,
@@ -19,6 +18,7 @@ export const EventEnum = {
   training_certificates_id_click: 4003,
   training_certificates_repo_click: 4004,
   training_certificates_project_link: 4005,
+  training_certificates_course_click: 4006,
 
   training_projects_git_click: 4101,
   training_projects_block_focus: 4102,

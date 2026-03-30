@@ -25,7 +25,7 @@
         v-for="project in projects"
         :key="project.id"
         class="project-row"
-        @mouseover="events.handleFocus(EventEnum.resume_projects_block_focus, project.id)"
+        @mouseover="events.handleFocus(EventEnum.resume_projects_block_focus, project.id, 1000, 10000)"
         @mouseleave="events.handleBlur(EventEnum.resume_projects_block_focus, project.id)"
       >
         <div class="project-period-block">
@@ -39,7 +39,9 @@
             <span class="project-company">{{ project.company }}</span>
           </div>
 
-          <p class="project-short-desc">{{ project.shortDescription }}</p>
+          <p class="project-short-desc">
+            {{ project.shortDescription }}
+          </p>
 
           <button
             class="expand-button"

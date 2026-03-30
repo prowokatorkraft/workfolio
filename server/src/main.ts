@@ -18,6 +18,6 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   await app.listen(configService.get('PORT') ?? 3000);
-  console.log(`Server running on port ${configService.get('PORT')}`);
+  console.log(`Server running on port ${configService.get('PORT')} on db ${configService.get('DB_NAME')}`);
 }
 bootstrap();

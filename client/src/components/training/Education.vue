@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { useTrainingStore } from '../../stores/Training.ts';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const educationStore = useTrainingStore();
+  const events = useEvents();
 </script>
 
 <template>
@@ -14,7 +17,13 @@
     </div>
 
     <div class="education-container">
-      <div v-for="edu in educationStore.formalEducation" :key="edu.id" class="education-row">
+      <div
+        v-for="edu in educationStore.formalEducation"
+        :key="edu.id"
+        class="education-row"
+        @mouseover="events.handleFocus(EventEnum.training_education_block_focus, edu.id)"
+        @mouseleave="events.handleBlur(EventEnum.training_education_block_focus, edu.id)"
+      >
         <div class="education-period-block">
           <span class="education-period">{{ edu.period }}</span>
           <span class="education-status">{{ edu.status }}</span>

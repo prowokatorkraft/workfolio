@@ -2,10 +2,22 @@
   import PageHeader from './components/PageHeader.vue';
   import PageFooter from './components/PageFooter.vue';
   import SideBar from './components/side-bar/SideBar.vue';
+  import { ref, watch } from 'vue';
+  import { useRoute } from 'vue-router';
+
+  const currentRoute = ref<string>('');
+  const route = useRoute();
+  watch(
+    () => route.name,
+    (name) => {
+      currentRoute.value = (name ?? '').toString();
+    },
+    { immediate: true }
+  );
 </script>
 
 <template>
-  <PageHeader />
+  <PageHeader :current-route="currentRoute" />
   <div class="layout">
     <main class="main">
       <div class="main-container">

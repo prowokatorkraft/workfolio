@@ -1,16 +1,29 @@
 <script setup lang="ts">
+  defineProps<{
+    currentRoute: string;
+  }>();
 </script>
 
 <template>
   <header class="header">
     <nav class="nav">
-      <RouterLink to="/" class="nav-link">
+      <RouterLink
+        to="/"
+        :class="currentRoute === 'Resume' ? 'nav-link nav-link-current' : 'nav-link'"
+      >
         Резюме
       </RouterLink>
-      <RouterLink to="/training" class="nav-link">
+      <RouterLink
+        to="/training"
+        class="nav-link"
+        :class="currentRoute === 'Training' ? 'nav-link nav-link-current' : 'nav-link'"
+      >
         Обучение
       </RouterLink>
-      <RouterLink to="/analytics" class="nav-link">
+      <RouterLink
+        to="/analytics"
+        :class="currentRoute === 'Analytics' ? 'nav-link nav-link-current' : 'nav-link'"
+      >
         Аналитика
       </RouterLink>
     </nav>
@@ -55,6 +68,10 @@
   .nav-link:hover {
     color: #42b983;
     background: rgba(66, 185, 131, 0.1);
+  }
+
+  .nav-link-current {
+    background: #eaebeba3;
   }
 
   @media (max-width: 768px) {

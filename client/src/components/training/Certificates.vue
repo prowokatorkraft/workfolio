@@ -6,13 +6,15 @@
   import RouteLink from '../RouteLink.vue';
   import GitHubIcon from '../icons/GitHubIcon.vue';
   import LinkIcon from '../icons/LinkIcon.vue';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEvents } from '../../composables/useEvents.ts';
   const educationStore = useTrainingStore();
   const openImage = ref<(imageUrl: string) => void>(() => {});
+  const events = useEvents();
 
   const handleOpenImage = (value: (imageUrl: string) => void) => {
     openImage.value = value;
   };
-
   const handleImageError = (event: Event) => {
     const img = event.target as HTMLImageElement;
     img.src = '/certificates/placeholder.svg';
@@ -28,24 +30,45 @@
       </h2>
     </div>
     <div class="certificates-container">
-      <div v-for="cert in educationStore.certificates" :key="cert.id" class="certificate-card">
+      <div
+        v-for="cert in educationStore.certificates"
+        :key="cert.id"
+        class="certificate-card"
+        @mouseover="
+          events.handleFocus(EventEnum.training_certificates_block_focus, cert.id, 1000, 10000)
+        "
+        @mouseleave="events.handleBlur(EventEnum.training_certificates_block_focus, cert.id)"
+      >
         <img
           :src="`/certificates/` + cert.icon"
           :alt="cert.name"
           class="certificate-icon"
           @error="handleImageError"
-          @click="openImage(`/certificates/` + cert.icon)"
+          @click="
+            () => {
+              openImage(`/certificates/` + cert.icon);
+              events.handleClick(EventEnum.training_certificates_image_click, cert.id);
+            }
+          "
         />
         <div class="certificate-content">
           <div class="certificate-header">
-            <Link :value="cert.courseLink" class="certificate-name">
+            <Link
+              :value="cert.courseLink"
+              class="certificate-name"
+              @click="events.handleClick(EventEnum.training_certificates_course_click, cert.id)"
+            >
               {{ cert.name }}
             </Link>
             <span class="certificate-issuer">{{ cert.issuer }}</span>
           </div>
           <div class="certificate-meta">
             <div v-if="cert.credentialId" class="certificate-credential">
-              <Link :value="cert.credentialLink" class="certificate-credential">
+              <Link
+                :value="cert.credentialLink"
+                class="certificate-credential"
+                @click="events.handleClick(EventEnum.training_certificates_id_click, cert.id)"
+              >
                 {{ cert.credentialId }}
               </Link>
             </div>
@@ -53,11 +76,20 @@
             <span class="certificate-date">{{ cert.date }}</span>
           </div>
           <div class="certificate-link">
-            <Link v-if="cert.repo" :value="cert.repo" class="project-link">
+            <Link
+              v-if="cert.repo"
+              :value="cert.repo"
+              class="project-link"
+              @click="events.handleClick(EventEnum.training_certificates_repo_click, cert.id)"
+            >
               <GitHubIcon />
               Репозиторий
             </Link>
-            <RouteLink v-if="cert.petProjectId" :to="`/training#pet-project` + cert.petProjectId">
+            <RouteLink
+              v-if="cert.petProjectId"
+              :to="`/training#pet-project` + cert.petProjectId"
+              @click="events.handleClick(EventEnum.training_certificates_project_link, cert.id)"
+            >
               <LinkIcon />
               Курсовая работа
             </RouteLink>

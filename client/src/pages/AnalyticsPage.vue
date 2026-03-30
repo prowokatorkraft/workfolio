@@ -26,7 +26,6 @@
   const events = useEvents();
   onMounted(() => {
     events.fetchEvents();
-    //events.addEvent({ eventId: EventEnum.open, description: 'analytics' });
   });
 </script>
 

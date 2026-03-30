@@ -1,28 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Resume from '../pages/ResumePage.vue';
+import Training from '../pages/TrainingPage.vue';
+import Analytics from '../pages/AnalyticsPage.vue';
+import { useEvents } from '../composables/useEvents.ts';
+import { EventEnum } from '../types/Event-enum-type.ts';
 
 const routes = [
   {
     path: '/',
     name: 'Resume',
-    component: Resume
+    component: window.location.pathname === '/'
+      ? Resume
+      : () => import('../pages/ResumePage.vue')
   },
   {
     path: '/training',
     name: 'Training',
-    component: () => import('../pages/TrainingPage.vue')
+    component:
+      window.location.pathname === '/training'
+        ? Training
+        : () => import('../pages/TrainingPage.vue')
   },
   {
     path: '/analytics',
     name: 'Analytics',
-    component: () => import('../pages/AnalyticsPage.vue')
+    component:
+      window.location.pathname === '/analytics'
+        ? Analytics
+        : () => import('../pages/AnalyticsPage.vue')
   }
-  /*{
-    path: '/user/:id',
-    name: 'User',
-    component: () => import('../'),
-    props: true
-  }*/
 ];
 
 const router = createRouter({
@@ -30,8 +36,10 @@ const router = createRouter({
   routes
 });
 
-// Фокусировка для навигации
+const events = useEvents();
+
 router.afterEach((to) => {
+  // Фокусировка для навигации ссылок
   if (to.hash) {
     const elementId = to.hash.slice(1);
 
@@ -59,6 +67,10 @@ router.afterEach((to) => {
     }, 100);
   } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (typeof to.name === 'string') {
+    events.handleClick(EventEnum.open, to.name, 10000);
   }
 });
 

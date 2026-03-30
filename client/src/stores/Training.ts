@@ -151,8 +151,7 @@ const initialPetProjects: PetProject[] = [
     id: 2,
     name: 'Library',
     year: '2021',
-    description:
-      'Библиотека книг и газет с использованием авторских прав.',
+    description: 'Библиотека книг и газет с использованием авторских прав.',
     techStack: [
       'C#',
       '.NET Framework',
@@ -178,7 +177,7 @@ const initialPetProjects: PetProject[] = [
       'Покрыто Unit и интеграционным тестированием',
       'Развернута база данных'
     ],
-    repo: 'https://github.com/username/blog-platform'
+    repo: 'https://github.com/prowokatorkraft/RDRUNET'
   },
   {
     id: 3,

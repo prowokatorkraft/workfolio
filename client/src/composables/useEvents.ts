@@ -19,7 +19,12 @@ export function useEvents() {
   const error = ref<string | null>(null);
   const { setBreak, getBreak } = useTimeBreaker();
 
-  const handleFocus = (event: EventEnumType, description?: string | number) => {
+  const handleFocus = (
+    event: EventEnumType,
+    description?: string | number,
+    waiting?: number,
+    breaking?: number
+  ) => {
     const hash = event + '-' + description;
     const breakHash = getBreak(hash);
     if (!breakHash) {
@@ -27,7 +32,8 @@ export function useEvents() {
         hash,
         setTimeout(() => {
           addEvent(event, description ? description + '' : undefined);
-        }, 300)
+        }, waiting ?? 300),
+        breaking ?? 5000
       );
     }
   };
@@ -40,11 +46,15 @@ export function useEvents() {
     }
   };
 
-  const handleClick = async (eventId: EventEnumType, description?: string | number) => {
+  const handleClick = async (
+    eventId: EventEnumType,
+    description?: string | number,
+    breaking?: number
+  ) => {
     const hash = eventId + '-' + description;
     const breakHash = getBreak(hash);
     if (!breakHash) {
-      setBreak(hash, 1);
+      setBreak(hash, 1, breaking ?? 5000);
       addEvent(eventId, description ? description + '' : undefined);
     }
   };

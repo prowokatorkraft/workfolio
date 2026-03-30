@@ -3,8 +3,11 @@
   import Link from '../Link.vue';
   import GitHubIcon from '../icons/GitHubIcon.vue';
   import DemoIcon from '../icons/DemoIcon.vue';
+  import { useEvents } from '../../composables/useEvents.ts';
+  import { EventEnum } from '../../types/Event-enum-type.ts';
 
   const educationStore = useTrainingStore();
+  const events = useEvents();
 </script>
 
 <template>
@@ -14,7 +17,10 @@
         <span>🚀</span>
         <span>Pet-проекты</span>
       </h2>
-      <Link :value="educationStore.githubUrl">
+      <Link
+        :value="educationStore.githubUrl"
+        @click="events.handleClick(EventEnum.training_projects_git_click)"
+      >
         <div class="more-btn">
           <GitHubIcon />
           <span>GitHub</span>
@@ -28,6 +34,10 @@
         :id="'pet-project' + project.id"
         :key="project.id"
         class="project-card"
+        @mouseover="
+          events.handleFocus(EventEnum.training_projects_block_focus, project.id, 1000, 10000)
+        "
+        @mouseleave="events.handleBlur(EventEnum.training_projects_block_focus, project.id)"
       >
         <div class="project-card-header">
           <h3 class="project-name">
@@ -56,11 +66,20 @@
         </div>
 
         <div class="project-links">
-          <Link :value="project.repo" class="project-link">
+          <Link
+            :value="project.repo"
+            class="project-link"
+            @click="events.handleClick(EventEnum.training_projects_repo_click, project.id)"
+          >
             <GitHubIcon />
             Репозиторий
           </Link>
-          <Link v-if="project.demo" :value="project.demo" class="project-link">
+          <Link
+            v-if="project.demo"
+            :value="project.demo"
+            class="project-link"
+            @click="events.handleClick(EventEnum.training_projects_demo_click, project.id)"
+          >
             <DemoIcon />
             Демо
           </Link>
