@@ -38,7 +38,8 @@
   }
 
   .header {
-    background: white;
+    border-radius: 0 0 20px 20px;
+    background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     position: sticky;

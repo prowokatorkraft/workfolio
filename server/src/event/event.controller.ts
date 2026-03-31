@@ -9,15 +9,15 @@ import {
   Post,
   Req
 } from '@nestjs/common';
-import { EventLoggerService } from './event-logger.service';
+import { EventService } from './event.service';
 import Event from '../../shared/entities/event';
 import { EventDto } from '../../shared/entities/event.dto';
 import { ConfigService } from '@nestjs/config';
 
-@Controller('logger')
-export class EventLoggerController {
+@Controller('event')
+export class EventController {
   constructor(
-    private readonly loggerService: EventLoggerService,
+    private readonly loggerService: EventService,
     private readonly configService: ConfigService
   ) {}
 

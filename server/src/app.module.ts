@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { EventLoggerModule } from './event-logger/event-logger.module';
+import { EventModule } from './event/event.module';
 import { EventEntity } from '../shared/entities/event.entity';
+import { AnalyticModule } from './analytic/analytic.module';
 
 @Module({
   imports: [
@@ -41,7 +42,8 @@ import { EventEntity } from '../shared/entities/event.entity';
       },
       inject: [ConfigService]
     }),
-    EventLoggerModule
+    EventModule,
+    AnalyticModule
   ]
 })
 export class AppModule {}

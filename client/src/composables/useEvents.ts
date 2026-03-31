@@ -4,7 +4,7 @@ import type { Event } from '../types/Event.ts';
 import type { EventEnumType } from '../types/Event-enum-type.ts';
 import { useTimeBreaker } from './useTimeBreaker.ts';
 
-const baseUrl = window.location.origin + '/api/logger';
+const baseUrl = window.location.origin + '/api/event';
 const api = axios.create({
   baseURL: window.location.origin,
   timeout: 10000,
