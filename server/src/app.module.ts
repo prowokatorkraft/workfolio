@@ -11,7 +11,8 @@ import { AnalyticModule } from './analytic/analytic.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.local',
+      //envFilePath: '.env.local',
+      envFilePath: '.env',
       ignoreEnvFile: false
     }),
     ServeStaticModule.forRoot({
@@ -21,6 +22,7 @@ import { AnalyticModule } from './analytic/analytic.module';
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => {
         const isProduction = config.get('NODE_ENV') === 'production';
+        const isSsl = config.get('DB_SSL') === 'true';
         return {
           type: 'postgres',
           host: config.get('POSTGRES_HOST') ?? config.get('DB_HOST'),
@@ -30,9 +32,9 @@ import { AnalyticModule } from './analytic/analytic.module';
           database: config.get('POSTGRES_DATABASE') ?? config.get('DB_NAME'),
           entities: [EventEntity],
           namingStrategy: undefined,
-          logging: config.get('NODE_ENV') === 'development',
-          ssl: isProduction ? { rejectUnauthorized: false } : false,
+          logging: !isProduction,
           extra: isProduction ? { ssl: { rejectUnauthorized: false } } : undefined,
+          ssl: isSsl ? { rejectUnauthorized: false } : false,
           poolSize: 5,
           connectTimeoutMS: 10000,
           maxQueryExecutionTime: 30000,

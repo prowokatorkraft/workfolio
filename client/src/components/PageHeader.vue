@@ -2,6 +2,8 @@
   defineProps<{
     currentRoute: string;
   }>();
+
+  const isProduction = import.meta.env.VITE_PRODUCTION === 'true';
 </script>
 
 <template>
@@ -21,6 +23,7 @@
         Обучение
       </RouterLink>
       <RouterLink
+        v-show="!isProduction"
         to="/analytics"
         :class="currentRoute === 'Analytics' ? 'nav-link nav-link-current' : 'nav-link'"
       >

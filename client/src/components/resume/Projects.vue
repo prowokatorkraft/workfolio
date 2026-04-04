@@ -134,9 +134,10 @@
     font-weight: 500;
     color: #666;
     background: #f0f0f0;
-    padding: 4px 12px;
+    padding: 4px 7px;
     border-radius: 16px;
-    font-size: 0.85rem;
+    font-size: 0.80rem;
+    margin-left: 15px;
   }
 
   .projects-container {

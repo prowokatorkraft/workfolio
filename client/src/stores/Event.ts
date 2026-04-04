@@ -6,6 +6,7 @@ import { defineStore } from 'pinia';
 
 
 export const useEventStore = defineStore('event', () => {
+  const canLog = import.meta.env.VITE_LOG === 'true';
   const events = useApi<Event[]>([]);
   const { setBreak, getBreak } = useTimeBreaker();
 
@@ -54,6 +55,9 @@ export const useEventStore = defineStore('event', () => {
   };
 
   const addEvent = async (eventId: EventEnumType, description?: string) => {
+    if (!canLog) {
+      return;
+    }
     events.post('event', {
       eventId: eventId,
       description: description ? description + '' : undefined
