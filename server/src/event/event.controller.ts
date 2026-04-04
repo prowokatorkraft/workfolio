@@ -10,7 +10,7 @@ import {
   Req
 } from '@nestjs/common';
 import { EventService } from './event.service';
-import Event from '../../shared/entities/event';
+import { Event } from '../../shared/entities/event';
 import { EventDto } from '../../shared/entities/event.dto';
 import { ConfigService } from '@nestjs/config';
 

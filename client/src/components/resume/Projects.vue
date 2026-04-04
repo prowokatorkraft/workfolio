@@ -2,6 +2,7 @@
   import { useExperienceStore } from '../../stores/Experience.ts';
   import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import Expand from '../icons/Expand.vue';
 
   const experienceStore = useExperienceStore();
   const projects = experienceStore.projects;
@@ -25,7 +26,9 @@
         v-for="project in projects"
         :key="project.id"
         class="project-row"
-        @mouseover="events.handleFocus(EventEnum.resume_projects_block_focus, project.id, 1000, 10000)"
+        @mouseover="
+          events.handleFocus(EventEnum.resume_projects_block_focus, project.id, 1000, 10000)
+        "
         @mouseleave="events.handleBlur(EventEnum.resume_projects_block_focus, project.id)"
       >
         <div class="project-period-block">
@@ -56,21 +59,7 @@
             "
           >
             <span>{{ project.isExpanded ? 'Свернуть' : 'Подробнее' }}</span>
-            <svg
-              class="arrow-icon"
-              :class="{ rotated: project.isExpanded }"
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-            >
-              <path
-                d="M3.5 5.25L7 8.75L10.5 5.25"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <Expand :rotated="project.isExpanded" />
           </button>
 
           <div class="detailed-info" :class="{ expanded: project.isExpanded }">
@@ -282,14 +271,6 @@
     background: #42b983;
     border-color: #42b983;
     color: white;
-  }
-
-  .arrow-icon {
-    transition: transform 0.2s ease;
-  }
-
-  .arrow-icon.rotated {
-    transform: rotate(180deg);
   }
 
   .detailed-info {

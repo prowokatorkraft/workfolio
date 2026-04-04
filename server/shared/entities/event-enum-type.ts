@@ -29,3 +29,8 @@ export const EventEnum = {
 } as const;
 
 export type EventEnumType = (typeof EventEnum)[keyof typeof EventEnum];
+
+export function getEventKey(value: number): string | undefined {
+  const entry = Object.entries(EventEnum).find(([_, val]) => val === value);
+  return entry?.[0];
+}

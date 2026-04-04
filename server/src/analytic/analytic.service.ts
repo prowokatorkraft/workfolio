@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, MoreThan, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { EventEntity } from '../../shared/entities/event.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventService } from '../event/event.service';
 import { UserStatistics } from '../../shared/entities/user-statistics';
+import { EventGroup } from '../../shared/entities/event-group';
+import { Event } from '../../shared/entities/event';
 
 @Injectable()
 export class AnalyticService {
@@ -13,43 +15,53 @@ export class AnalyticService {
     private eventRepository: Repository<EventEntity>
   ) {}
 
-  async getUserStatistics(): Promise<UserStatistics> {
-    const stat = new UserStatistics();
-    stat.dayUserCount = await this.getUserCount('day');
-    stat.threeDaysUserCount = await this.getUserCount('3days');
-    stat.weekUserCount = await this.getUserCount('week');
-    stat.monthUserCount = await this.getUserCount('month');
-    stat.userCount = await this.getUserCount();
-    return stat;
-  }
-
-  async getUserCount(period?: string): Promise<number> {
-    let dateFilter: Date;
-    const now = new Date();
-
-    switch (period) {
-      case 'day':
-        dateFilter = new Date(now.setDate(now.getDate() - 1));
-        break;
-      case '3days':
-        dateFilter = new Date(now.setDate(now.getDate() - 3));
-        break;
-      case 'week':
-        dateFilter = new Date(now.setDate(now.getDate() - 7));
-        break;
-      case 'month':
-        dateFilter = new Date(now.setMonth(now.getMonth() - 1));
-        break;
-      default:
-        dateFilter = new Date(0);
-    }
+  async getUsers(
+    dateFrom?: string,
+    dateTo?: string,
+    pageSize: number = 100,
+    page: number = 1
+  ): Promise<{ eventCount: number; groupCount: number; groups: EventGroup[] }> {
+    const to = dateTo ? this.parseUTCDate(dateTo) : new Date();
+    const from = dateFrom
+      ? this.parseUTCDate(dateFrom)
+      : new Date(new Date().setDate(new Date().getDate() - 1));
 
     const response = await this.eventRepository
       .createQueryBuilder('event')
-      .select('COUNT(DISTINCT event.userId)', 'count')
-      .where('event.createdAt > :date', { date: dateFilter })
-      .getRawMany();
+      .where('event.createdAt BETWEEN :dateFrom AND :dateTo', {
+        dateFrom: from,
+        dateTo: to
+      })
+      .orderBy('event.createdAt', 'DESC')
+      .getMany();
 
-    return response[0].count;
+    const groups = new Map<string, EventEntity[]>();
+    response.forEach((entity) => {
+      const userId = entity.userId;
+      if (!groups.has(userId)) {
+        groups.set(userId, []);
+      }
+      groups.get(userId)!.push(entity);
+    });
+
+    const eGroups = new Array<EventGroup>();
+    groups.forEach((events, userId) => {
+      const eGroup = new EventGroup();
+      eGroup.userId = userId;
+      eGroup.eventCount = events.length;
+      eGroup.events = Event.fromEntities(events);
+      eGroups.push(eGroup);
+    });
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const result = eGroups.slice(startIndex, endIndex);
+
+    return { eventCount: response.length, groupCount: eGroups.length, groups: result };
+  }
+
+  parseUTCDate(dateString: string): Date {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
   }
 }

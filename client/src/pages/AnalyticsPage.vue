@@ -1,15 +1,19 @@
 <script setup lang="ts">
-  import { onMounted } from 'vue';
-  import { useAnalytics } from '../composables/useAnalytics.ts';
-
-  const analytics = useAnalytics();
-  onMounted(() => {
-    analytics.fetchAnalytics();
-  });
+  import UserGroups from '../components/analytics/UserGroups.vue';
+  import DateFilter from '../components/analytics/DateFilter.vue';
 </script>
 
 <template>
-  {{ (analytics.loading.value ? 'Загрузка ...' : analytics.analytics) }}
+  <main class="main-layout">
+    <DateFilter />
+    <UserGroups />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+</style>

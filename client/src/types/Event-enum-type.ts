@@ -29,3 +29,30 @@ export const EventEnum = {
 } as const;
 
 export type EventEnumType = (typeof EventEnum)[keyof typeof EventEnum];
+
+export function getEventIcon (eventId: number) {
+  const icons: Record<number, string> = {
+    1001: '🔓',
+    1101: '🔗',
+    2001: '🖼️',
+    2101: '📞',
+    2102: '📱',
+    2201: '📍',
+    3001: '⚙️',
+    3101: '📁',
+    3102: '📄',
+    3201: '🎓',
+    4001: '📜',
+    4002: '🖼️',
+    4003: '🆔',
+    4004: '📦',
+    4005: '🔗',
+    4006: '📚',
+    4101: '💻',
+    4102: '📂',
+    4103: '📦',
+    4104: '🎮',
+    5001: '🎓'
+  };
+  return icons[eventId] || '📋';
+};

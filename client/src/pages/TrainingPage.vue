@@ -5,11 +5,11 @@
 </script>
 
 <template>
-  <div class="training-wrapper">
+  <main class="training-wrapper">
     <Certificates />
     <PetProjects />
     <Education />
-  </div>
+  </main>
 </template>
 
 <style scoped>

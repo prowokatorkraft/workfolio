@@ -1,23 +1,24 @@
-import type { EventEnumType } from './event-enum-type';
+import { EventEnumType, getEventKey } from './event-enum-type';
 import { EventEntity } from './event.entity';
 import { EventDto } from './event.dto';
-import { NotFoundError } from 'rxjs';
 
-class Event {
+export class Event {
   id?: number;
   userId: string;
   eventId: EventEnumType;
+  eventName?: string | undefined;
   createdAt?: Date;
   description?: string;
 
-  static fromEntity(event: EventEntity): Event {
-    const dto = new Event();
-    dto.id = event.id ?? 0;
-    dto.userId = event.userId;
-    dto.eventId = event.eventId;
-    dto.createdAt = event.createdAt;
-    dto.description = event.description;
-    return dto;
+  static fromEntity(entity: EventEntity): Event {
+    const event = new Event();
+    event.id = entity.id ?? 0;
+    event.userId = entity.userId;
+    event.eventId = entity.eventId;
+    event.eventName = getEventKey(entity.eventId);
+    event.createdAt = entity.createdAt;
+    event.description = entity.description;
+    return event;
   }
 
   static fromEntities(events: EventEntity[]): Event[] {
@@ -66,5 +67,3 @@ class Event {
     return event.map((note) => Event.toDto(note));
   }
 }
-
-export default Event

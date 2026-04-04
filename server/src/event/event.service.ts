@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { EventEntity } from '../../shared/entities/event.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import Event from '../../shared/entities/event';
+import { Event } from '../../shared/entities/event';
 
 @Injectable()
 export class EventService {

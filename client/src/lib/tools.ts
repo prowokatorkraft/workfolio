@@ -53,9 +53,19 @@ export function formatDuration(months: number): string {
 
   if (years === 0) {
     return `${remainingMonths} ${remainingMonths === 1 ? 'мес.' : 'мес.'}`;
-  }
-  else if (remainingMonths === 0) {
+  } else if (remainingMonths === 0) {
     return `${years} ${getYearsWord(years)}`;
   }
   return `${years} ${getYearsWord(years)} ${remainingMonths} мес.`;
+}
+
+export function formatDateWithoutTime(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
+export function formatRange(start: Date, end: Date) {
+  return {
+    startDate: formatDateWithoutTime(start),
+    endDate: formatDateWithoutTime(end)
+  };
 }

@@ -69,7 +69,7 @@ router.afterEach((to) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  if (typeof to.name === 'string') {
+  if (typeof to.name === 'string' && to.name !== 'Analytics') {
     events.handleClick(EventEnum.open, to.name, 10000);
   }
 });

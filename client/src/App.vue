@@ -2,7 +2,7 @@
   import PageHeader from './components/PageHeader.vue';
   import PageFooter from './components/PageFooter.vue';
   import SideBar from './components/side-bar/SideBar.vue';
-  import { ref, watch } from 'vue';
+  import { computed, ref, watch } from 'vue';
   import { useRoute } from 'vue-router';
 
   const currentRoute = ref<string>('');
@@ -14,17 +14,22 @@
     },
     { immediate: true }
   );
+
+  const mainContainer = computed(() => {
+    const sideBar = currentRoute.value !== 'Analytics' ? 'side-bar' : '';
+    return `main-container ${sideBar}`;
+  });
 </script>
 
 <template>
   <PageHeader :current-route="currentRoute" />
   <div class="layout">
     <main class="main">
-      <div class="main-container">
+      <div :class="mainContainer">
         <section class="content">
           <RouterView />
         </section>
-        <SideBar />
+        <SideBar v-if="currentRoute != 'Analytics'" />
       </div>
     </main>
   </div>
@@ -51,8 +56,11 @@
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 350px;
     gap: 30px;
+  }
+
+  .side-bar {
+    grid-template-columns: 1fr 350px;
   }
 
   .content {
