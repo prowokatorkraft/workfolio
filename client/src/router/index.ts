@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Resume from '../pages/ResumePage.vue';
 import Training from '../pages/TrainingPage.vue';
 import Analytics from '../pages/AnalyticsPage.vue';
-import { useEvents } from '../composables/useEvents.ts';
 import { EventEnum } from '../types/Event-enum-type.ts';
+import { useEventStore } from '../stores/Event.ts';
 
 const routes = [
   {
@@ -36,9 +36,8 @@ const router = createRouter({
   routes
 });
 
-const events = useEvents();
-
 router.afterEach((to) => {
+  const events = useEventStore();
   // Фокусировка для навигации ссылок
   if (to.hash) {
     const elementId = to.hash.slice(1);

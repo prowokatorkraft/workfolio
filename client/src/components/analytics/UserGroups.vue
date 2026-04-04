@@ -49,6 +49,9 @@
             {{ analyticsStore.userGroups?.eventCount || 0 }} событий
           </span>
         </span>
+        <span v-if="analyticsStore.userGroupsLoading" class="loading-container">
+          <span class="spinner" />
+        </span>
       </h2>
       <PaginationSelector
         v-model:current-page="analyticsStore.page"
@@ -57,15 +60,10 @@
       />
     </div>
 
-    <div v-if="analyticsStore.userGroupsLoading" class="loading-container">
-      <div class="spinner" />
-    </div>
-
-    <div v-else-if="!analyticsStore.userGroups?.groups.length" class="empty-container">
+    <div v-if="!analyticsStore.userGroups?.groups.length" class="empty-container">
       <span class="empty-icon">📭</span>
       <span>Нет данных о событиях</span>
     </div>
-
     <div v-else class="users-container">
       <div v-for="group in analyticsStore.userGroups.groups" :key="group.userId" class="user-row">
         <div class="user-content">
@@ -142,14 +140,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 20px;
     gap: 16px;
     color: #666;
   }
 
   .spinner {
-    width: 40px;
-    height: 40px;
+    width: 15px;
+    height: 15px;
     border: 3px solid #f0f0f0;
     border-top-color: #42b983;
     border-radius: 50%;

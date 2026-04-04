@@ -1,7 +1,6 @@
-import { Event } from './event';
-
 export class EventGroup {
-  userId: string;
-  eventCount: number;
-  events: Event[];
+  id: number;
+  name: string;
+  description: string;
+  count: number;
 }

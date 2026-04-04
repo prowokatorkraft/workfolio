@@ -1,6 +1,6 @@
 import type { Event } from './Event';
 
-export interface EventGroup {
+export interface UserGroup {
   userId: string;
   eventCount: number;
   events: Event[];

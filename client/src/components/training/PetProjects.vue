@@ -3,11 +3,11 @@
   import Link from '../Link.vue';
   import GitHubIcon from '../icons/GitHubIcon.vue';
   import DemoIcon from '../icons/DemoIcon.vue';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const educationStore = useTrainingStore();
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>

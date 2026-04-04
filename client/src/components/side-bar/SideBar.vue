@@ -2,11 +2,11 @@
   import Contacts from './Contacts.vue';
   import Location from './Location.vue';
   import { useUserStore } from '../../stores/User.ts';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const user = useUserStore().user;
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>

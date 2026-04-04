@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useUserStore } from '../../stores/User.ts';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const userStore = useUserStore();
   const location = userStore.user.location;
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>

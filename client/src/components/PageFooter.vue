@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useUserStore } from '../stores/User.ts';
-  import { useEvents } from '../composables/useEvents.ts';
   import { EventEnum } from '../types/Event-enum-type.ts';
+  import { useEventStore } from '../stores/Event.ts';
 
   const currentYear = new Date().getFullYear();
   const user = useUserStore().user;
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>
@@ -14,7 +14,8 @@
       <p class="copyright">© {{ currentYear }} {{ user.name }}</p>
       <p class="made-with">
         Сделано с
-        <span class="heart">❤️</span>на
+        <span class="heart">❤️</span>
+        на
         <RouterLink
           to="/training#pet-project1"
           class="nav-link"

@@ -2,17 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import type { Preset } from '../types/Preset.ts';
 import { formatRange } from '../lib/tools.ts';
-import type { EventGroups } from '../types/EventGroups.ts';
-import axios from 'axios';
-
-const baseUrl = window.location.origin + '/api/analytic';
-const api = axios.create({
-  baseURL: window.location.origin,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+import type { UserGroups } from '../types/UserGroups.ts';
+import { useApi } from '../composables/useApi.ts';
 
 const initialPresets: Preset[] = [
   {
@@ -66,9 +57,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   const activePreset = ref<string>('3d');
   const presets = ref<Preset[]>(initialPresets);
 
-  const userGroups = ref<EventGroups | undefined>(undefined);
-  const userGroupsLoading = ref(false);
-  const userGroupsError = ref<string | null>(null);
+  const userGroups = useApi<UserGroups>({ eventCount: 0, groupCount: 0, groups: [] });
 
   function setPage(value: number) {
     page.value = value;
@@ -85,41 +74,14 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   function setActivePreset(preset: string) {
     activePreset.value = preset;
   }
-  function setGroups(events: EventGroups) {
-    userGroups.value = events;
-  }
-  function setGroupsLoading(loading: boolean) {
-    userGroupsLoading.value = loading;
-  }
-  function setGroupsError(error: string | null) {
-    userGroupsError.value = error;
-  }
 
-  async function fetchUserGroups () {
-    setGroupsLoading(true);
-    setGroupsError(null);
-    try {
-      setGroups(
-        (
-          await api.post(baseUrl + '/users', {
-            page: page?.value,
-            pageSize: pageSize?.value,
-            dateFrom: dateFrom.value,
-            dateTo: dateTo.value
-          })
-        ).data
-      );
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        setGroupsError(err.response?.data?.message || err.message);
-      } else if (err instanceof Error) {
-        setGroupsError((err.message));
-      } else {
-        setGroupsError(('Unknown error occurred'));
-      }
-    } finally {
-      setGroupsLoading(false);
-    }
+  function fetchUserGroups() {
+    userGroups.get('analytic/user', {
+      page: page?.value,
+      pageSize: pageSize?.value,
+      dateFrom: dateFrom.value,
+      dateTo: dateTo.value
+    });
   }
 
   return {
@@ -129,9 +91,10 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     activePreset,
     dateFrom,
     dateTo,
-    userGroups,
-    userGroupsLoading,
-    userGroupsError,
+
+    userGroups: userGroups.data,
+    userGroupsLoading: userGroups.loading,
+    userGroupsError: userGroups.error,
 
     setPage,
     setPageSize,

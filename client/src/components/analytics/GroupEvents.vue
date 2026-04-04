@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { getEventIcon } from '../../types/Event-enum-type.ts';
-  import type { EventGroup } from '../../types/EventGroup.ts';
+  import type { UserGroup } from '../../types/UserGroup.ts';
 
   defineProps<{
-    group: EventGroup;
+    group: UserGroup;
     isExpanded: (userId: string) => boolean;
   }>();
   const formatDate = (date?: Date) => {

@@ -7,10 +7,10 @@
   import GitHubIcon from '../icons/GitHubIcon.vue';
   import LinkIcon from '../icons/LinkIcon.vue';
   import { EventEnum } from '../../types/Event-enum-type.ts';
-  import { useEvents } from '../../composables/useEvents.ts';
+  import { useEventStore } from '../../stores/Event.ts';
   const educationStore = useTrainingStore();
   const openImage = ref<(imageUrl: string) => void>(() => {});
-  const events = useEvents();
+  const events = useEventStore();
 
   const handleOpenImage = (value: (imageUrl: string) => void) => {
     openImage.value = value;

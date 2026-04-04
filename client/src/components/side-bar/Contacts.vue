@@ -5,11 +5,11 @@
   import EmailIcon from '../icons/EmailIcon.vue';
   import TelegramIcon from '../icons/TelegramIcon.vue';
   import MaxIcon from '../icons/MaxIcon.vue';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const contacts = useUserStore().user.contacts;
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>

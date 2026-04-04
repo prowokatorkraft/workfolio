@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { useTrainingStore } from '../../stores/Training.ts';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const educationStore = useTrainingStore();
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>

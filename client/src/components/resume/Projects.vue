@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import { useExperienceStore } from '../../stores/Experience.ts';
-  import { useEvents } from '../../composables/useEvents.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
   import Expand from '../icons/Expand.vue';
+  import { useEventStore } from '../../stores/Event.ts';
 
   const experienceStore = useExperienceStore();
   const projects = experienceStore.projects;
-  const events = useEvents();
+  const events = useEventStore();
 </script>
 
 <template>
@@ -15,7 +15,7 @@
       <h2 class="experience-title">
         <span>💼</span>
         <span class="experience-title-description">
-          <span> Опыт работы </span>
+          <span>Опыт работы</span>
           <span class="experience-label-right">{{ experienceStore.duration }}</span>
         </span>
       </h2>
@@ -94,7 +94,8 @@
                     color: '#2c3e50'
                   }"
                 >
-                  <span>✓</span>{{ achievement }}
+                  <span>✓</span>
+                  {{ achievement }}
                 </div>
               </div>
             </div>
