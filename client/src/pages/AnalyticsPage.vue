@@ -1,14 +1,14 @@
 <script setup lang="ts">
   import UserGroups from '../components/analytics/UserGroups.vue';
   import DateFilter from '../components/analytics/DateFilter.vue';
-  import Events from '../components/analytics/Events.vue';
+  import EventGroups from '../components/analytics/EventGroups.vue';
 </script>
 
 <template>
   <main class="main-layout">
     <DateFilter />
-    <Events />
     <UserGroups />
+    <EventGroups />
   </main>
 </template>
 
@@ -16,6 +16,6 @@
   .main-layout {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
   }
 </style>

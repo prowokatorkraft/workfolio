@@ -19,6 +19,7 @@
       analyticsStore.setDateFrom(range.startDate);
       analyticsStore.setDateTo(range.endDate);
       analyticsStore.fetchUserGroups();
+      analyticsStore.fetchEventGroups();
     }
     closeCustomPicker();
   };
@@ -41,6 +42,7 @@
       analyticsStore.setDateTo(endDate.value);
       analyticsStore.setActivePreset('custom');
       analyticsStore.fetchUserGroups();
+      analyticsStore.fetchEventGroups();
     }
     closeCustomPicker();
   };
@@ -122,7 +124,7 @@
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
-    justify-content: right;
+    justify-content: center;
   }
 
   .preset-button {

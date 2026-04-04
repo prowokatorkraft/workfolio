@@ -42,14 +42,16 @@
         <span>👥</span>
         <span class="users-title-description">
           <span>Активность пользователей</span>
-          <span class="users-label-right">
-            {{ analyticsStore.userGroups?.groupCount || 0 }} пользователей
-          </span>
-          <span class="users-label-right">
-            {{ analyticsStore.userGroups?.eventCount || 0 }} событий
+          <span class="events-groups-stats">
+            <span v-if="analyticsStore.userGroups?.groupCount" class="stats-badge">
+              Всего: {{ analyticsStore.userGroups?.groupCount }}
+            </span>
+            <span v-if="analyticsStore.userGroups?.eventCount" class="stats-badge total-count">
+              Событий: {{ analyticsStore.userGroups?.eventCount }}
+            </span>
           </span>
         </span>
-        <span v-if="analyticsStore.userGroupsLoading" class="loading-container">
+        <span v-if="analyticsStore.userGroupsLoading" class="loading-spinner">
           <span class="spinner" />
         </span>
       </h2>
@@ -60,7 +62,7 @@
       />
     </div>
 
-    <div v-if="!analyticsStore.userGroups?.groups.length" class="empty-container">
+    <div v-if="!analyticsStore.userGroups?.groups?.length" class="empty-container">
       <span class="empty-icon">📭</span>
       <span>Нет данных о событиях</span>
     </div>
@@ -126,7 +128,13 @@
     flex-wrap: wrap;
   }
 
-  .users-label-right {
+  .events-groups-stats {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .stats-badge {
     font-weight: 500;
     color: #666;
     background: #f0f0f0;
@@ -135,7 +143,12 @@
     font-size: 0.85rem;
   }
 
-  .loading-container {
+  .stats-badge.total-count {
+    background: #e8f5e9;
+    color: #42b983;
+  }
+
+  .loading-spinner {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -178,7 +191,7 @@
   .users-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
 
   .user-row {

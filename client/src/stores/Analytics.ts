@@ -4,6 +4,7 @@ import type { Preset } from '../types/Preset.ts';
 import { formatRange } from '../lib/tools.ts';
 import type { UserGroups } from '../types/UserGroups.ts';
 import { useApi } from '../composables/useApi.ts';
+import type { EventGroup } from '../types/EventGroup.ts';
 
 const initialPresets: Preset[] = [
   {
@@ -58,6 +59,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   const presets = ref<Preset[]>(initialPresets);
 
   const userGroups = useApi<UserGroups>({ eventCount: 0, groupCount: 0, groups: [] });
+  const eventGroups = useApi<EventGroup[]>([]);
 
   function setPage(value: number) {
     page.value = value;
@@ -83,6 +85,12 @@ export const useAnalyticsStore = defineStore('analytics', () => {
       dateTo: dateTo.value
     });
   }
+  function fetchEventGroups() {
+    eventGroups.get('analytic/event', {
+      dateFrom: dateFrom.value,
+      dateTo: dateTo.value
+    });
+  }
 
   return {
     page,
@@ -96,12 +104,17 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     userGroupsLoading: userGroups.loading,
     userGroupsError: userGroups.error,
 
+    eventGroups: eventGroups.data,
+    eventGroupsLoading: eventGroups.loading,
+    eventGroupsError: eventGroups.error,
+
     setPage,
     setPageSize,
     setDateFrom,
     setDateTo,
     setActivePreset,
 
-    fetchUserGroups
+    fetchUserGroups,
+    fetchEventGroups
   };
 });
