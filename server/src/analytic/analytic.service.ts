@@ -63,7 +63,7 @@ export class AnalyticService {
 
   parseUTCDate(dateString: string): Date {
     const [year, month, day] = dateString.split('-').map(Number);
-    return new Date(Date.UTC(year, month - 1, day));
+    return new Date(Date.UTC(year, month - 1, day, 23, 59, 59));
   }
 
   async getEvents(

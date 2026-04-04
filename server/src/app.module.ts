@@ -11,7 +11,6 @@ import { AnalyticModule } from './analytic/analytic.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      //envFilePath: '.env.local',
       envFilePath: '.env',
       ignoreEnvFile: false
     }),
