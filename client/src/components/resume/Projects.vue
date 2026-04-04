@@ -136,7 +136,7 @@
     background: #f0f0f0;
     padding: 4px 7px;
     border-radius: 16px;
-    font-size: 0.80rem;
+    font-size: 0.8rem;
     margin-left: 15px;
   }
 
@@ -365,6 +365,7 @@
     .experience-label-right {
       width: max-content;
       margin-top: 5px;
+      margin-left: 0;
     }
   }
 </style>
