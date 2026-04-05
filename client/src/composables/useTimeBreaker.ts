@@ -1,6 +1,6 @@
 import { shallowRef } from 'vue';
 
-export function useTimeBreaker(){
+export function useTimeBreaker() {
   const focusBreaker = shallowRef<Map<string, number>>(new Map<string, number>());
 
   const setBreak = (key: string, hash: number, breaking: number): number => {
@@ -13,14 +13,14 @@ export function useTimeBreaker(){
     return hash;
   };
 
-  const getBreak = (key: string): (number | undefined) => {
+  const getBreak = (key: string): number | undefined => {
     if (focusBreaker.value.has(key)) {
       return focusBreaker.value.get(key);
     }
     return undefined;
   };
 
-  const popBreak = (key: string): (number | undefined) => {
+  const popBreak = (key: string): number | undefined => {
     const _break = getBreak(key);
     if (_break) {
       focusBreaker.value.delete(key);

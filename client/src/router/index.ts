@@ -9,9 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Resume',
-    component: window.location.pathname === '/'
-      ? Resume
-      : () => import('../pages/ResumePage.vue')
+    component: window.location.pathname === '/' ? Resume : () => import('../pages/ResumePage.vue')
   },
   {
     path: '/training',

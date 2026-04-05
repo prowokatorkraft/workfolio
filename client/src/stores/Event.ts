@@ -4,7 +4,6 @@ import { useTimeBreaker } from '../composables/useTimeBreaker.ts';
 import { useApi } from '../composables/useApi.ts';
 import { defineStore } from 'pinia';
 
-
 export const useEventStore = defineStore('event', () => {
   const canLog = import.meta.env.VITE_LOG === 'true';
   const events = useApi<Event[]>([]);
@@ -22,7 +21,7 @@ export const useEventStore = defineStore('event', () => {
       setBreak(
         hash,
         setTimeout(() => {
-          addEvent(event);
+          addEvent(event, description);
         }, waiting ?? 300),
         breaking ?? 5000
       );
@@ -46,7 +45,7 @@ export const useEventStore = defineStore('event', () => {
     const breakHash = getBreak(hash);
     if (!breakHash) {
       setBreak(hash, 1, breaking ?? 5000);
-      addEvent(eventId);
+      addEvent(eventId, description);
     }
   };
 
@@ -54,7 +53,7 @@ export const useEventStore = defineStore('event', () => {
     events.get('event', {});
   };
 
-  const addEvent = async (eventId: EventEnumType, description?: string) => {
+  const addEvent = async (eventId: EventEnumType, description?: string | number) => {
     if (!canLog) {
       return;
     }

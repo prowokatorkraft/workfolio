@@ -10,12 +10,12 @@ export function parsePeriod(start: string, end: string | undefined) {
   return {
     start: {
       year: startDate.getFullYear(),
-      month: startDate.getMonth() + 1,
+      month: startDate.getMonth() + 1
     },
     end: end
       ? {
           year: endDate.getFullYear(),
-          month: endDate.getMonth() + 1,
+          month: endDate.getMonth() + 1
         }
       : null,
     durationMonths: months + 1,

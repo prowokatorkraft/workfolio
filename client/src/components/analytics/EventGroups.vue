@@ -33,7 +33,10 @@
     </div>
 
     <div v-else class="events-groups-container">
-      <div v-for="group in analyticsStore.eventGroups" :key="group.id">
+      <div
+        v-for="group in analyticsStore.eventGroups"
+        :key="group.id + group.name + group.description"
+      >
         <div class="event-group-content">
           <div class="event-group-icon">
             {{ getEventIcon(group.id) }}
@@ -188,7 +191,7 @@
   }
 
   .event-group-id-badge {
-    background: #e0e0e0;
+    background: #f5f5f5;
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 0.7rem;

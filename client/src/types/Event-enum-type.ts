@@ -30,7 +30,7 @@ export const EventEnum = {
 
 export type EventEnumType = (typeof EventEnum)[keyof typeof EventEnum];
 
-export function getEventIcon (eventId: number) {
+export function getEventIcon(eventId: number) {
   const icons: Record<number, string> = {
     1001: '🔓',
     1101: '🔗',
@@ -55,4 +55,4 @@ export function getEventIcon (eventId: number) {
     5001: '🎓'
   };
   return icons[eventId] || '📋';
-};
+}

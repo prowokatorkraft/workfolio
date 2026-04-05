@@ -30,9 +30,9 @@
             <div class="event-meta">
               <span class="event-id-badge">{{ event.eventId }}</span>
               <span class="event-name">{{ event.eventName || `Событие ${event.eventId}` }}</span>
-              <span v-if="event.description" class="event-description">{{
-                event.description
-              }}</span>
+              <span v-if="event.description" class="event-description">
+                {{ event.description }}
+              </span>
             </div>
             <span class="event-time">{{ formatDate(event.createdAt) }}</span>
           </div>
