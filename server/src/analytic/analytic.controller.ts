@@ -24,12 +24,7 @@ export class AnalyticController {
   }
 
   @Get('event')
-  async getAnalyticEvents(
-    @Query() request: EventAnalyticRequest
-  ): Promise<EventGroup[]> {
-    return await this.loggerService.getEvents(
-      request.dateFrom,
-      request.dateTo
-    );
+  async getAnalyticEvents(@Query() request: EventAnalyticRequest): Promise<EventGroup[]> {
+    return await this.loggerService.getEvents(request.dateFrom, request.dateTo);
   }
 }

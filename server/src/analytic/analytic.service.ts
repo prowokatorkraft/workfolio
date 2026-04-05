@@ -66,10 +66,7 @@ export class AnalyticService {
     return new Date(Date.UTC(year, month - 1, day, 23, 59, 59));
   }
 
-  async getEvents(
-    dateFrom?: string,
-    dateTo?: string
-  ): Promise<EventGroup[]> {
+  async getEvents(dateFrom?: string, dateTo?: string): Promise<EventGroup[]> {
     const to = dateTo ? this.parseUTCDate(dateTo) : new Date();
     const from = dateFrom
       ? this.parseUTCDate(dateFrom)
