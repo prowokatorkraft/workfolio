@@ -22,4 +22,7 @@ async function bootstrap() {
     `Server running on port ${configService.get('PORT')}, db ${configService.get('DB_NAME')}`
   );
 }
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Failed to start application:', err);
+  process.exit(1);
+});

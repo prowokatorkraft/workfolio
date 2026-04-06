@@ -7,6 +7,7 @@ import { UserGroup } from '../../shared/entities/user-group';
 import { Event } from '../../shared/entities/event';
 import { EventGroup } from '../../shared/entities/event-group';
 import { getEventKey } from '../../shared/entities/event-enum-type';
+import { RawEventResult } from '../../shared/entities/raw-event-result';
 
 @Injectable()
 export class AnalyticService {
@@ -82,7 +83,7 @@ export class AnalyticService {
       .groupBy('e.event_id, e.description')
       .orderBy('COUNT(*)', 'DESC')
       .addOrderBy('e.event_id', 'ASC')
-      .getRawMany();
+      .getRawMany<RawEventResult>();
 
     return response.map((r) => {
       const result = new EventGroup();

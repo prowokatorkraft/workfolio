@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AnalyticService } from './analytic.service';
 import { DevelopmentOnlyGuard } from '../../shared/guards/development-only.guard';
 import { UserGroup } from '../../shared/entities/user-group';

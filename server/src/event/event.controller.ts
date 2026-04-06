@@ -37,8 +37,8 @@ export class EventController {
     if (!event) {
       throw new BadRequestException('Event not found');
     }
-    event.userId = request['visitorId'];
-    if (!event.userId || event.userId == '') {
+    event.userId = request['visitorId'] as string;
+    if (!event.userId || event.userId === '') {
       throw new BadRequestException('UserId not found');
     }
     await this.loggerService.addEvent(Event.fromDto(event));
