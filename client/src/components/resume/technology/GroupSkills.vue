@@ -26,7 +26,7 @@
           background: `linear-gradient(90deg, ${getLevelColor(skill.level)} ${
             skill.level
           }%, white ${skill.level}%)`,
-          borderColor: getLevelColor(skill.level)
+          borderColor: getLevelColor(skill.level),
         }"
       >
         {{ skill.name }}

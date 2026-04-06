@@ -71,7 +71,7 @@
                 :style="{
                   background: 'white',
                   borderColor: '#e0e0e0',
-                  color: '#2c3e50'
+                  color: '#2c3e50',
                 }"
               >
                 {{ tech.name }}
@@ -91,7 +91,7 @@
                   :style="{
                     background: 'white',
                     borderColor: '#e0e0e0',
-                    color: '#2c3e50'
+                    color: '#2c3e50',
                   }"
                 >
                   <span>✓</span>

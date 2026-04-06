@@ -3,7 +3,7 @@ export const TechnologyGroup = {
   backend: 1,
   frontend: 2,
   data: 3,
-  architecture: 4
+  architecture: 4,
 } as const;
 
 export type TechnologyGroupType = (typeof TechnologyGroup)[keyof typeof TechnologyGroup];

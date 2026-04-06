@@ -6,8 +6,8 @@ const api = axios.create({
   baseURL: window.location.origin,
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
 export function useApi<T>(defaultValue: T) {
@@ -38,7 +38,7 @@ export function useApi<T>(defaultValue: T) {
     await request(async () => {
       data.value = (
         await api.get(baseUrl + url, {
-          params: params
+          params: params,
         })
       ).data;
     });
@@ -56,6 +56,6 @@ export function useApi<T>(defaultValue: T) {
     error,
 
     get,
-    post
+    post,
   };
 }

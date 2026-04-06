@@ -42,7 +42,7 @@ const initialSkills: Technology[] = [
   { id: 39, name: 'Java', level: 45, group: TechnologyGroup.backend },
   { id: 40, name: 'Spring', level: 30, group: TechnologyGroup.backend },
   { id: 41, name: 'Hibernate', level: 30, group: TechnologyGroup.backend },
-  { id: 42, name: 'JUnit', level: 45, group: TechnologyGroup.backend }
+  { id: 42, name: 'JUnit', level: 45, group: TechnologyGroup.backend },
 ];
 
 const initialProjects: Project[] = [
@@ -57,7 +57,7 @@ const initialProjects: Project[] = [
       'В качестве бэкенд-разработчика участвовал в разработке кроссплатформенного микросервисного приложения, созданного на основе предыдущей версии программного обеспечения. Проект реализовывался в рамках импортозамещения, работа велась в составе одной из нескольких команд разработки.',
     technologyIds: [27, 34, 25, 26, 11, 21, 20, 5, 3, 2, 38, 39, 40, 41, 42, 36, 14, 15, 31, 32],
     achievements: ['Мигрировал данные из MSSQL в PSQL', 'Оптимизировал хранимые процедуры'],
-    isExpanded: false
+    isExpanded: false,
   },
   {
     id: 2,
@@ -71,7 +71,7 @@ const initialProjects: Project[] = [
       'Поддерживаю и развиваю монолитную систему, работая как с клиентской частью, так и с серверной логикой. Выполняю доработку интерфейсов, расчетных алгоритмов, механизмов выгрузки данных, оптимизирую запросы к базам данных. Участвую в командном взаимодействии, обеспечивая согласованность решений на всех этапах разработки.',
     technologyIds: [27, 19, 25, 26, 12, 20, 21, 5, 4, 35, 28, 29, 30, 15, 37, 33],
     achievements: ['Разрабатывал динамику в системе настроек админа'],
-    isExpanded: false
+    isExpanded: false,
   },
   {
     id: 3,
@@ -87,10 +87,10 @@ const initialProjects: Project[] = [
       'Внедрил новый функционал',
       'Исправлял ошибки в отладчике, внес массовые исправления в базу данных',
       'Работал с пользовательским интерфейсом, выводом данных в форматы PDF и Excel, отправкой уведомлений клиентам',
-      'Участвовал в совещаниях команды Scrum (ежедневные, планирование, демонстрации, ретроспектива)'
+      'Участвовал в совещаниях команды Scrum (ежедневные, планирование, демонстрации, ретроспектива)',
     ],
-    isExpanded: false
-  }
+    isExpanded: false,
+  },
 ];
 
 export const useExperienceStore = defineStore('experience', () => {
@@ -235,6 +235,6 @@ export const useExperienceStore = defineStore('experience', () => {
     collapseProject,
     collapseAllProjects,
     expandAllProjects,
-    resetToInitial
+    resetToInitial,
   };
 });

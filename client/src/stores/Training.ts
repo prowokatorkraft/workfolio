@@ -11,7 +11,7 @@ const initialFormalEducation: FormalEducation[] = [
     status: 'Высшее техническое',
     degree: 'Бакалавр по агроинженерным специальностям',
     institution: 'СГАУ имени Н.И. Вавилова',
-    description: 'Фундаментальная подготовка в области электрооборудования и электротехнологий.'
+    description: 'Фундаментальная подготовка в области электрооборудования и электротехнологий.',
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const initialFormalEducation: FormalEducation[] = [
     degree: 'Специалист по информационным системам',
     institution: 'Профессиональное училище',
     description: 'Начальная подготовка в области информационных технологий.',
-    specialization: 'Оператор электронно-вычислительных и вычислительных машин 3 разряда'
-  }
+    specialization: 'Оператор электронно-вычислительных и вычислительных машин 3 разряда',
+  },
 ];
 
 const initialCertificates: Certificate[] = [
@@ -56,11 +56,11 @@ const initialCertificates: Certificate[] = [
       'Express',
       'Event Loop',
       'NestJS',
-      'TypeORM'
+      'TypeORM',
     ],
     courseLink: 'https://otus.ru/lessons/javascript-professional/',
     repo: 'https://github.com/prowokatorkraft/Otus_javascript_professional',
-    petProjectId: 1
+    petProjectId: 1,
   },
   {
     id: 2,
@@ -79,10 +79,10 @@ const initialCertificates: Certificate[] = [
       'MVCC',
       'Vacuum/Autovacuum',
       'Interlocks',
-      'Replication'
+      'Replication',
     ],
     courseLink: 'https://otus.ru/lessons/postgresql-dba/',
-    repo: 'https://github.com/prowokatorkraft/Otus_PostgreSQL'
+    repo: 'https://github.com/prowokatorkraft/Otus_PostgreSQL',
   },
   {
     id: 3,
@@ -112,11 +112,11 @@ const initialCertificates: Certificate[] = [
       'Git',
       'Swagger',
       'Automapper',
-      'FluentValidation'
+      'FluentValidation',
     ],
     repo: 'https://github.com/prowokatorkraft/My_Development_at_EPAM',
-    petProjectId: 2
-  }
+    petProjectId: 2,
+  },
 ];
 
 const initialPetProjects: PetProject[] = [
@@ -136,16 +136,16 @@ const initialPetProjects: PetProject[] = [
       'Jest/Vitest',
       'NestJS',
       'TypeORM',
-      'PostgreSQL'
+      'PostgreSQL',
     ],
     features: [
       'Адаптивный интерфейс',
       'Бейджи с уровнем владения технологией',
       'Гиппер-ссылки на страницах',
-      'Логирование событий и их аналитика'
+      'Логирование событий и их аналитика',
     ],
     repo: 'https://github.com/prowokatorkraft/workfolio',
-    demo: 'https://workfolio-fe.vercel.app/'
+    demo: 'https://workfolio-fe.vercel.app/',
   },
   {
     id: 2,
@@ -168,16 +168,16 @@ const initialPetProjects: PetProject[] = [
       'Log4Net',
       'Ninject',
       'NUnit',
-      'Git'
+      'Git',
     ],
     features: [
       'Трехзвенное приложение',
       'Реализована аутентификация и авторизация пользователя',
       'Реализован веб-интерфейс с помощью MVC и Web API',
       'Покрыто Unit и интеграционным тестированием',
-      'Развернута база данных'
+      'Развернута база данных',
     ],
-    repo: 'https://github.com/prowokatorkraft/RDRUNET'
+    repo: 'https://github.com/prowokatorkraft/RDRUNET',
   },
   {
     id: 3,
@@ -197,16 +197,16 @@ const initialPetProjects: PetProject[] = [
       'ADO.NET',
       'MS SQL',
       'Log4Net',
-      'Git'
+      'Git',
     ],
     features: [
       'Трехзвенное приложение',
       'Реализован функционал логирования с использованием библиотеки log4net',
       'Разработана клиентская часть с использованием HTML, CSS и JavaScript',
-      'Развернута база данных'
+      'Развернута база данных',
     ],
-    repo: 'https://github.com/prowokatorkraft/My_Development_at_EPAM/tree/master/Internet_shop'
-  }
+    repo: 'https://github.com/prowokatorkraft/My_Development_at_EPAM/tree/master/Internet_shop',
+  },
 ];
 
 export const useTrainingStore = defineStore('training', () => {
@@ -366,6 +366,6 @@ export const useTrainingStore = defineStore('training', () => {
     removeFormalEducation,
     setGithubUrl,
     resetToInitial,
-    fetchEducationData
+    fetchEducationData,
   };
 });

@@ -10,16 +10,16 @@ export function parsePeriod(start: string, end: string | undefined) {
   return {
     start: {
       year: startDate.getFullYear(),
-      month: startDate.getMonth() + 1
+      month: startDate.getMonth() + 1,
     },
     end: end
       ? {
           year: endDate.getFullYear(),
-          month: endDate.getMonth() + 1
+          month: endDate.getMonth() + 1,
         }
       : null,
     durationMonths: months + 1,
-    period: startDate.getFullYear() + ' — ' + endDate.getFullYear()
+    period: startDate.getFullYear() + ' — ' + endDate.getFullYear(),
   };
 }
 
@@ -36,7 +36,7 @@ export function formatDate(date: Date): string {
     'сен',
     'окт',
     'ноя',
-    'дек'
+    'дек',
   ];
   return `${months[date.getMonth()]} ${date.getFullYear()}`;
 }
@@ -66,6 +66,6 @@ export function formatDateWithoutTime(date: Date): string {
 export function formatRange(start: Date, end: Date) {
   return {
     startDate: formatDateWithoutTime(start),
-    endDate: formatDateWithoutTime(end)
+    endDate: formatDateWithoutTime(end),
   };
 }

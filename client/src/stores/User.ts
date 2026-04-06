@@ -11,7 +11,7 @@ const initialUser: User = {
     city: 'Саратов',
     country: 'Россия',
     canRelocate: false,
-    canBusinessTrip: true
+    canBusinessTrip: true,
   },
   contacts: {
     phone: '+79878294398',
@@ -20,8 +20,8 @@ const initialUser: User = {
     vk: 'https://vk.com/dt_1995',
     telegram: 'https://t.me/DlTyurin',
     telegramInfo: '@DlTyurin',
-    max: 'https://max.ru/u/f9LHodD0cOLECxnye6Mdye4x0OkCKhb-M-CIxZSr6mRi4WnrCTevvUDI8bA'
-  }
+    max: 'https://max.ru/u/f9LHodD0cOLECxnye6Mdye4x0OkCKhb-M-CIxZSr6mRi4WnrCTevvUDI8bA',
+  },
 };
 
 export const useUserStore = defineStore('user', () => {
@@ -44,7 +44,7 @@ export const useUserStore = defineStore('user', () => {
   const mainContacts = computed(() => ({
     phone: user.value.contacts.phoneInfo,
     email: user.value.contacts.mail,
-    telegram: user.value.contacts.telegramInfo
+    telegram: user.value.contacts.telegramInfo,
   }));
 
   function updateUser(updates: Partial<User>) {
@@ -118,6 +118,6 @@ export const useUserStore = defineStore('user', () => {
     updatePhone,
     updateEmail,
     updateSocialLinks,
-    resetToInitial
+    resetToInitial,
   };
 });

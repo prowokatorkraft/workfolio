@@ -1,10 +1,11 @@
 import pluginVue from 'eslint-plugin-vue';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'node_modules', '.git', '.vscode', '*.d.ts']
+    ignores: ['dist', 'node_modules', '.git', '.vscode', '*.d.ts', 'coverage']
   },
 
   {
@@ -47,50 +48,17 @@ export default tseslint.config(
   {
     files: ['**/*.vue'],
     rules: {
+      'vue/html-indent': 'off',
+      'vue/max-attributes-per-line': 'off',
+      'vue/first-attribute-linebreak': 'off',
+      'vue/html-self-closing': 'off',
+
       'vue/multi-word-component-names': 'off',
-      'vue/html-self-closing': [
-        'error',
-        {
-          html: {
-            void: 'always',
-            normal: 'always',
-            component: 'always'
-          }
-        }
-      ],
       'vue/no-multiple-template-root': 'off',
-
-      'vue/max-attributes-per-line': [
-        'error',
-        {
-          singleline: {
-            max: 5
-          },
-          multiline: {
-            max: 1
-          }
-        }
-      ],
-
-      'vue/first-attribute-linebreak': [
-        'error',
-        {
-          singleline: 'beside', // Атрибут рядом с открывающим тегом
-          multiline: 'below' // Атрибут на новой строке
-        }
-      ],
-
-      'vue/html-indent': [
-        'error',
-        2,
-        {
-          attribute: 1,
-          baseIndent: 1,
-          closeBracket: 0,
-          alignAttributesVertically: true,
-          ignores: []
-        }
-      ]
+      'vue/require-default-prop': 'warn',
+      'vue/require-v-for-key': 'error',
+      'vue/no-unused-components': 'warn',
+      'vue/no-unused-vars': 'warn'
     }
   },
 
@@ -99,7 +67,8 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off'
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
     }
   },
 
@@ -109,5 +78,7 @@ export default tseslint.config(
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-var-requires': 'off'
     }
-  }
+  },
+
+  eslintConfigPrettier
 );

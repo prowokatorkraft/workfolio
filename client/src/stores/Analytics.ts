@@ -15,7 +15,7 @@ const initialPresets: Preset[] = [
       const start = new Date();
       start.setDate(end.getDate() - 1);
       return formatRange(start, end);
-    }
+    },
   },
   {
     label: '3 дня',
@@ -25,7 +25,7 @@ const initialPresets: Preset[] = [
       const start = new Date();
       start.setDate(end.getDate() - 3);
       return formatRange(start, end);
-    }
+    },
   },
   {
     label: 'Неделя',
@@ -35,7 +35,7 @@ const initialPresets: Preset[] = [
       const start = new Date();
       start.setDate(end.getDate() - 7);
       return formatRange(start, end);
-    }
+    },
   },
   {
     label: 'Месяц',
@@ -45,8 +45,8 @@ const initialPresets: Preset[] = [
       const start = new Date();
       start.setDate(end.getDate() - 30);
       return formatRange(start, end);
-    }
-  }
+    },
+  },
 ];
 
 export const useAnalyticsStore = defineStore('analytics', () => {
@@ -82,13 +82,13 @@ export const useAnalyticsStore = defineStore('analytics', () => {
       page: page?.value,
       pageSize: pageSize?.value,
       dateFrom: dateFrom.value,
-      dateTo: dateTo.value
+      dateTo: dateTo.value,
     });
   }
   function fetchEventGroups() {
     eventGroups.get('analytic/event', {
       dateFrom: dateFrom.value,
-      dateTo: dateTo.value
+      dateTo: dateTo.value,
     });
   }
 
@@ -115,6 +115,6 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     setActivePreset,
 
     fetchUserGroups,
-    fetchEventGroups
+    fetchEventGroups,
   };
 });

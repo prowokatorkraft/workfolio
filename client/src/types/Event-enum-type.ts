@@ -25,7 +25,7 @@ export const EventEnum = {
   training_projects_repo_click: 4103,
   training_projects_demo_click: 4104,
 
-  training_education_block_focus: 5001
+  training_education_block_focus: 5001,
 } as const;
 
 export type EventEnumType = (typeof EventEnum)[keyof typeof EventEnum];
@@ -52,7 +52,7 @@ export function getEventIcon(eventId: number) {
     4102: '📂',
     4103: '📦',
     4104: '🎮',
-    5001: '🎓'
+    5001: '🎓',
   };
   return icons[eventId] || '📋';
 }

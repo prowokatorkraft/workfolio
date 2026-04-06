@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:lint": "npm run lint:check && npm run build",
+    "build:strict": "npm run lint:check && npm run format:check && npm run build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts --fix",
+    "lint:check": "eslint . --ext .vue,.js,.ts",
     "format": "prettier --write \"src/**/*.{vue,js,ts}\"",
     "format:check": "prettier --check \"src/**/*.{vue,js,ts}\""
   },

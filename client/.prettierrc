@@ -1,6 +1,6 @@
 {
   "singleQuote": true,
-  "trailingComma": "none",
+  "trailingComma": "es5",
   "tabWidth": 2,
   "useTabs": false,
   "printWidth": 100,
@@ -9,5 +9,8 @@
   "vueIndentScriptAndStyle": true,
   "htmlWhitespaceSensitivity": "ignore",
   "endOfLine": "auto",
-  "quoteProps": "as-needed"
+  "quoteProps": "as-needed",
+  "semi": true,
+  "jsxSingleQuote": false,
+  "bracketSameLine": false
 }

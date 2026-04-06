@@ -31,6 +31,6 @@ export function useTimeBreaker() {
   return {
     setBreak,
     getBreak,
-    popBreak
+    popBreak,
   };
 }

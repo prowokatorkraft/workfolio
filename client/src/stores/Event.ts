@@ -59,7 +59,7 @@ export const useEventStore = defineStore('event', () => {
     }
     events.post('event', {
       eventId: eventId,
-      description: description ? description + '' : undefined
+      description: description ? description + '' : undefined,
     });
   };
 
@@ -73,6 +73,6 @@ export const useEventStore = defineStore('event', () => {
     handleClick,
 
     fetchEvents,
-    addEvent
+    addEvent,
   };
 });

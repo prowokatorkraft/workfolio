@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Resume',
-    component: window.location.pathname === '/' ? Resume : () => import('../pages/ResumePage.vue')
+    component: window.location.pathname === '/' ? Resume : () => import('../pages/ResumePage.vue'),
   },
   {
     path: '/training',
@@ -17,7 +17,7 @@ const routes = [
     component:
       window.location.pathname === '/training'
         ? Training
-        : () => import('../pages/TrainingPage.vue')
+        : () => import('../pages/TrainingPage.vue'),
   },
   {
     path: '/analytics',
@@ -25,13 +25,13 @@ const routes = [
     component:
       window.location.pathname === '/analytics'
         ? Analytics
-        : () => import('../pages/AnalyticsPage.vue')
-  }
+        : () => import('../pages/AnalyticsPage.vue'),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 router.afterEach((to) => {
@@ -49,7 +49,7 @@ router.afterEach((to) => {
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
 
         element.setAttribute('tabindex', '-1');
