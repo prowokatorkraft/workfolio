@@ -14,7 +14,7 @@ export class EventService {
 
   async getEvents(): Promise<Event[]> {
     const entities = await this.eventRepository.find();
-    return (entities?.length ?? 0) > 0 ? Event.fromEntities(entities) : [];
+    return Event.fromEntities(entities);
   }
 
   async addEvent(event: Event): Promise<void> {

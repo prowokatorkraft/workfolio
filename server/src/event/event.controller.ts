@@ -33,7 +33,7 @@ export class EventController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async addEvent(@Req() request: Request, @Body() event: EventDto): Promise<void> {
+  async addEvent(@Req() request: Request, @Body() event?: EventDto): Promise<void> {
     if (!event) {
       throw new BadRequestException('Event not found');
     }

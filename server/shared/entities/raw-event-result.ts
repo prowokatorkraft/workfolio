@@ -1,5 +1,5 @@
 export interface RawEventResult {
   event_id: number;
-  description: string;
+  description?: string;
   count: number;
 }

@@ -1,6 +1,6 @@
 export class EventGroup {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   count: number;
 }

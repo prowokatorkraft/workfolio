@@ -22,6 +22,9 @@ export class Event {
   }
 
   static fromEntities(events: EventEntity[]): Event[] {
+    if (events.length === 0) {
+      return [];
+    }
     return events.map((note) => Event.fromEntity(note));
   }
 
@@ -35,8 +38,11 @@ export class Event {
     return entity;
   }
 
-  static toEntities(event: Event[]): EventEntity[] {
-    return event.map((note) => Event.toEntity(note));
+  static toEntities(events: Event[]): EventEntity[] {
+    if (events.length === 0) {
+      return [];
+    }
+    return events.map((note) => Event.toEntity(note));
   }
 
   static fromDto(dto: EventDto): Event {
@@ -50,6 +56,9 @@ export class Event {
   }
 
   static fromDtos(events: EventDto[]): Event[] {
+    if (events.length === 0) {
+      return [];
+    }
     return events.map((note) => Event.fromDto(note));
   }
 
@@ -63,7 +72,10 @@ export class Event {
     return dto;
   }
 
-  static toDtos(event: Event[]): EventDto[] {
-    return event.map((note) => Event.toDto(note));
+  static toDtos(events: Event[]): EventDto[] {
+    if (events.length === 0) {
+      return [];
+    }
+    return events.map((note) => Event.toDto(note));
   }
 }
