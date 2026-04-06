@@ -116,6 +116,7 @@ cat > client/.env << EOF
 VITE_API_URL=https://workfolio.com/
 VITE_LOG=true
 VITE_PRODUCTION=false
+EOF
 
 cat > server/.env << EOF
 NODE_ENV=development
@@ -130,4 +131,5 @@ NODE_ENV=development
 EOF
 
 # 5. Запуск приложения
+cd ./server
 npm run dev
