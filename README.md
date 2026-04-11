@@ -84,3 +84,38 @@ workfolio/
 │   └── data-source.ts         # TypeORM конфигурация
 │
 └── README.md
+```
+
+```bash
+# 1. Клонирование репозитория
+git clone https://github.com/prowokatorkraft/workfolio
+cd workfolio
+
+# 2. Установка зависимостей (одна команда для всего)
+npm install
+
+# 4. Настройка окружения
+cat > client/.env << EOF
+VITE_API_URL=https://workfolio.com/
+VITE_LOG=true
+VITE_PRODUCTION=false
+EOF
+
+cat > server/.env << EOF
+NODE_ENV=development
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=workfolio
+DB_PASSWORD=workfolio
+DB_NAME=workfolio
+DB_SSL=true
+NODE_ENV=development
+EOF
+
+# 5. Сборка и миграция
+cd ./server
+npm run build
+
+# 5. Запуск приложения
+npm run dev
