@@ -1,21 +1,4 @@
-# WorkFolio
-
-<div align="center">
-
-### Профессиональное портфолио с системой аналитики
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vue 3](https://img.shields.io/badge/Vue_3-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
-[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
-[![Pinia](https://img.shields.io/badge/Pinia-FFD859?style=for-the-badge&logo=vue.js&logoColor=black)](https://pinia.vuejs.org/)
-[![TypeORM](https://img.shields.io/badge/TypeORM-262627?style=for-the-badge&logo=typeorm&logoColor=white)](https://typeorm.io/)
-[![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)
-[![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)](https://jestjs.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-
-</div>
-
-> Проект разработан в рамках курса **«JavaScript Developer. Professional»**
+# WorkFolio - Профессиональное портфолио с системой аналитики
 
 ---
 
@@ -86,6 +69,10 @@ workfolio/
 └── README.md
 ```
 
+---
+
+## Установка
+
 ```bash
 # 1. Клонирование репозитория
 git clone https://github.com/prowokatorkraft/workfolio
@@ -102,14 +89,13 @@ VITE_PRODUCTION=false
 EOF
 
 cat > server/.env << EOF
-NODE_ENV=development
-PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=workfolio
-DB_PASSWORD=workfolio
-DB_NAME=workfolio
-DB_SSL=true
+PORT=3000;
+DB_HOST=localhost;
+DB_NAME=workfolio;
+DB_PORT=5432;
+DB_USERNAME=postgres;
+DB_PASSWORD=postgres;
+DB_SSL=false
 NODE_ENV=development
 EOF
 
@@ -117,5 +103,6 @@ EOF
 cd ./server
 npm run build
 
-# 5. Запуск приложения
+# 6. Запуск приложения
 npm run dev
+```
