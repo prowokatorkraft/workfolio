@@ -9,8 +9,10 @@ export function useTimeBreaker() {
       setTimeout(() => {
         focusBreaker.value.delete(key);
       }, breaking);
+      return hash;
+    } else {
+      return focusBreaker.value.get(key) ?? 0;
     }
-    return hash;
   };
 
   const getBreak = (key: string): number | undefined => {

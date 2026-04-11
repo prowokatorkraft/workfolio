@@ -17,7 +17,7 @@ describe('EventController', () => {
       id: 1,
       eventId: 1001,
       eventName: 'Login',
-      description: 'User login event',
+      description: 'Событие входа пользователя',
       userId: 'user123',
       createdAt: new Date('2024-01-01')
     },
@@ -25,7 +25,7 @@ describe('EventController', () => {
       id: 2,
       eventId: 2001,
       eventName: 'Click',
-      description: 'User click event',
+      description: 'Событие клика пользователя',
       userId: 'user456',
       createdAt: new Date('2024-01-02')
     }
@@ -63,7 +63,7 @@ describe('EventController', () => {
   });
 
   describe('getEvents', () => {
-    it('should return events when not in production', async () => {
+    it('должен возвращать события, когда приложение не в production режиме', async () => {
       jest.spyOn(configService, 'get').mockReturnValue('development');
       jest.spyOn(eventService, 'getEvents').mockResolvedValue(mockEvents);
       jest.spyOn(Event, 'toDtos').mockImplementation(() => mockEventDtos);
@@ -76,7 +76,7 @@ describe('EventController', () => {
       expect(result).toEqual(mockEventDtos);
     });
 
-    it('should throw ForbiddenException when in production', async () => {
+    it('должен выбрасывать ForbiddenException, когда приложение в production режиме', async () => {
       jest.spyOn(configService, 'get').mockReturnValue('production');
 
       await expect(controller.getEvents()).rejects.toThrow(ForbiddenException);
@@ -84,7 +84,7 @@ describe('EventController', () => {
       expect(eventService.getEvents).not.toHaveBeenCalled();
     });
 
-    it('should handle empty events array', async () => {
+    it('должен корректно обрабатывать пустой массив событий', async () => {
       jest.spyOn(configService, 'get').mockReturnValue('development');
       jest.spyOn(eventService, 'getEvents').mockResolvedValue([]);
       jest.spyOn(Event, 'toDtos').mockImplementation(() => []);
@@ -95,15 +95,15 @@ describe('EventController', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should handle service error', async () => {
+    it('должен корректно обрабатывать ошибку сервиса', async () => {
       jest.spyOn(configService, 'get').mockReturnValue('development');
-      const error = new Error('Database connection failed');
+      const error = new Error('Ошибка подключения к базе данных');
       jest.spyOn(eventService, 'getEvents').mockRejectedValue(error);
 
-      await expect(controller.getEvents()).rejects.toThrow('Database connection failed');
+      await expect(controller.getEvents()).rejects.toThrow('Ошибка подключения к базе данных');
     });
 
-    it('should handle NODE_ENV not set', async () => {
+    it('должен корректно обрабатывать ситуацию, когда NODE_ENV не установлен', async () => {
       jest.spyOn(configService, 'get').mockReturnValue(undefined);
       jest.spyOn(eventService, 'getEvents').mockResolvedValue(mockEvents);
       jest.spyOn(Event, 'toDtos').mockImplementation(() => mockEventDtos);
@@ -122,12 +122,12 @@ describe('EventController', () => {
 
     const validEventDto: EventDto = {
       eventId: 1001,
-      description: 'User login',
+      description: 'Вход пользователя',
       userId: '',
       createdAt: new Date()
     };
 
-    it('should successfully add event', async () => {
+    it('должен успешно добавлять событие', async () => {
       const request = mockRequest as unknown as Request;
       const eventDto = { ...validEventDto };
       const mockEvent = { ...eventDto, userId: 'visitor-123' } as Event;
@@ -145,7 +145,7 @@ describe('EventController', () => {
       expect(eventService.addEvent).toHaveBeenCalledWith(mockEvent);
     });
 
-    it('should throw BadRequestException when event is undefined', async () => {
+    it('должен выбрасывать BadRequestException, когда событие не передано', async () => {
       const request = mockRequest as unknown as Request;
 
       await expect(controller.addEvent(request, undefined)).rejects.toThrow(BadRequestException);
@@ -153,7 +153,7 @@ describe('EventController', () => {
       expect(eventService.addEvent).not.toHaveBeenCalled();
     });
 
-    it('should throw BadRequestException when visitorId is missing', async () => {
+    it('должен выбрасывать BadRequestException, когда visitorId отсутствует', async () => {
       const request = {} as Request;
       const eventDto = { ...validEventDto };
 
@@ -162,7 +162,7 @@ describe('EventController', () => {
       expect(eventService.addEvent).not.toHaveBeenCalled();
     });
 
-    it('should throw BadRequestException when visitorId is empty string', async () => {
+    it('должен выбрасывать BadRequestException, когда visitorId является пустой строкой', async () => {
       const request = { visitorId: '' } as unknown as Request;
       const eventDto = { ...validEventDto };
 
@@ -171,19 +171,19 @@ describe('EventController', () => {
       expect(eventService.addEvent).not.toHaveBeenCalled();
     });
 
-    it('should handle service error when adding event', async () => {
+    it('должен корректно обрабатывать ошибку сервиса при добавлении события', async () => {
       const request = mockRequest as unknown as Request;
       const eventDto = { ...validEventDto };
-      const error = new Error('Database error');
+      const error = new Error('Ошибка базы данных');
       const mockEvent = { ...eventDto, userId: 'visitor-123' } as Event;
 
       jest.spyOn(Event, 'fromDto').mockImplementation(() => mockEvent);
       jest.spyOn(eventService, 'addEvent').mockRejectedValue(error);
 
-      await expect(controller.addEvent(request, eventDto)).rejects.toThrow('Database error');
+      await expect(controller.addEvent(request, eventDto)).rejects.toThrow('Ошибка базы данных');
     });
 
-    it('should overwrite existing userId from DTO with visitorId from request', async () => {
+    it('должен перезаписывать существующий userId из DTO на visitorId из запроса', async () => {
       const request = mockRequest as unknown as Request;
       const eventDto = {
         ...validEventDto,
@@ -203,7 +203,7 @@ describe('EventController', () => {
       });
     });
 
-    it('should handle event without description', async () => {
+    it('должен корректно обрабатывать событие без описания', async () => {
       const request = mockRequest as unknown as Request;
       const eventDtoWithoutDesc: EventDto = {
         eventId: 1001,
@@ -221,11 +221,11 @@ describe('EventController', () => {
       expect(eventService.addEvent).toHaveBeenCalledWith(mockEvent);
     });
 
-    it('should handle event with different eventId values', async () => {
+    it('должен корректно обрабатывать событие с разными значениями eventId', async () => {
       const request = mockRequest as unknown as Request;
       const eventDtoWithDifferentId: EventDto = {
         eventId: 5001,
-        description: 'User logout',
+        description: 'Выход пользователя',
         userId: '',
         createdAt: new Date()
       };
@@ -240,12 +240,12 @@ describe('EventController', () => {
     });
   });
 
-  describe('HTTP status codes', () => {
-    it('should return 201 CREATED on successful event creation', async () => {
+  describe('HTTP статус коды', () => {
+    it('должен возвращать 201 CREATED при успешном создании события', async () => {
       const request = { visitorId: 'visitor-123' } as unknown as Request;
       const eventDto: EventDto = {
         eventId: 1001,
-        description: 'Test',
+        description: 'Тест',
         userId: '',
         createdAt: new Date()
       };

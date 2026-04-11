@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import type { User } from '../types/User.ts';
+import { clone } from '../lib/tools.ts';
 
 const initialUser: User = {
   name: 'Данил Тюрин',
@@ -25,7 +26,7 @@ const initialUser: User = {
 };
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref<User>({ ...initialUser });
+  const user = ref<User>(clone(initialUser));
 
   const canBusinessTrip = computed(() =>
     user.value.location.canBusinessTrip ? 'Готов к командировкам' : 'Не готов к командировкам'
@@ -95,7 +96,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function resetToInitial() {
-    user.value = { ...initialUser };
+    user.value = clone(initialUser);
   }
 
   return {

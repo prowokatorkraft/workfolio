@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import type { Certificate } from '../types/Certificate.ts';
 import type { PetProject } from '../types/PetProject.ts';
 import type { FormalEducation } from '../types/FormalEducation.ts';
+import { clone } from '../lib/tools.ts';
 
 const initialFormalEducation: FormalEducation[] = [
   {
@@ -212,9 +213,9 @@ const initialPetProjects: PetProject[] = [
 export const useTrainingStore = defineStore('training', () => {
   const totalCourses = ref<number>(24);
   const githubUrl = ref<string>('https://github.com/prowokatorkraft');
-  const formalEducation = ref<FormalEducation[]>([...initialFormalEducation]);
-  const certificates = ref<Certificate[]>([...initialCertificates]);
-  const petProjects = ref<PetProject[]>([...initialPetProjects]);
+  const formalEducation = ref<FormalEducation[]>(clone(initialFormalEducation));
+  const certificates = ref<Certificate[]>(clone(initialCertificates));
+  const petProjects = ref<PetProject[]>(clone(initialPetProjects));
 
   const totalCertificates = computed(() => certificates.value.length);
   const totalProjects = computed(() => petProjects.value.length);
@@ -223,9 +224,9 @@ export const useTrainingStore = defineStore('training', () => {
     return certificates.value.reduce((sum, cert) => sum + (cert.hours || 0), 0);
   });
 
-  const certificatesByYearDesc = computed(() => {
-    return [...certificates.value].sort((a, b) => parseInt(b.date) - parseInt(a.date));
-  });
+  const getCertificatesByYearDesc = () => {
+    return clone(certificates.value).sort((a, b) => parseInt(b.date) - parseInt(a.date));
+  };
 
   const projectsByYear = computed(() => {
     const years: Record<string, PetProject[]> = {};
@@ -233,7 +234,7 @@ export const useTrainingStore = defineStore('training', () => {
       if (!years[project.year]) {
         years[project.year] = [];
       }
-      years[project.year].push(project);
+      years[project.year].push(clone(project));
     });
     return years;
   });
@@ -325,17 +326,6 @@ export const useTrainingStore = defineStore('training', () => {
     petProjects.value = [...initialPetProjects];
   }
 
-  async function fetchEducationData() {
-    try {
-      // const response = await api.get('/education')
-      // formalEducation.value = response.data.education
-      // certificates.value = response.data.certificates
-      // petProjects.value = response.data.projects
-    } catch (error) {
-      console.error('Error fetching education data:', error);
-    }
-  }
-
   return {
     totalCourses,
     githubUrl,
@@ -346,10 +336,10 @@ export const useTrainingStore = defineStore('training', () => {
     totalCertificates,
     totalProjects,
     totalLearningHours,
-    certificatesByYearDesc,
     projectsByYear,
     uniqueTechStack,
 
+    getCertificatesByYearDesc,
     getCertificatesByYear,
     getProjectsByTech,
     getProjectsByYear,
@@ -366,6 +356,5 @@ export const useTrainingStore = defineStore('training', () => {
     removeFormalEducation,
     setGithubUrl,
     resetToInitial,
-    fetchEducationData,
   };
 });

@@ -29,21 +29,21 @@ describe('AnalyticService', () => {
       id: 1,
       userId: 'user1',
       eventId: 1001,
-      description: 'User login event',
+      description: 'Событие входа пользователя',
       createdAt: new Date('2024-01-01T10:00:00Z')
     } as EventEntity,
     {
       id: 2,
       userId: 'user1',
       eventId: 1001,
-      description: 'User login event',
+      description: 'Событие входа пользователя',
       createdAt: new Date('2024-01-01T11:00:00Z')
     } as EventEntity,
     {
       id: 3,
       userId: 'user2',
       eventId: 2001,
-      description: 'User click event',
+      description: 'Событие клика пользователя',
       createdAt: new Date('2024-01-02T10:00:00Z')
     } as EventEntity
   ];
@@ -51,12 +51,12 @@ describe('AnalyticService', () => {
   const mockRawEventResults: RawEventResult[] = [
     {
       event_id: 1001,
-      description: 'User login event',
+      description: 'Событие входа пользователя',
       count: 15
     },
     {
       event_id: 2001,
-      description: 'User click event',
+      description: 'Событие клика пользователя',
       count: 8
     }
   ];
@@ -90,29 +90,29 @@ describe('AnalyticService', () => {
   });
 
   describe('parseUTCDate', () => {
-    it('should parse valid date string to UTC date with end of day', () => {
+    it('должен преобразовывать валидную строку даты в UTC дату с концом дня', () => {
       const result = service.parseUTCDate('2024-01-15');
       expect(result.toISOString()).toBe('2024-01-15T23:59:59.000Z');
     });
 
-    it('should parse first day of month correctly', () => {
+    it('должен правильно преобразовывать первый день месяца', () => {
       const result = service.parseUTCDate('2024-01-01');
       expect(result.toISOString()).toBe('2024-01-01T23:59:59.000Z');
     });
 
-    it('should parse last day of year correctly', () => {
+    it('должен правильно преобразовывать последний день года', () => {
       const result = service.parseUTCDate('2024-12-31');
       expect(result.toISOString()).toBe('2024-12-31T23:59:59.000Z');
     });
 
-    it('should handle leap year date', () => {
+    it('должен обрабатывать дату високосного года', () => {
       const result = service.parseUTCDate('2024-02-29');
       expect(result.toISOString()).toBe('2024-02-29T23:59:59.000Z');
     });
   });
 
   describe('getUsers', () => {
-    it('should return user groups with default parameters', async () => {
+    it('должен возвращать группы пользователей с параметрами по умолчанию', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -135,7 +135,7 @@ describe('AnalyticService', () => {
       expect(result.groups[1]?.eventCount).toBe(1);
     });
 
-    it('should apply date filters when provided', async () => {
+    it('должен применять фильтры по датам, когда они переданы', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -155,7 +155,7 @@ describe('AnalyticService', () => {
       );
     });
 
-    it('should apply pagination correctly', async () => {
+    it('должен правильно применять пагинацию', async () => {
       const manyEvents = Array.from(
         { length: 25 },
         (_, i) =>
@@ -163,7 +163,7 @@ describe('AnalyticService', () => {
             id: i,
             userId: `user${i % 5}`,
             eventId: 1001,
-            description: 'Test event',
+            description: 'Тестовое событие',
             createdAt: new Date()
           }) as EventEntity
       );
@@ -182,7 +182,7 @@ describe('AnalyticService', () => {
       expect(result.eventCount).toBe(25);
     });
 
-    it('should handle empty result set', async () => {
+    it('должен обрабатывать пустой результат', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -198,7 +198,7 @@ describe('AnalyticService', () => {
       expect(result.groups).toEqual([]);
     });
 
-    it('should use default dateFrom as yesterday when not provided', async () => {
+    it('должен использовать вчерашнюю дату как dateFrom по умолчанию', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -217,7 +217,7 @@ describe('AnalyticService', () => {
       expect(whereArgs[1]).toHaveProperty('dateTo');
     });
 
-    it('should use current date as dateTo when not provided', async () => {
+    it('должен использовать текущую дату как dateTo по умолчанию', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -233,7 +233,7 @@ describe('AnalyticService', () => {
       expect(whereArgs[1]).toHaveProperty('dateTo');
     });
 
-    it('should handle single user with multiple events', async () => {
+    it('должен обрабатывать одного пользователя с множеством событий', async () => {
       const singleUserEvents = [
         { ...mockEventEntities[0], userId: 'user1' },
         { ...mockEventEntities[1], userId: 'user1' }
@@ -254,7 +254,7 @@ describe('AnalyticService', () => {
       expect(result.groups[0]?.eventCount).toBe(2);
     });
 
-    it('should handle pagination with pageSize larger than groups', async () => {
+    it('должен обрабатывать пагинацию с размером страницы больше количества групп', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -268,7 +268,7 @@ describe('AnalyticService', () => {
       expect(result.groups).toHaveLength(2);
     });
 
-    it('should handle pagination with page beyond available groups', async () => {
+    it('должен обрабатывать пагинацию с номером страницы за пределами доступных групп', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -282,8 +282,8 @@ describe('AnalyticService', () => {
       expect(result.groups).toHaveLength(0);
     });
 
-    it('should handle repository error', async () => {
-      const error = new Error('Database connection failed');
+    it('должен корректно обрабатывать ошибку репозитория', async () => {
+      const error = new Error('Ошибка подключения к базе данных');
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
@@ -292,7 +292,7 @@ describe('AnalyticService', () => {
 
       jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
 
-      await expect(service.getUsers()).rejects.toThrow('Database connection failed');
+      await expect(service.getUsers()).rejects.toThrow('Ошибка подключения к базе данных');
     });
   });
 
@@ -300,14 +300,14 @@ describe('AnalyticService', () => {
     beforeEach(() => {
       (getEventKey as jest.Mock).mockImplementation((id: number) => {
         const names: Record<number, string> = {
-          1001: 'Login',
-          2001: 'Click'
+          1001: 'Вход',
+          2001: 'Клик'
         };
-        return names[id] || 'Unknown';
+        return names[id] || 'Неизвестно';
       });
     });
 
-    it('should return event groups with default parameters', async () => {
+    it('должен возвращать группы событий с параметрами по умолчанию', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -332,11 +332,11 @@ describe('AnalyticService', () => {
       expect(mockQueryBuilder.addOrderBy).toHaveBeenCalledWith('e.event_id', 'ASC');
       expect(result).toHaveLength(2);
       expect(result[0]?.id).toBe(1001);
-      expect(result[0]?.name).toBe('Login');
+      expect(result[0]?.name).toBe('Вход');
       expect(result[0]?.count).toBe(15);
     });
 
-    it('should apply date filters when provided', async () => {
+    it('должен применять фильтры по датам, когда они переданы', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -350,7 +350,6 @@ describe('AnalyticService', () => {
 
       await service.getEvents('2024-01-01', '2024-12-31');
 
-      // ✅ Исправлено: используем expect.any(Date) без присваивания
       expect(mockQueryBuilder.where).toHaveBeenCalledWith(
         'e.createdAt BETWEEN :dateFrom AND :dateTo',
         {
@@ -360,7 +359,7 @@ describe('AnalyticService', () => {
       );
     });
 
-    it('should use default dateFrom as yesterday when not provided', async () => {
+    it('должен использовать вчерашнюю дату как dateFrom по умолчанию', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -380,7 +379,7 @@ describe('AnalyticService', () => {
       expect(whereArgs[1]).toHaveProperty('dateTo');
     });
 
-    it('should handle empty result set', async () => {
+    it('должен обрабатывать пустой результат', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -398,11 +397,11 @@ describe('AnalyticService', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should handle unknown event keys', async () => {
+    it('должен обрабатывать неизвестные ключи событий', async () => {
       const unknownEventResults: RawEventResult[] = [
         {
           event_id: 9999,
-          description: 'Unknown event',
+          description: 'Неизвестное событие',
           count: 1
         }
       ];
@@ -423,12 +422,11 @@ describe('AnalyticService', () => {
 
       expect(result[0]?.id).toBe(9999);
       expect(result[0]?.name).toBe('');
-      expect(result[0]?.description).toBe('Unknown event');
+      expect(result[0]?.description).toBe('Неизвестное событие');
       expect(result[0]?.count).toBe(1);
     });
 
-    it('should handle events with missing description', async () => {
-      // ✅ Исправлено: используем undefined вместо null as any
+    it('должен обрабатывать события с отсутствующим описанием', async () => {
       const eventsWithoutDesc: RawEventResult[] = [
         {
           event_id: 1001,
@@ -453,8 +451,8 @@ describe('AnalyticService', () => {
       expect(result[0]?.description).toBeUndefined();
     });
 
-    it('should handle repository error', async () => {
-      const error = new Error('Database query failed');
+    it('должен корректно обрабатывать ошибку репозитория', async () => {
+      const error = new Error('Ошибка выполнения запроса к базе данных');
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -466,10 +464,10 @@ describe('AnalyticService', () => {
 
       jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
 
-      await expect(service.getEvents()).rejects.toThrow('Database query failed');
+      await expect(service.getEvents()).rejects.toThrow('Ошибка выполнения запроса к базе данных');
     });
 
-    it('should return empty array when no events in date range', async () => {
+    it('должен возвращать пустой массив, когда нет событий в диапазоне дат', async () => {
       const mockQueryBuilder = {
         where: jest.fn().mockReturnThis(),
         select: jest.fn().mockReturnThis(),
@@ -487,8 +485,8 @@ describe('AnalyticService', () => {
     });
   });
 
-  describe('Integration between methods', () => {
-    it('should get users and events with same date range', async () => {
+  describe('Интеграция между методами', () => {
+    it('должен получать пользователей и события с одинаковым диапазоном дат', async () => {
       const mockGetManyBuilder = {
         where: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),

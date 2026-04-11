@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { type Technology, TechnologyGroup, type TechnologyGroupType } from '../types/Technology.ts';
 import type { Project } from '../types/Project.ts';
-import { formatDuration, parsePeriod } from '../lib/tools.ts';
+import { clone, formatDuration, parsePeriod } from '../lib/tools.ts';
 
 const initialSkills: Technology[] = [
   { id: 1, name: 'Vue.js', level: 50, group: TechnologyGroup.frontend },
@@ -94,9 +94,8 @@ const initialProjects: Project[] = [
 ];
 
 export const useExperienceStore = defineStore('experience', () => {
-  // State
-  const technology = ref<Technology[]>([...initialSkills]);
-  const projects = ref<Project[]>([...initialProjects]);
+  const technology = ref<Technology[]>([...clone(initialSkills)]);
+  const projects = ref<Project[]>([...clone(initialProjects)]);
 
   const getTechnologyByGroup = (group: TechnologyGroupType) => {
     return computed(() => technology.value.filter((s) => s.group === group));
@@ -210,8 +209,8 @@ export const useExperienceStore = defineStore('experience', () => {
   }
 
   function resetToInitial() {
-    technology.value = [...initialSkills];
-    projects.value = [...initialProjects];
+    technology.value = clone(initialSkills);
+    projects.value = clone(initialProjects);
   }
 
   return {

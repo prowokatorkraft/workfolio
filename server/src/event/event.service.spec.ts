@@ -15,14 +15,14 @@ describe('EventService', () => {
     {
       id: 1,
       eventId: 1001,
-      description: 'User login event',
+      description: 'Событие входа пользователя',
       userId: 'user123',
       createdAt: new Date('2024-01-01')
     },
     {
       id: 2,
       eventId: 2001,
-      description: 'User click event',
+      description: 'Событие клика пользователя',
       userId: 'user456',
       createdAt: new Date('2024-01-02')
     }
@@ -33,7 +33,7 @@ describe('EventService', () => {
   const mockEvent: Event = {
     eventId: 1001,
     eventName: 'Login',
-    description: 'User login event',
+    description: 'Событие входа пользователя',
     userId: 'user123',
     createdAt: new Date('2024-01-01')
   };
@@ -67,7 +67,7 @@ describe('EventService', () => {
   });
 
   describe('getEvents', () => {
-    it('should return array of events when entities exist', async () => {
+    it('должен возвращать массив событий, когда сущности существуют', async () => {
       jest.spyOn(eventRepository, 'find').mockResolvedValue(mockEventEntities);
       jest.spyOn(Event, 'fromEntities').mockReturnValue(mockEvents);
 
@@ -79,7 +79,7 @@ describe('EventService', () => {
       expect(result).toHaveLength(2);
     });
 
-    it('should return empty array when no entities found', async () => {
+    it('должен возвращать пустой массив, когда сущности не найдены', async () => {
       jest.spyOn(eventRepository, 'find').mockResolvedValue([]);
       jest.spyOn(Event, 'fromEntities').mockReturnValue([]);
 
@@ -91,7 +91,7 @@ describe('EventService', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should return empty array when entities is null', async () => {
+    it('должен возвращать пустой массив, когда сущности равны null', async () => {
       jest.spyOn(eventRepository, 'find').mockResolvedValue(null as any);
       jest.spyOn(Event, 'fromEntities').mockReturnValue([]);
 
@@ -101,7 +101,7 @@ describe('EventService', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should return empty array when entities is undefined', async () => {
+    it('должен возвращать пустой массив, когда сущности равны undefined', async () => {
       jest.spyOn(eventRepository, 'find').mockResolvedValue(undefined as any);
       jest.spyOn(Event, 'fromEntities').mockReturnValue([]);
 
@@ -111,14 +111,14 @@ describe('EventService', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should handle repository error', async () => {
-      const error = new Error('Database connection failed');
+    it('должен корректно обрабатывать ошибку репозитория', async () => {
+      const error = new Error('Ошибка подключения к базе данных');
       jest.spyOn(eventRepository, 'find').mockRejectedValue(error);
 
-      await expect(service.getEvents()).rejects.toThrow('Database connection failed');
+      await expect(service.getEvents()).rejects.toThrow('Ошибка подключения к базе данных');
     });
 
-    it('should handle empty array correctly with fromEntities', async () => {
+    it('должен корректно обрабатывать пустой массив через fromEntities', async () => {
       jest.spyOn(eventRepository, 'find').mockResolvedValue([]);
       jest.spyOn(Event, 'fromEntities').mockImplementation((entities) => {
         return entities.map((entity) => Event.fromEntity(entity));
@@ -132,7 +132,7 @@ describe('EventService', () => {
   });
 
   describe('addEvent', () => {
-    it('should successfully save an event', async () => {
+    it('должен успешно сохранять событие', async () => {
       const mockEntity = Event.toEntity(mockEvent);
       jest.spyOn(eventRepository, 'save').mockResolvedValue(mockEntity);
       jest.spyOn(Event, 'toEntity').mockReturnValue(mockEntity);
@@ -143,7 +143,7 @@ describe('EventService', () => {
       expect(eventRepository.save).toHaveBeenCalledWith(mockEntity);
     });
 
-    it('should handle event with minimal fields', async () => {
+    it('должен обрабатывать событие с минимальным набором полей', async () => {
       const minimalEvent: Event = {
         eventId: 1001,
         userId: 'user123'
@@ -157,11 +157,11 @@ describe('EventService', () => {
       expect(eventRepository.save).toHaveBeenCalledWith(mockEntity);
     });
 
-    it('should handle event with all optional fields', async () => {
+    it('должен обрабатывать событие со всеми опциональными полями', async () => {
       const fullEvent: Event = {
         eventId: 1001,
-        eventName: 'Complex Event',
-        description: 'Detailed description',
+        eventName: 'Сложное событие',
+        description: 'Детальное описание',
         userId: 'user123',
         createdAt: new Date('2024-01-01T12:00:00Z')
       };
@@ -174,7 +174,7 @@ describe('EventService', () => {
       expect(eventRepository.save).toHaveBeenCalledWith(mockEntity);
     });
 
-    it('should handle event without optional fields', async () => {
+    it('должен обрабатывать событие без опциональных полей', async () => {
       const eventWithoutOptional: Event = {
         eventId: 1001,
         userId: 'user123'
@@ -188,10 +188,10 @@ describe('EventService', () => {
       expect(eventRepository.save).toHaveBeenCalledWith(mockEntity);
     });
 
-    it('should handle event with empty description', async () => {
+    it('должен обрабатывать событие с пустым описанием', async () => {
       const eventWithEmptyDesc: Event = {
         eventId: 1001,
-        eventName: 'Test',
+        eventName: 'Тест',
         description: '',
         userId: 'user123',
         createdAt: new Date()
@@ -205,31 +205,31 @@ describe('EventService', () => {
       expect(eventRepository.save).toHaveBeenCalledWith(mockEntity);
     });
 
-    it('should handle repository error on save', async () => {
-      const error = new Error('Failed to save event');
+    it('должен корректно обрабатывать ошибку репозитория при сохранении', async () => {
+      const error = new Error('Не удалось сохранить событие');
       const mockEntity = Event.toEntity(mockEvent);
       jest.spyOn(Event, 'toEntity').mockReturnValue(mockEntity);
       jest.spyOn(eventRepository, 'save').mockRejectedValue(error);
 
-      await expect(service.addEvent(mockEvent)).rejects.toThrow('Failed to save event');
+      await expect(service.addEvent(mockEvent)).rejects.toThrow('Не удалось сохранить событие');
     });
 
-    it('should handle duplicate key error', async () => {
-      const error = new Error('Duplicate key violation');
+    it('должен корректно обрабатывать ошибку дублирования ключа', async () => {
+      const error = new Error('Нарушение уникальности ключа');
       const mockEntity = Event.toEntity(mockEvent);
       jest.spyOn(Event, 'toEntity').mockReturnValue(mockEntity);
       jest.spyOn(eventRepository, 'save').mockRejectedValue(error);
 
-      await expect(service.addEvent(mockEvent)).rejects.toThrow('Duplicate key violation');
+      await expect(service.addEvent(mockEvent)).rejects.toThrow('Нарушение уникальности ключа');
     });
   });
 
-  describe('Integration between methods', () => {
-    it('should save and then retrieve the same event', async () => {
+  describe('Интеграция между методами', () => {
+    it('должен сохранять и затем извлекать то же самое событие', async () => {
       const newEvent: Event = {
         eventId: 3001,
-        eventName: 'Integration Test',
-        description: 'Testing save and retrieve',
+        eventName: 'Интеграционный тест',
+        description: 'Тестирование сохранения и извлечения',
         userId: 'user789',
         createdAt: new Date()
       };

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "npm run test:run && vue-tsc -b && vite build",
     "build:lint": "npm run lint:check && npm run build",
     "build:strict": "npm run strict && npm run build",
     "preview": "vite preview",
@@ -13,7 +13,11 @@
     "lint:check": "eslint . --ext .vue,.js,.ts",
     "format": "prettier --write \"src/**/*.{vue,js,ts}\"",
     "format:check": "prettier --check \"src/**/*.{vue,js,ts}\"",
-    "strict": "npm run lint:check && npm run format:check"
+    "strict": "npm run lint:check && npm run format:check",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "axios": "^1.14.0",
@@ -29,14 +33,19 @@
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
     "@vitejs/plugin-vue": "^6.0.5",
+    "@vitest/coverage-v8": "^4.1.4",
+    "@vitest/ui": "^4.1.4",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.9.0",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^10.8.0",
+    "jsdom": "^29.0.2",
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "vite": "^8.0.0",
+    "vitest": "^4.1.4",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.5"
   }

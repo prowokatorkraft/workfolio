@@ -69,3 +69,7 @@ export function formatRange(start: Date, end: Date) {
     endDate: formatDateWithoutTime(end),
   };
 }
+
+export function clone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value));
+}

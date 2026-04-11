@@ -23,7 +23,7 @@ describe('AnalyticController', () => {
           userId: 'user1',
           eventId: 1001,
           eventName: 'Login',
-          description: 'User login',
+          description: 'Вход пользователя',
           createdAt: new Date('2024-01-01')
         }
       ]
@@ -38,14 +38,14 @@ describe('AnalyticController', () => {
   const mockEventGroups: EventGroup[] = [
     {
       id: 1001,
-      name: 'Authentication',
-      description: 'Auth events',
+      name: 'Аутентификация',
+      description: 'События аутентификации',
       count: 15
     },
     {
       id: 2001,
-      name: 'Media',
-      description: 'Media events',
+      name: 'Медиа',
+      description: 'Медиа события',
       count: 8
     }
   ];
@@ -97,7 +97,7 @@ describe('AnalyticController', () => {
   });
 
   describe('getAnalyticUsers', () => {
-    it('should return user analytics with all parameters', async () => {
+    it('должен возвращать аналитику пользователей со всеми параметрами', async () => {
       const request: UserAnalyticRequest = {
         dateFrom: '2024-01-01',
         dateTo: '2024-12-31',
@@ -122,7 +122,7 @@ describe('AnalyticController', () => {
       expect(result.groups[0].eventCount).toBe(10);
     });
 
-    it('should handle request without optional parameters', async () => {
+    it('должен обрабатывать запрос без опциональных параметров', async () => {
       const request: UserAnalyticRequest = {};
 
       jest.spyOn(analyticService, 'getUsers').mockResolvedValue(emptyUserAnalyticsResponse);
@@ -140,7 +140,7 @@ describe('AnalyticController', () => {
       expect(result.groups).toEqual([]);
     });
 
-    it('should handle request with only dateFrom', async () => {
+    it('должен обрабатывать запрос только с dateFrom', async () => {
       const request: UserAnalyticRequest = {
         dateFrom: '2024-01-01'
       };
@@ -157,7 +157,7 @@ describe('AnalyticController', () => {
       );
     });
 
-    it('should handle request with only dateTo', async () => {
+    it('должен обрабатывать запрос только с dateTo', async () => {
       const request: UserAnalyticRequest = {
         dateTo: '2024-12-31'
       };
@@ -174,7 +174,7 @@ describe('AnalyticController', () => {
       );
     });
 
-    it('should handle request with only pagination', async () => {
+    it('должен обрабатывать запрос только с пагинацией', async () => {
       const request: UserAnalyticRequest = {
         pageSize: 20,
         page: 2
@@ -187,7 +187,7 @@ describe('AnalyticController', () => {
       expect(analyticService.getUsers).toHaveBeenCalledWith(undefined, undefined, 20, 2);
     });
 
-    it('should handle request with pageSize only', async () => {
+    it('должен обрабатывать запрос только с pageSize', async () => {
       const request: UserAnalyticRequest = {
         pageSize: 15
       };
@@ -199,7 +199,7 @@ describe('AnalyticController', () => {
       expect(analyticService.getUsers).toHaveBeenCalledWith(undefined, undefined, 15, undefined);
     });
 
-    it('should handle request with page only', async () => {
+    it('должен обрабатывать запрос только с page', async () => {
       const request: UserAnalyticRequest = {
         page: 3
       };
@@ -211,20 +211,20 @@ describe('AnalyticController', () => {
       expect(analyticService.getUsers).toHaveBeenCalledWith(undefined, undefined, undefined, 3);
     });
 
-    it('should handle service error', async () => {
+    it('должен корректно обрабатывать ошибку сервиса', async () => {
       const request: UserAnalyticRequest = {
         dateFrom: '2024-01-01'
       };
-      const error = new Error('Database connection failed');
+      const error = new Error('Ошибка подключения к базе данных');
 
       jest.spyOn(analyticService, 'getUsers').mockRejectedValue(error);
 
       await expect(controller.getAnalyticUsers(request)).rejects.toThrow(
-        'Database connection failed'
+        'Ошибка подключения к базе данных'
       );
     });
 
-    it('should return correct structure with empty groups', async () => {
+    it('должен возвращать правильную структуру с пустыми группами', async () => {
       const request: UserAnalyticRequest = {};
 
       jest.spyOn(analyticService, 'getUsers').mockResolvedValue(emptyUserAnalyticsResponse);
@@ -238,7 +238,7 @@ describe('AnalyticController', () => {
       expect(result.groups).toHaveLength(0);
     });
 
-    it('should handle large pageSize value', async () => {
+    it('должен обрабатывать большое значение pageSize', async () => {
       const request: UserAnalyticRequest = {
         pageSize: 1000,
         page: 1
@@ -253,7 +253,7 @@ describe('AnalyticController', () => {
   });
 
   describe('getAnalyticEvents', () => {
-    it('should return event analytics with date range', async () => {
+    it('должен возвращать аналитику событий с диапазоном дат', async () => {
       const request: EventAnalyticRequest = {
         dateFrom: '2024-01-01',
         dateTo: '2024-12-31'
@@ -267,11 +267,11 @@ describe('AnalyticController', () => {
       expect(result).toEqual(mockEventGroups);
       expect(result).toHaveLength(2);
       expect(result[0].id).toBe(1001);
-      expect(result[0].name).toBe('Authentication');
+      expect(result[0].name).toBe('Аутентификация');
       expect(result[0].count).toBe(15);
     });
 
-    it('should handle request without parameters', async () => {
+    it('должен обрабатывать запрос без параметров', async () => {
       const request: EventAnalyticRequest = {};
 
       jest.spyOn(analyticService, 'getEvents').mockResolvedValue([]);
@@ -282,7 +282,7 @@ describe('AnalyticController', () => {
       expect(result).toEqual([]);
     });
 
-    it('should handle request with only dateFrom', async () => {
+    it('должен обрабатывать запрос только с dateFrom', async () => {
       const request: EventAnalyticRequest = {
         dateFrom: '2024-01-01'
       };
@@ -294,7 +294,7 @@ describe('AnalyticController', () => {
       expect(analyticService.getEvents).toHaveBeenCalledWith('2024-01-01', undefined);
     });
 
-    it('should handle request with only dateTo', async () => {
+    it('должен обрабатывать запрос только с dateTo', async () => {
       const request: EventAnalyticRequest = {
         dateTo: '2024-12-31'
       };
@@ -306,7 +306,7 @@ describe('AnalyticController', () => {
       expect(analyticService.getEvents).toHaveBeenCalledWith(undefined, '2024-12-31');
     });
 
-    it('should return empty array when no events found', async () => {
+    it('должен возвращать пустой массив, когда события не найдены', async () => {
       const request: EventAnalyticRequest = {
         dateFrom: '2024-01-01',
         dateTo: '2024-12-31'
@@ -320,24 +320,26 @@ describe('AnalyticController', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('should handle service error for events', async () => {
+    it('должен корректно обрабатывать ошибку сервиса для событий', async () => {
       const request: EventAnalyticRequest = {
         dateFrom: '2024-01-01'
       };
-      const error = new Error('Failed to fetch events');
+      const error = new Error('Не удалось получить события');
 
       jest.spyOn(analyticService, 'getEvents').mockRejectedValue(error);
 
-      await expect(controller.getAnalyticEvents(request)).rejects.toThrow('Failed to fetch events');
+      await expect(controller.getAnalyticEvents(request)).rejects.toThrow(
+        'Не удалось получить события'
+      );
     });
 
-    it('should return correct structure for event groups', async () => {
+    it('должен возвращать правильную структуру для групп событий', async () => {
       const request: EventAnalyticRequest = {};
       const mockEvents: EventGroup[] = [
         {
           id: 1001,
-          name: 'Login',
-          description: 'User login event',
+          name: 'Вход',
+          description: 'Событие входа пользователя',
           count: 100
         }
       ];
@@ -353,13 +355,13 @@ describe('AnalyticController', () => {
       expect(typeof result[0].count).toBe('number');
     });
 
-    it('should handle events with zero count', async () => {
+    it('должен обрабатывать события с нулевым количеством', async () => {
       const request: EventAnalyticRequest = {};
       const eventsWithZeroCount: EventGroup[] = [
         {
           id: 1001,
-          name: 'Rare Event',
-          description: 'Rarely occurs',
+          name: 'Редкое событие',
+          description: 'Происходит редко',
           count: 0
         }
       ];
@@ -371,12 +373,12 @@ describe('AnalyticController', () => {
       expect(result[0].count).toBe(0);
     });
 
-    it('should handle events with missing description', async () => {
+    it('должен обрабатывать события с отсутствующим описанием', async () => {
       const request: EventAnalyticRequest = {};
       const eventsWithoutDesc: EventGroup[] = [
         {
           id: 1001,
-          name: 'Simple Event',
+          name: 'Простое событие',
           description: undefined,
           count: 5
         }
@@ -390,8 +392,8 @@ describe('AnalyticController', () => {
     });
   });
 
-  describe('Integration scenarios', () => {
-    it('should handle sequential calls to both endpoints', async () => {
+  describe('Интеграционные сценарии', () => {
+    it('должен обрабатывать последовательные вызовы обоих эндпоинтов', async () => {
       const userRequest: UserAnalyticRequest = { pageSize: 10 };
       const eventRequest: EventAnalyticRequest = {};
 
