@@ -5,7 +5,7 @@ import {
   formatDuration,
   formatDateWithoutTime,
   formatRange,
-} from '@/../../src/lib/tools';
+} from '../../src/lib/tools';
 
 describe('dateUtils', () => {
   describe('parsePeriod', () => {

@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useExperienceStore } from '@/../../src/stores/experience';
-import { TechnologyGroup } from '@/../../src/types/Technology';
+import { useExperienceStore } from '../../src/stores/experience';
+import { TechnologyGroup } from '../../src/types/Technology';
 
-vi.mock('@/../../src/lib/tools', () => ({
+vi.mock('../../src/lib/tools', () => ({
   formatDuration: vi.fn(),
   parsePeriod: vi.fn(),
   clone: vi.fn((obj) => JSON.parse(JSON.stringify(obj))),
 }));
 
-import { formatDuration, parsePeriod } from '@/../../src/lib/tools';
+import { formatDuration, parsePeriod } from '../../src/lib/tools';
 
 describe('useExperienceStore', () => {
   let store: ReturnType<typeof useExperienceStore>;

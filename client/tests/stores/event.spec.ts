@@ -4,8 +4,8 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useEventStore } from '@/../../src/stores/Event';
-import type { EventEnumType } from '@/../../src/types/Event-enum-type';
+import { useEventStore } from '../../src/stores/Event';
+import type { EventEnumType } from '../../src/types/Event-enum-type';
 
 const mockEventsApi = {
   data: { value: [] },
@@ -24,11 +24,11 @@ const mockTimeBreaker = {
 const mockClearTimeout = vi.fn();
 global.clearTimeout = mockClearTimeout;
 
-vi.mock('@/../../src/composables/useApi', () => ({
+vi.mock('../../src/composables/useApi', () => ({
   useApi: vi.fn(() => mockEventsApi),
 }));
 
-vi.mock('@/../../src/composables/useTimeBreaker', () => ({
+vi.mock('../../src/composables/useTimeBreaker', () => ({
   useTimeBreaker: vi.fn(() => mockTimeBreaker),
 }));
 

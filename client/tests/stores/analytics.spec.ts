@@ -1,17 +1,17 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 
-vi.mock('@/../../src/composables/useApi', () => ({
+vi.mock('../../src/composables/useApi', () => ({
   useApi: vi.fn(),
 }));
 
-vi.mock('@/../../src/lib/tools', () => ({
+vi.mock('../../src/lib/tools', () => ({
   formatRange: vi.fn(),
 }));
 
-import { useAnalyticsStore } from '@/../../src/stores/Analytics';
-import { useApi } from '@/../../src/composables/useApi';
-import { formatRange } from '@/../../src/lib/tools';
+import { useAnalyticsStore } from '../../src/stores/Analytics';
+import { useApi } from '../../src/composables/useApi';
+import { formatRange } from '../../src/lib/tools';
 
 const createMockApiResponse = () => ({
   data: getRef(null),
