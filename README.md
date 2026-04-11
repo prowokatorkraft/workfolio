@@ -77,6 +77,10 @@ git clone https://github.com/prowokatorkraft/workfolio
 cd workfolio
 
 # 2. Установка зависимостей
+cd ./client
+npm install
+
+cd ../server
 npm install
 
 # 4. Настройка окружения
@@ -87,19 +91,21 @@ VITE_PRODUCTION=false
 EOF
 
 cat > server/.env << EOF
-PORT=3000;
-DB_HOST=localhost;
-DB_NAME=workfolio;
-DB_PORT=5432;
-DB_USERNAME=postgres;
-DB_PASSWORD=postgres;
+PORT=3000
+DB_HOST=localhost
+DB_NAME=workfolio
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
 DB_SSL=false
 NODE_ENV=development
 EOF
 
+Создать схему event в базе данных
+
 # 5. Сборка и миграция
 cd ./server
-npm run build
+npm run build:all
 
 # 6. Запуск приложения
 npm run dev
