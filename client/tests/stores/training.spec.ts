@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useTrainingStore } from '../../src/stores/training';
+import { useTrainingStore } from '../../src/stores/Training';
 
 describe('useTrainingStore', () => {
   let store: ReturnType<typeof useTrainingStore>;

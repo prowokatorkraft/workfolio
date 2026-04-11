@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useUserStore } from '@../../../src/stores/user';
+import { useUserStore } from '@../../../src/stores/User';
 
 describe('useUserStore', () => {
   let store: ReturnType<typeof useUserStore>;

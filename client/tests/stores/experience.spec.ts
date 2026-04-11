@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useExperienceStore } from '../../src/stores/experience';
+import { useExperienceStore } from '../../src/stores/Experience';
 import { TechnologyGroup } from '../../src/types/Technology';
 
 vi.mock('../../src/lib/tools', () => ({
