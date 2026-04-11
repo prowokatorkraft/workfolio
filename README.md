@@ -76,7 +76,7 @@ workfolio/
 git clone https://github.com/prowokatorkraft/workfolio
 cd workfolio
 
-# 2. Установка зависимостей (одна команда для всего)
+# 2. Установка зависимостей
 npm install
 
 # 4. Настройка окружения
