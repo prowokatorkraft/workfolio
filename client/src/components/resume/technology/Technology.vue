@@ -69,7 +69,7 @@
     border-radius: 8px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .technology-minimal {
       gap: 15px;
     }

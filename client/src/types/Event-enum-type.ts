@@ -13,6 +13,8 @@ export const EventEnum = {
 
   resume_education_more_link: 3201,
 
+  resume_cv_pdf_download: 3301,
+
   training_certificates_block_focus: 4001,
   training_certificates_image_click: 4002,
   training_certificates_id_click: 4003,

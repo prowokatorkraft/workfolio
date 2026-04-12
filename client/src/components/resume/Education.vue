@@ -17,7 +17,7 @@
 
     <RouterLink
       to="/training#education"
-      class="more-btn nav-link"
+      class="more-btn nav-link no-print"
       @click="events.handleClick(EventEnum.resume_education_more_link)"
     >
       <span>Подробнее</span>
@@ -41,7 +41,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     padding-bottom: 6px;
     border-bottom: 1px solid #e0e0e0;
   }
@@ -99,6 +98,16 @@
 
     .more-btn {
       margin: 10px 13px;
+    }
+  }
+
+  @media print {
+    .education-label-right-block {
+      display: inline-block;
+    }
+
+    .education-header {
+      border-bottom: none;
     }
   }
 </style>

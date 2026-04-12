@@ -19,4 +19,10 @@
     gap: 20px;
     width: 100%;
   }
+
+  @media print {
+    .main-layout {
+      gap: 5px;
+    }
+  }
 </style>

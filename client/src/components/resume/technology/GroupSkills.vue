@@ -77,7 +77,7 @@
     border-color: #42b983 !important;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .skills-row {
       flex-direction: column;
       gap: 5px;

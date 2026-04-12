@@ -29,7 +29,7 @@
         <section class="content">
           <RouterView />
         </section>
-        <SideBar v-if="currentRoute != 'Analytics'" />
+        <SideBar v-if="currentRoute != 'Analytics'" :current-route="currentRoute" />
       </div>
     </main>
   </div>
@@ -100,6 +100,43 @@
     100% {
       box-shadow: 0 0 0 0 rgba(66, 185, 131, 0);
       background-color: rgba(66, 185, 131, 0);
+    }
+  }
+
+  .print {
+    display: none;
+  }
+
+  @media print {
+    .print {
+      display: inherit;
+    }
+
+    .no-print,
+    button:not(.print),
+    nav {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: white;
+      color: black !important;
+    }
+
+    * {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+
+    @page {
+      size: A4;
+    }
+
+    .main-container {
+      gap: 0;
     }
   }
 </style>

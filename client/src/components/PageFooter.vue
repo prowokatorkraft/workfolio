@@ -85,4 +85,10 @@
       text-align: center;
     }
   }
+
+  @media print {
+    footer {
+      display: none !important;
+    }
+  }
 </style>

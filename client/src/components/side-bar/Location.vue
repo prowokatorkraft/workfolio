@@ -12,21 +12,23 @@
   <div class="location-block">
     <p class="user-location">
       <span>📍 {{ location.city }}, {{ location.country }}</span>
-      <span
-        class="tooltip-icon"
-        :data-tooltip="userStore.canBusinessTrip"
-        @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'businessTrip')"
-        @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'businessTrip')"
-      >
-        ✈️
-      </span>
-      <span
-        class="tooltip-icon"
-        :data-tooltip="userStore.canRelocate"
-        @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'relocate')"
-        @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'relocate')"
-      >
-        🏠
+      <span class="location-condition">
+        <span
+          class="tooltip-icon"
+          :data-tooltip="userStore.canBusinessTrip"
+          @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'businessTrip')"
+          @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'businessTrip')"
+        >
+          ✈️ {{ userStore.canBusinessTrip }}
+        </span>
+        <span
+          class="tooltip-icon"
+          :data-tooltip="userStore.canRelocate"
+          @mouseover="events.handleFocus(EventEnum.user_info_location_focus, 'relocate')"
+          @mouseleave="events.handleBlur(EventEnum.user_info_location_focus, 'relocate')"
+        >
+          🏠 {{ userStore.canRelocate }}
+        </span>
       </span>
     </p>
   </div>
@@ -41,6 +43,11 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+  }
+
+  .location-condition {
+    display: inline-flex;
+    flex-direction: column;
   }
 
   .tooltip-icon {

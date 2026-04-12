@@ -42,7 +42,7 @@
             <span class="project-company">{{ project.company }}</span>
           </div>
 
-          <p class="project-short-desc">
+          <p class="project-short-desc no-print">
             {{ project.shortDescription }}
           </p>
 
@@ -63,6 +63,9 @@
           </button>
 
           <div class="detailed-info" :class="{ expanded: project.isExpanded }">
+            <div class="detailed-description print">
+              {{ project.detailedDescription }}
+            </div>
             <div class="technologies-items">
               <span
                 v-for="tech in experienceStore.getTechnologyByIds(project.technologyIds).value"
@@ -77,12 +80,12 @@
                 {{ tech.name }}
               </span>
             </div>
-            <p class="detailed-description">
+            <p class="detailed-description no-print">
               {{ project.detailedDescription }}
             </p>
 
             <div class="achievements">
-              <span class="achievements-label">Достижения:</span>
+              <span class="achievements-label no-print">Достижения:</span>
               <div class="achievements-items">
                 <div
                   v-for="achievement in project.achievements"
@@ -154,7 +157,6 @@
   }
 
   .project-period-block {
-    min-width: 140px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -225,7 +227,6 @@
     margin-bottom: 12px;
   }
 
-  /* Точная копия skill-badge из Skills */
   .skill-badge {
     color: #2c3e50;
     padding: 2px 8px;
@@ -366,6 +367,59 @@
       width: max-content;
       margin-top: 5px;
       margin-left: 0;
+    }
+  }
+
+  @media print {
+    .projects-wrapper,
+    .project-content {
+      color: black !important;
+    }
+
+    .project-header {
+      flex-direction: initial;
+      gap: 10px;
+    }
+
+    .project-content {
+      padding: 0 15px;
+    }
+
+    .project-row {
+      padding-bottom: 15px;
+    }
+
+    .project-container {
+      gap: 0;
+    }
+
+    .project-period-block {
+      padding-top: 0;
+    }
+
+    .experience-header {
+      margin-top: 0;
+    }
+
+    .project-period-block,
+    .project-header,
+    .technologies-items,
+    .achievements,
+    .detailed-description {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .detailed-info {
+      max-height: max-content;
+      opacity: 1;
+      margin-top: 0;
+      padding-top: 0;
+    }
+    .detailed-info.expanded {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
     }
   }
 </style>

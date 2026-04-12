@@ -4,14 +4,27 @@
   import { useUserStore } from '../../stores/User.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
   import { useEventStore } from '../../stores/Event.ts';
+  import DownloadPDF from '../DownloadPDF.vue';
+  import { computed } from 'vue';
+
+  const props = defineProps<{
+    currentRoute: string;
+  }>();
 
   const user = useUserStore().user;
   const events = useEventStore();
+
+  const showCV = computed(() => props.currentRoute === 'Resume');
 </script>
 
 <template>
   <aside class="sidebar">
-    <div class="photo-container">
+    <div :class="showCV ? 'photo-container' : 'photo-container end'">
+      <DownloadPDF
+        v-show="showCV"
+        class="photo-cv"
+        @click="events.handleClick(EventEnum.resume_cv_pdf_download)"
+      />
       <div
         class="photo-placeholder"
         @mouseover="events.handleFocus(EventEnum.user_info_image_focus)"
@@ -28,7 +41,7 @@
       <p class="user-title">
         {{ user.position }}
       </p>
-      <p class="user-location">
+      <p class="user-comment">
         {{ user.comment }}
       </p>
       <Location />
@@ -46,7 +59,18 @@
 
   .photo-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+  }
+
+  .photo-container.end {
+    justify-content: end;
+  }
+
+  .photo-cv {
+    z-index: 50;
+    height: max-content;
+    align-self: center;
+    margin-bottom: -30px;
   }
 
   .photo-placeholder {
@@ -96,7 +120,7 @@
     margin-bottom: 10px;
   }
 
-  .user-location {
+  .user-comment {
     color: #666;
     font-size: 0.9rem;
   }
@@ -109,6 +133,11 @@
 
     .photo-container {
       justify-content: flex-end;
+      gap: 20px;
+    }
+
+    .photo-cv {
+      margin-bottom: 0;
     }
 
     .user-info {
@@ -123,6 +152,14 @@
       font-size: 2rem;
     }
 
+    .photo-container {
+      gap: 10px;
+    }
+
+    .photo-cv {
+      margin-top: -53px;
+    }
+
     .user-info {
       margin-top: -100px;
     }
@@ -133,8 +170,23 @@
       justify-content: center;
     }
 
+    .photo-cv {
+      align-self: flex-start;
+      margin-top: 0;
+      position: absolute;
+      left: 25px;
+    }
+
     .user-info {
       margin-top: -34px;
+    }
+  }
+
+  @media print {
+    .user-info {
+      margin-top: -250px;
+      max-width: 450px;
+      padding: 0 25px;
     }
   }
 </style>
