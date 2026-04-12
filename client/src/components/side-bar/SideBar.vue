@@ -170,6 +170,10 @@
       justify-content: center;
     }
 
+    .photo-container.end {
+      justify-content: center;
+    }
+
     .photo-cv {
       align-self: flex-start;
       margin-top: 0;
