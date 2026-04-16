@@ -13,6 +13,7 @@ export interface User {
     phoneInfo: string;
     mail: string;
     vk: string;
+    vkInfo: string;
     telegram: string;
     telegramInfo: string;
     max: string;

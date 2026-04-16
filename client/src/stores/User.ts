@@ -19,6 +19,7 @@ const initialUser: User = {
     phoneInfo: '+ 7 (987) 829-43-98',
     mail: 'prowokatorkraft@gmail.com',
     vk: 'https://vk.com/dt_1995',
+    vkInfo: 'dt_1995',
     telegram: 'https://t.me/DlTyurin',
     telegramInfo: '@DlTyurin',
     max: 'https://max.ru/u/f9LHodD0cOLECxnye6Mdye4x0OkCKhb-M-CIxZSr6mRi4WnrCTevvUDI8bA',

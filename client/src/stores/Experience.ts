@@ -32,17 +32,25 @@ const initialSkills: Technology[] = [
   { id: 29, name: 'ExtJS', level: 60, group: TechnologyGroup.frontend },
   { id: 30, name: 'Visual Basic', level: 30, group: TechnologyGroup.backend },
   { id: 31, name: 'Works', group: TechnologyGroup.none },
-  { id: 32, name: 'Microservices', group: TechnologyGroup.architecture },
-  { id: 33, name: 'Monolith', group: TechnologyGroup.architecture },
+  { id: 32, name: 'Микросервисы', group: TechnologyGroup.architecture },
+  { id: 33, name: 'Монолит', group: TechnologyGroup.architecture },
   { id: 34, name: '.NET Core', level: 80, group: TechnologyGroup.backend },
   { id: 35, name: 'Razor', level: 50, group: TechnologyGroup.backend },
-  { id: 36, name: 'Kafka', level: 0, group: TechnologyGroup.backend },
-  { id: 37, name: 'Redmine', group: TechnologyGroup.backend },
+  { id: 36, name: 'Kafka', group: TechnologyGroup.backend },
+  { id: 37, name: 'Redmine', group: TechnologyGroup.none },
   { id: 38, name: 'Nx', group: TechnologyGroup.frontend },
   { id: 39, name: 'Java', level: 45, group: TechnologyGroup.backend },
   { id: 40, name: 'Spring', level: 30, group: TechnologyGroup.backend },
   { id: 41, name: 'Hibernate', level: 30, group: TechnologyGroup.backend },
   { id: 42, name: 'JUnit', level: 45, group: TechnologyGroup.backend },
+  { id: 43, name: 'SVN', level: 70, group: TechnologyGroup.none },
+  { id: 44, name: 'AI DeepSeek', level: 60, group: TechnologyGroup.none },
+  { id: 45, name: 'Legacy Code', level: 50, group: TechnologyGroup.none },
+  { id: 46, name: 'CI/CD', group: TechnologyGroup.none },
+  { id: 47, name: 'Jenkins', group: TechnologyGroup.none },
+  { id: 48, name: 'Kubernetes', group: TechnologyGroup.none },
+  { id: 49, name: 'Scrum', group: TechnologyGroup.none },
+  { id: 50, name: 'Kanban', group: TechnologyGroup.none },
 ];
 
 const initialProjects: Project[] = [
@@ -54,9 +62,16 @@ const initialProjects: Project[] = [
     shortDescription:
       'Разработка и поддержка инструмента стоимостного инжиниринга инвестиционных проектов для строительства, реконструкции, капитального ремонта и диагностики объектов газовой отрасли, а также строительства скважин.',
     detailedDescription:
-      'В качестве бэкенд-разработчика участвовал в разработке кроссплатформенного микросервисного приложения, созданного на основе предыдущей версии программного обеспечения. Проект реализовывался в рамках импортозамещения, работа велась в составе одной из нескольких команд разработки.',
-    technologyIds: [27, 34, 25, 26, 11, 21, 20, 5, 3, 2, 38, 39, 40, 41, 42, 36, 14, 15, 31, 32],
-    achievements: ['Мигрировал данные из MSSQL в PSQL', 'Оптимизировал хранимые процедуры'],
+      'В качестве бэкенд-разработчика участвую в разработке кроссплатформенного микросервисного приложения, созданного на основе предыдущей версии программного обеспечения. Проект реализовывается в рамках импортозамещения, работа ведется в составе одной из нескольких команд разработки.',
+    technologyIds: [
+      27, 34, 25, 26, 11, 21, 20, 5, 3, 2, 38, 39, 40, 41, 42, 36, 14, 15, 31, 32, 46, 47, 48, 49,
+      50,
+    ],
+    achievements: [
+      'Мигрировал данные из MSSQL в PSQL',
+      'Оптимизировал хранимые процедуры',
+      'Проводил миграцию кодовой базы под новый стек',
+    ],
     isExpanded: false,
   },
   {
@@ -69,8 +84,12 @@ const initialProjects: Project[] = [
       'Разработка и поддержка инструмента стоимостного инжиниринга инвестиционных проектов для строительства, реконструкции, капитального ремонта и диагностики объектов газовой отрасли, а также строительства скважин.',
     detailedDescription:
       'Поддерживаю и развиваю монолитную систему, работая как с клиентской частью, так и с серверной логикой. Выполняю доработку интерфейсов, расчетных алгоритмов, механизмов выгрузки данных, оптимизирую запросы к базам данных. Участвую в командном взаимодействии, обеспечивая согласованность решений на всех этапах разработки.',
-    technologyIds: [27, 19, 25, 26, 12, 20, 21, 5, 4, 35, 28, 29, 30, 15, 37, 33],
-    achievements: ['Разрабатывал динамику в системе настроек админа'],
+    technologyIds: [27, 19, 25, 26, 12, 20, 21, 5, 4, 35, 28, 29, 30, 43, 37, 33, 45, 50],
+    achievements: [
+      'Разрабатывал динамику в системе настроек админа',
+      'Проводил рефакторинг легаси кода',
+      'Писал документацию API',
+    ],
     isExpanded: false,
   },
   {
@@ -82,7 +101,7 @@ const initialProjects: Project[] = [
     shortDescription: 'Разработка и поддержка страховой платформы',
     detailedDescription:
       'В роли фулстек‑разработчика обеспечиваю поддержку страховой платформы и конфигурирование её ядра под потребности заказчика в рамках команды численностью около 15 человек.',
-    technologyIds: [4, 21, 20, 18, 15, 19, 22, 23, 24],
+    technologyIds: [4, 21, 20, 18, 15, 19, 22, 23, 24, 49],
     achievements: [
       'Внедрил новый функционал',
       'Исправлял ошибки в отладчике, внес массовые исправления в базу данных',

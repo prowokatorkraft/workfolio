@@ -385,10 +385,6 @@
       padding: 0 15px;
     }
 
-    .project-row {
-      padding-bottom: 15px;
-    }
-
     .project-container {
       gap: 0;
     }
@@ -401,14 +397,18 @@
       margin-top: 0;
     }
 
-    .project-period-block,
+    .projects-container {
+      gap: 35px;
+    }
+
+    /*.project-period-block,
     .project-header,
     .technologies-items,
     .achievements,
     .detailed-description {
       break-inside: avoid;
       page-break-inside: avoid;
-    }
+    }*/
 
     .detailed-info {
       max-height: max-content;

@@ -22,7 +22,7 @@
 
   @media print {
     .main-layout {
-      gap: 5px;
+      gap: 10px;
     }
   }
 </style>

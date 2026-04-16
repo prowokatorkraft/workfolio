@@ -171,6 +171,7 @@ describe('useUserStore', () => {
           vk: 'https://vk.com/test',
           telegram: 'https://t.me/test',
           telegramInfo: '@test',
+          vkInfo: 'dt_1995',
         };
 
         store.updateContacts(contacts);
