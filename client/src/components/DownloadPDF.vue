@@ -2,6 +2,10 @@
   import { ref } from 'vue';
   import DownloadFile from './icons/DownloadFile.vue';
 
+  const emit = defineEmits<{
+    (e: 'closed'): void;
+  }>();
+
   const isPrinting = ref(false);
 
   const exportToPDF = async () => {
@@ -13,7 +17,7 @@
     document.title = 'Danil_Tyurin_CV';
     window.print();
     document.title = originalTitle;
-
+    emit('closed');
     setTimeout(() => {
       isPrinting.value = false;
     }, 1000);

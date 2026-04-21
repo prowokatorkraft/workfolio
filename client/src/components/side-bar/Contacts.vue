@@ -8,10 +8,12 @@
   import { EventEnum } from '../../types/Event-enum-type.ts';
   import { useEventStore } from '../../stores/Event.ts';
   import { ref } from 'vue';
+  import Toaster from '../Toaster.vue';
+  import type { ToastToggler } from '../../types/ToastToggler.ts';
 
-  const showToast = ref(false);
+  const toggleToaster = ref<ToastToggler>(() => {});
 
-  async function copyToClipboard(value: string) {
+  async function copyToClipboard(value: string, symbol: string, toastValue: string) {
     let success = true;
     try {
       await navigator.clipboard.writeText(value);
@@ -28,10 +30,7 @@
       }
     }
     if (success) {
-      showToast.value = true;
-      setTimeout(() => {
-        showToast.value = false;
-      }, 1000);
+      toggleToaster.value(toastValue, symbol, 1500);
     }
   }
 
@@ -53,7 +52,7 @@
       @click="
         () => {
           toHref(`tel:${contacts.phone}`);
-          copyToClipboard(contacts.phone);
+          copyToClipboard(contacts.phone, '✅', 'Номер скопирован!');
           events.handleClick(EventEnum.user_info_contact_click, 'phone');
         }
       "
@@ -79,7 +78,7 @@
       @click="
         () => {
           toHref('mailto:' + contacts.mail);
-          copyToClipboard(contacts.mail);
+          copyToClipboard(contacts.mail, '✅', 'Почта скопирована!');
           events.handleClick(EventEnum.user_info_contact_click, 'email');
         }
       "
@@ -110,9 +109,7 @@
       <span class="contact-name">Max</span>
     </a>
   </div>
-  <Transition name="toast">
-    <div v-if="showToast" class="toast-notification">✅ Скопировано!</div>
-  </Transition>
+  <Toaster @toggle="(value: ToastToggler) => (toggleToaster = value)" />
 </template>
 
 <style scoped>
@@ -172,37 +169,6 @@
   .contact-badge.max:hover {
     background: #1e58d0;
     color: white;
-  }
-
-  .toast-notification {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    z-index: 9999;
-    white-space: nowrap;
-    backdrop-filter: blur(10px);
-    pointer-events: none;
-  }
-
-  .toast-enter-active,
-  .toast-leave-active {
-    transition: all 0.3s ease;
-  }
-
-  .toast-enter-from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-
-  .toast-leave-to {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
   }
 
   @media (max-width: 690px) {

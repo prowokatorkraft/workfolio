@@ -5,7 +5,9 @@
   import { EventEnum } from '../../types/Event-enum-type.ts';
   import { useEventStore } from '../../stores/Event.ts';
   import DownloadPDF from '../DownloadPDF.vue';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
+  import type { ToastToggler } from '../../types/ToastToggler.ts';
+  import Toaster from '../Toaster.vue';
 
   const props = defineProps<{
     currentRoute: string;
@@ -15,6 +17,7 @@
   const events = useEventStore();
 
   const showCV = computed(() => props.currentRoute === 'Resume');
+  const toggleToaster = ref<ToastToggler>(() => {});
 </script>
 
 <template>
@@ -24,6 +27,13 @@
         v-show="showCV"
         class="photo-cv"
         @click="events.handleClick(EventEnum.resume_cv_pdf_download)"
+        @closed="
+          toggleToaster(
+            'Если файл не выгружается или поврежден, попробуйте другой браузер',
+            'ⓘ',
+            5000
+          )
+        "
       />
       <div
         class="photo-placeholder"
@@ -48,6 +58,7 @@
       <Contacts />
     </div>
   </aside>
+  <Toaster @toggle="(value: ToastToggler) => (toggleToaster = value)" />
 </template>
 
 <style scoped>
