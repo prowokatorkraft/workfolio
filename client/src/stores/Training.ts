@@ -7,6 +7,14 @@ import { clone } from '../lib/tools.ts';
 
 const initialFormalEducation: FormalEducation[] = [
   {
+    id: 3,
+    period: '2025 — 2026',
+    status: 'Дополнительное профессиональное',
+    degree: 'Повышение квалификации № 773401364875',
+    institution: 'ООО Otus онлайн-образование',
+    description: 'JavaScript Developer. Professional',
+  },
+  {
     id: 1,
     period: '2015 — 2020',
     status: 'Высшее техническое',
@@ -28,11 +36,13 @@ const initialFormalEducation: FormalEducation[] = [
 const initialCertificates: Certificate[] = [
   {
     id: 1,
-    icon: 'placeholder.svg',
+    icon: 'certificate_javascript.png',
     name: 'JavaScript Developer. Professional',
     issuer: 'Otus',
     date: '2026',
-    hours: 49,
+    hours: 130,
+    credentialId: '2680-373607',
+    credentialLink: 'https://otus.ru/certificate/979a7457994447f6a0093b7a7c951c8a/',
     skills: [
       'TypeScript',
       'SPA',
@@ -62,6 +72,7 @@ const initialCertificates: Certificate[] = [
     courseLink: 'https://otus.ru/lessons/javascript-professional/',
     repo: 'https://github.com/prowokatorkraft/Otus_javascript_professional',
     petProjectId: 1,
+    upkId: 3
   },
   {
     id: 2,

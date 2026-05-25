@@ -8,8 +8,9 @@
 <template>
   <div class="education-header">
     <h3 class="education-title">
-      🎓 Образование
+      <span>🎓 Образование</span>
       <span class="education-label-right-block">
+        <span class="education-label-right">🏛️ УПК JavaScript Professional</span>
         <span class="education-label-right">🏛️ СГАУ, Агроинженерия</span>
         <span class="education-label-right">🇬🇧 Английский A2</span>
       </span>
@@ -73,6 +74,12 @@
     text-decoration: none;
   }
 
+  @media (max-width: 1400px) {
+    .education-title {
+      display: flex;
+      flex-direction: column;
+    }
+  }
   @media (min-width: 1025px) and (max-width: 1190px) {
     .education-label-right-block {
       display: block;

@@ -19,6 +19,7 @@
     <div class="education-container">
       <div
         v-for="edu in educationStore.formalEducation"
+        :id="'education' + edu.id"
         :key="edu.id"
         class="education-row"
         @mouseover="events.handleFocus(EventEnum.training_education_block_focus, edu.id)"

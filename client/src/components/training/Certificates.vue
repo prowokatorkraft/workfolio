@@ -93,6 +93,14 @@
               <LinkIcon />
               Курсовая работа
             </RouteLink>
+            <RouteLink
+              v-if="cert.upkId"
+              :to="`/training#education` + cert.upkId"
+              @click="events.handleClick(EventEnum.training_certificates_project_link, cert.id)"
+            >
+              <LinkIcon />
+              Удостоверение повышения квалификации
+            </RouteLink>
           </div>
           <div class="certificate-skills">
             <span v-for="skill in cert.skills" :key="skill" class="skill-badge">

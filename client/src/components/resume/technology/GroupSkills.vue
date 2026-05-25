@@ -45,7 +45,7 @@
 
   .skills-label {
     text-align: start;
-    min-width: 80px;
+    min-width: 93px;
     font-weight: 600;
     color: #2c3e50;
   }

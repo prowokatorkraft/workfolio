@@ -11,4 +11,5 @@ export interface Certificate {
   courseLink?: string;
   repo?: string;
   petProjectId?: number;
+  upkId?: number;
 }

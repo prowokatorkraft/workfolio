@@ -24,14 +24,12 @@
     </div>
 
     <div class="technology-minimal">
-      <GroupSkills label="Backend" :skills="getTechnologyByGroup(TechnologyGroup.backend)" />
-      <GroupSkills label="Frontend" :skills="getTechnologyByGroup(TechnologyGroup.frontend)" />
-      <GroupSkills label="Data" :skills="getTechnologyByGroup(TechnologyGroup.data)" />
-      <GroupSkills label="Tools" :skills="getTechnologyByGroup(TechnologyGroup.none)" />
-      <GroupSkills
-        label="Architecture"
-        :skills="getTechnologyByGroup(TechnologyGroup.architecture)"
-      />
+      <GroupSkills label="Языки" :skills="getTechnologyByGroup(TechnologyGroup.language)" />
+      <GroupSkills label="Фронтенд" :skills="getTechnologyByGroup(TechnologyGroup.frontend)" />
+      <GroupSkills label="Бекенд" :skills="getTechnologyByGroup(TechnologyGroup.backend)" />
+      <GroupSkills label="Данные" :skills="getTechnologyByGroup(TechnologyGroup.data)" />
+      <GroupSkills label="Инструменты" :skills="getTechnologyByGroup(TechnologyGroup.tools)" />
+      <GroupSkills label="Практики" :skills="getTechnologyByGroup(TechnologyGroup.methodology)" />
     </div>
   </div>
 </template>
