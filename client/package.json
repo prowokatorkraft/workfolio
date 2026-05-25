@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build:test": "npm run test:run && vue-tsc -b && vite build",
-    "build": "npm && vue-tsc -b && vite build",
+    "build": "npm vue-tsc -b && vite build",
     "build:only": "vue-tsc -b && vite build",
     "build:lint": "npm run lint:check && npm run build",
     "build:strict": "npm run strict && npm run build",
