@@ -75,7 +75,7 @@ const initialCertificates: Certificate[] = [
     courseLink: 'https://otus.ru/lessons/javascript-professional/',
     repo: 'https://github.com/prowokatorkraft/Otus_javascript_professional',
     petProjectId: 1,
-    upkId: 3
+    upkId: 3,
   },
   {
     id: 2,

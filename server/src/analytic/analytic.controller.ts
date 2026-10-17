@@ -1,13 +1,13 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AnalyticService } from './analytic.service';
-import { DevelopmentOnlyGuard } from '../../shared/guards/development-only.guard';
 import { UserGroup } from '../../shared/entities/user-group';
 import { UserAnalyticRequest } from '../../shared/entities/user-analytic-request.dto.';
 import { EventAnalyticRequest } from '../../shared/entities/event-analytic-request.dto.';
 import { EventGroup } from '../../shared/entities/event-group';
+import { AdminGuard } from '../../shared/guards/admin.guard';
 
 @Controller('analytic')
-@UseGuards(DevelopmentOnlyGuard)
+@UseGuards(AdminGuard)
 export class AnalyticController {
   constructor(private readonly loggerService: AnalyticService) {}
 

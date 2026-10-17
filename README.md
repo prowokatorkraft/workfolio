@@ -86,8 +86,7 @@ npm install
 # 4. Настройка окружения
 cat > client/.env << EOF
 VITE_API_URL=https://workfolio.com/
-VITE_LOG=true
-VITE_PRODUCTION=false
+VITE_ADMIN_KEY=1234J
 EOF
 
 cat > server/.env << EOF
@@ -98,10 +97,11 @@ DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_SSL=false
-NODE_ENV=development
+ADMIN_KEY=1234J
 EOF
 
-Создать схему event в базе данных
+Создать схему event в базе данных.
+Для включение админ режима, необходимо завести переменную adminKey в локальном хранилище браузера совпадающую с VITE_ADMIN_KEY и ADMIN_KEY
 
 # 5. Сборка и миграция
 cd ./server

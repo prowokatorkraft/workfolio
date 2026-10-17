@@ -235,20 +235,6 @@ describe('useEventStore', () => {
       });
     });
 
-    it('не должен отправлять POST запрос при canLog = false', async () => {
-      vi.stubEnv('VITE_LOG', 'false');
-
-      // Пересоздаём store с новым значением
-      setActivePinia(createPinia());
-      const newStore = useEventStore();
-
-      await newStore.addEvent(eventId, description);
-
-      expect(mockEventsApi.post).not.toHaveBeenCalled();
-
-      vi.stubEnv('VITE_LOG', 'true');
-    });
-
     it('должен обрабатывать undefined description', async () => {
       mockEventsApi.post.mockResolvedValue(undefined);
 

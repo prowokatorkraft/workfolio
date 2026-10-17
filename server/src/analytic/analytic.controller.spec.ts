@@ -6,8 +6,8 @@ import { UserAnalyticRequest } from '../../shared/entities/user-analytic-request
 import { EventAnalyticRequest } from '../../shared/entities/event-analytic-request.dto.';
 import { UserGroup } from '../../shared/entities/user-group';
 import { EventGroup } from '../../shared/entities/event-group';
-import { DevelopmentOnlyGuard } from '../../shared/guards/development-only.guard';
 import { ConfigService } from '@nestjs/config';
+import { AdminGuard } from '../../shared/guards/admin.guard';
 
 describe('AnalyticController', () => {
   let controller: AnalyticController;
@@ -74,7 +74,7 @@ describe('AnalyticController', () => {
           }
         },
         {
-          provide: DevelopmentOnlyGuard,
+          provide: AdminGuard,
           useValue: {
             canActivate: jest.fn().mockReturnValue(true)
           }

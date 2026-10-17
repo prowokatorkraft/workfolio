@@ -3,9 +3,10 @@ import type { EventEnumType } from '../types/Event-enum-type.ts';
 import { useTimeBreaker } from '../composables/useTimeBreaker.ts';
 import { useApi } from '../composables/useApi.ts';
 import { defineStore } from 'pinia';
+import { useStorage } from '../composables/useStorage.ts';
 
 export const useEventStore = defineStore('event', () => {
-  const canLog = import.meta.env.VITE_LOG === 'true';
+  const isAdmin = useStorage('adminKey', '').value === import.meta.env.VITE_ADMIN_KEY;
   const events = useApi<Event[]>([]);
   const { setBreak, getBreak } = useTimeBreaker();
 
@@ -54,7 +55,7 @@ export const useEventStore = defineStore('event', () => {
   };
 
   const addEvent = async (eventId: EventEnumType, description?: string | number) => {
-    if (!canLog) {
+    if (isAdmin) {
       return;
     }
     events.post('event', {

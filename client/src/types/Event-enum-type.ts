@@ -56,6 +56,7 @@ export function getEventIcon(eventId: number) {
     4103: '📦',
     4104: '🎮',
     5001: '🎓',
+    5002: '🖼️',
   };
   return icons[eventId] || '📋';
 }

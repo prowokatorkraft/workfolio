@@ -1,9 +1,11 @@
 <script setup lang="ts">
+  import { useStorage } from '../composables/useStorage.ts';
+
   defineProps<{
     currentRoute: string;
   }>();
 
-  const isProduction = import.meta.env.VITE_PRODUCTION === 'true';
+  const isAdmin = useStorage('adminKey', '').value === import.meta.env.VITE_ADMIN_KEY;
 </script>
 
 <template>
@@ -23,7 +25,7 @@
         Обучение
       </RouterLink>
       <RouterLink
-        v-show="!isProduction"
+        v-show="isAdmin"
         to="/analytics"
         :class="currentRoute === 'Analytics' ? 'nav-link nav-link-current' : 'nav-link'"
       >
