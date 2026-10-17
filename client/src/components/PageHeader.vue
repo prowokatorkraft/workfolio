@@ -67,6 +67,13 @@
     border-radius: 6px;
     transition: all 0.3s ease;
     position: relative;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Helvetica Neue,
+      sans-serif;
   }
 
   .nav-link:hover {

@@ -28,6 +28,7 @@ export const EventEnum = {
   training_projects_demo_click: 4104,
 
   training_education_block_focus: 5001,
+  training_education_image_click: 5002,
 } as const;
 
 export type EventEnumType = (typeof EventEnum)[keyof typeof EventEnum];

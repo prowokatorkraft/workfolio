@@ -6,4 +6,5 @@ export interface FormalEducation {
   institution: string;
   description: string;
   specialization?: string;
+  icon?: string;
 }

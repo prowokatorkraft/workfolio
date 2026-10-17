@@ -13,6 +13,7 @@ const initialFormalEducation: FormalEducation[] = [
     degree: 'Повышение квалификации № 773401364875',
     institution: 'ООО Otus онлайн-образование',
     description: 'JavaScript Developer. Professional',
+    icon: '',
   },
   {
     id: 1,
@@ -21,6 +22,7 @@ const initialFormalEducation: FormalEducation[] = [
     degree: 'Бакалавр по агроинженерным специальностям',
     institution: 'СГАУ имени Н.И. Вавилова',
     description: 'Фундаментальная подготовка в области электрооборудования и электротехнологий.',
+    icon: '',
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ const initialFormalEducation: FormalEducation[] = [
     institution: 'Профессиональное училище',
     description: 'Начальная подготовка в области информационных технологий.',
     specialization: 'Оператор электронно-вычислительных и вычислительных машин 3 разряда',
+    icon: '',
   },
 ];
 
@@ -157,7 +160,7 @@ const initialPetProjects: PetProject[] = [
       'Логирование событий и их аналитика',
     ],
     repo: 'https://github.com/prowokatorkraft/workfolio',
-    demo: 'https://workfolio-fe.vercel.app/',
+    //demo: 'https://workfolio-fe.vercel.app/',
   },
   {
     id: 2,

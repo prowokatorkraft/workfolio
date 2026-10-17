@@ -236,7 +236,7 @@
     transition: all 0.2s ease;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    font-weight: 500;
+    font-weight: 400;
     border-color: #e0e0e0;
     background: white;
   }

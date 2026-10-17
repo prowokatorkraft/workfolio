@@ -2,9 +2,20 @@
   import { useTrainingStore } from '../../stores/Training.ts';
   import { EventEnum } from '../../types/Event-enum-type.ts';
   import { useEventStore } from '../../stores/Event.ts';
+  import { ref } from 'vue';
+  import ImageModal from '../ImageModal.vue';
 
   const educationStore = useTrainingStore();
+  const openImage = ref<(imageUrl: string) => void>(() => {});
   const events = useEventStore();
+
+  const handleOpenImage = (value: (imageUrl: string) => void) => {
+    openImage.value = value;
+  };
+  const handleImageError = (event: Event) => {
+    const img = event.target as HTMLImageElement;
+    img.src = '/certificates/placeholder.svg';
+  };
 </script>
 
 <template>
@@ -30,26 +41,42 @@
           <span class="education-status">{{ edu.status }}</span>
         </div>
 
-        <div class="education-content">
-          <div class="education-header">
-            <span class="education-degree">{{ edu.degree }}</span>
-            <span class="education-institution">{{ edu.institution }}</span>
-          </div>
+        <div class="education-subcontainer">
+          <img
+            :src="`/education/` + edu.icon"
+            :alt="edu.description"
+            class="education-icon"
+            @error="handleImageError"
+            @click="
+              () => {
+                openImage(`/education/` + edu.icon);
+                events.handleClick(EventEnum.training_education_image_click, edu.id);
+              }
+            "
+          />
 
-          <p class="education-description">
-            {{ edu.description }}
-          </p>
+          <div>
+            <div class="education-header">
+              <span class="education-degree">{{ edu.degree }}</span>
+              <span class="education-institution">{{ edu.institution }}</span>
+            </div>
 
-          <div v-if="edu.specialization" class="education-details">
-            <div class="detail-item">
-              <span class="detail-label">Специализация:</span>
-              <span class="detail-value">{{ edu.specialization }}</span>
+            <p class="education-description">
+              {{ edu.description }}
+            </p>
+
+            <div v-if="edu.specialization" class="education-details">
+              <div class="detail-item">
+                <span class="detail-label">Специализация:</span>
+                <span class="detail-value">{{ edu.specialization }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <ImageModal @open-handler="handleOpenImage" />
 </template>
 
 <style scoped>
@@ -116,18 +143,43 @@
     width: fit-content;
   }
 
-  .education-content {
+  .education-subcontainer {
     flex: 1;
     background: #f8f9fa;
     border-radius: 12px;
     padding: 20px;
     transition: all 0.2s ease;
     width: -webkit-fill-available;
+    flex-direction: row;
+    display: flex;
+    gap: 15px;
   }
 
-  .education-content:hover {
+  .education-subcontainer:hover {
     transform: translateX(5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .education-icon {
+    min-width: 80px;
+    max-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    flex-shrink: 0;
+    height: fit-content;
+    max-height: 135px;
+    object-fit: cover;
+  }
+
+  .education-icon:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 
   .education-header {
@@ -195,13 +247,19 @@
       flex-direction: row;
     }
 
-    .education-content:hover {
+    .education-subcountainer:hover {
       transform: none;
     }
 
     .education-header {
       flex-direction: column;
       gap: 4px;
+    }
+  }
+
+  @media (max-width: 590px) {
+    .education-subcontainer {
+      flex-direction: column;
     }
   }
 
