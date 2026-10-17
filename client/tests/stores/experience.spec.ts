@@ -48,7 +48,7 @@ describe('useExperienceStore', () => {
     it('должен инициализироваться с начальными технологиями', () => {
       expect(store.technology[0]).toMatchObject({
         id: 1,
-        name: 'Vue.js',
+        name: 'Vue3',
         level: 50,
         group: TechnologyGroup.frontend,
       });
@@ -74,7 +74,7 @@ describe('useExperienceStore', () => {
     it('должен возвращать технологии для frontend группы', () => {
       const frontendTechs = store.getTechnologyByGroup(TechnologyGroup.frontend);
       expect(frontendTechs.value.length).toBeGreaterThan(0);
-      expect(frontendTechs.value.map((t) => t.name)).toContain('Vue.js');
+      expect(frontendTechs.value.map((t) => t.name)).toContain('Vue3');
       expect(frontendTechs.value.map((t) => t.name)).toContain('React');
     });
 
@@ -82,7 +82,7 @@ describe('useExperienceStore', () => {
       const backendTechs = store.getTechnologyByGroup(TechnologyGroup.backend);
       expect(backendTechs.value.length).toBeGreaterThan(0);
       expect(backendTechs.value.map((t) => t.name)).toContain('Node.js');
-      expect(backendTechs.value.map((t) => t.name)).toContain('C#');
+      expect(backendTechs.value.map((t) => t.name)).toContain('.NET Core');
     });
 
     it('должен возвращать технологии для data группы', () => {
@@ -97,7 +97,7 @@ describe('useExperienceStore', () => {
     it('должен возвращать технологии по списку ID', () => {
       const techs = store.getTechnologyByIds([1, 2, 3]);
       expect(techs.value).toHaveLength(3);
-      expect(techs.value[0].name).toBe('Vue.js');
+      expect(techs.value[0].name).toBe('Vue3');
       expect(techs.value[1].name).toBe('React');
       expect(techs.value[2].name).toBe('TypeScript');
     });
@@ -105,7 +105,7 @@ describe('useExperienceStore', () => {
     it('должен игнорировать несуществующие ID', () => {
       const techs = store.getTechnologyByIds([1, 999, 2]);
       expect(techs.value).toHaveLength(2);
-      expect(techs.value[0].name).toBe('Vue.js');
+      expect(techs.value[0].name).toBe('Vue3');
       expect(techs.value[1].name).toBe('React');
     });
 

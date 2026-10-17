@@ -14,7 +14,7 @@ describe('useTrainingStore', () => {
     it('должен инициализироваться с начальными значениями', () => {
       expect(store.totalCourses).toBe(24);
       expect(store.githubUrl).toBe('https://github.com/prowokatorkraft');
-      expect(store.formalEducation).toHaveLength(2);
+      expect(store.formalEducation).toHaveLength(3);
       expect(store.certificates).toHaveLength(3);
       expect(store.petProjects).toHaveLength(3);
     });
@@ -22,11 +22,11 @@ describe('useTrainingStore', () => {
     it('должен правильно инициализировать формальное образование', () => {
       const edu = store.formalEducation[0];
       expect(edu).toMatchObject({
-        id: 1,
-        period: '2015 — 2020',
-        status: 'Высшее техническое',
-        degree: 'Бакалавр по агроинженерным специальностям',
-        institution: 'СГАУ имени Н.И. Вавилова',
+        degree: 'Повышение квалификации № 773401364875',
+        id: 3,
+        institution: 'ООО Otus онлайн-образование',
+        period: '2025 — 2026',
+        status: 'Дополнительное профессиональное',
       });
     });
 
@@ -37,7 +37,7 @@ describe('useTrainingStore', () => {
         name: 'JavaScript Developer. Professional',
         issuer: 'Otus',
         date: '2026',
-        hours: 49,
+        hours: 130,
       });
       expect(cert.skills).toContain('TypeScript');
       expect(cert.skills).toContain('Vue3');
@@ -99,8 +99,8 @@ describe('useTrainingStore', () => {
 
     describe('totalLearningHours', () => {
       it('должен суммировать часы всех сертификатов', () => {
-        // 49 + 126 + 0 = 175
-        expect(store.totalLearningHours).toBe(175);
+        // 130 + 126 + 0 = 256
+        expect(store.totalLearningHours).toBe(256);
       });
 
       it('должен обновляться при добавлении сертификата с часами', () => {
@@ -114,7 +114,7 @@ describe('useTrainingStore', () => {
           skills: ['Test'],
         };
         store.addCertificate(newCert);
-        expect(store.totalLearningHours).toBe(205);
+        expect(store.totalLearningHours).toBe(286);
       });
     });
 
@@ -360,7 +360,7 @@ describe('useTrainingStore', () => {
 
   describe('CRUD операции с формальным образованием', () => {
     const newEducation = {
-      id: 3,
+      id: 4,
       period: '2020 — 2024',
       status: 'Высшее',
       degree: 'Магистр',
@@ -373,7 +373,7 @@ describe('useTrainingStore', () => {
       const length = store.formalEducation.length;
       store.addFormalEducation(newEducation);
       expect(store.formalEducation?.length).toBeGreaterThan(length);
-      expect(store.formalEducation.find((e) => e.id === 3)).toEqual(newEducation);
+      expect(store.formalEducation.find((e) => e.id === newEducation.id)).toEqual(newEducation);
     });
 
     it('должен удалять образование', () => {
@@ -430,14 +430,14 @@ describe('useTrainingStore', () => {
       expect(store.githubUrl).not.toBe('https://github.com/prowokatorkraft');
       expect(store.certificates).toHaveLength(4);
       expect(store.petProjects).toHaveLength(4);
-      expect(store.formalEducation).toHaveLength(3);
+      expect(store.formalEducation).toHaveLength(4);
 
       store.resetToInitial();
 
       expect(store.githubUrl).toBe('https://github.com/username');
       expect(store.certificates).toHaveLength(3);
       expect(store.petProjects).toHaveLength(3);
-      expect(store.formalEducation).toHaveLength(2);
+      expect(store.formalEducation).toHaveLength(3);
       expect(store.totalCourses).toBe(24);
     });
 
@@ -466,7 +466,7 @@ describe('useTrainingStore', () => {
     it('должен корректно обрабатывать сертификаты без часов', () => {
       const certWithoutHours = store.certificates.find((c) => c.hours === 0);
       expect(certWithoutHours).toBeDefined();
-      expect(store.totalLearningHours).toBe(175);
+      expect(store.totalLearningHours).toBe(256);
     });
 
     it('должен корректно группировать проекты при добавлении в новый год', () => {
