@@ -10,6 +10,8 @@
   import { ref } from 'vue';
   import Toaster from '../Toaster.vue';
   import type { ToastToggler } from '../../types/ToastToggler.ts';
+  import SiteIcon from '../icons/SiteIcon.vue';
+  import MessageIcon from '../icons/MessageIcon.vue';
 
   const toggleToaster = ref<ToastToggler>(() => {});
 
@@ -42,10 +44,17 @@
 
   const contacts = useUserStore().user.contacts;
   const events = useEventStore();
+
+  const address = window.location.origin;
 </script>
 
 <template>
   <div class="contacts-row">
+    <a :href="address" target="_blank" rel="noopener noreferrer" class="contact-badge site">
+      <SiteIcon class="icon" />
+      <span class="contact-name">Подробнее на {{ address }}</span>
+    </a>
+
     <a
       href="#"
       class="contact-badge phone"
@@ -107,6 +116,11 @@
     >
       <MaxIcon class="icon" />
       <span class="contact-name">Max</span>
+    </a>
+
+    <a class="contact-badge message" style="cursor: pointer">
+      <MessageIcon class="icon" />
+      <span class="contact-name">Оставить сообщение</span>
     </a>
   </div>
   <Toaster @toggle="(value: ToastToggler) => (toggleToaster = value)" />
@@ -171,6 +185,15 @@
     color: white;
   }
 
+  .contact-badge.site {
+    display: none;
+  }
+
+  .contact-badge.message:hover {
+    background: #42b983;
+    color: white;
+  }
+
   @media (max-width: 690px) {
     .contact-name {
       display: none;
@@ -181,6 +204,16 @@
     .contact-badge {
       width: fit-content;
       justify-content: center;
+    }
+  }
+
+  @media print {
+    .contact-badge.site {
+      display: flex;
+    }
+
+    .contact-badge.message {
+      display: none;
     }
   }
 </style>

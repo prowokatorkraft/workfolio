@@ -225,6 +225,7 @@
     margin-bottom: 15px;
     flex-flow: row;
     display: flex;
+    flex-wrap: wrap;
   }
 
   .certificate-skills {

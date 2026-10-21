@@ -200,8 +200,13 @@
   @media print {
     .user-info {
       margin-top: -250px;
-      max-width: 450px;
+      max-width: 510px;
       padding: 0 25px;
+    }
+
+    .user-location,
+    .user-comment {
+      max-width: 450px;
     }
   }
 </style>
