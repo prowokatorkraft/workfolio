@@ -6,7 +6,7 @@ import { EventService } from '../event/event.service';
 import { UserGroup } from '../../shared/entities/user-group';
 import { Event } from '../../shared/entities/event';
 import { EventGroup } from '../../shared/entities/event-group';
-import { getEventKey } from '../../shared/entities/event-enum-type';
+import { EventEnum, getEventKey } from '../../shared/entities/event-enum-type';
 import { RawEventResult } from '../../shared/entities/raw-event-result';
 
 @Injectable()
@@ -85,13 +85,15 @@ export class AnalyticService {
       .addOrderBy('e.event_id', 'ASC')
       .getRawMany<RawEventResult>();
 
-    return response.map((r) => {
-      const result = new EventGroup();
-      result.id = r.event_id;
-      result.name = getEventKey(r.event_id) ?? '';
-      result.description = r.description;
-      result.count = r.count;
-      return result;
-    });
+    return response
+      .filter((r) => r.event_id !== EventEnum.user_info_message_send)
+      .map((r) => {
+        const result = new EventGroup();
+        result.id = r.event_id;
+        result.name = getEventKey(r.event_id) ?? '';
+        result.description = r.description;
+        result.count = r.count;
+        return result;
+      });
   }
 }

@@ -12,8 +12,10 @@
   import type { ToastToggler } from '../../types/ToastToggler.ts';
   import SiteIcon from '../icons/SiteIcon.vue';
   import MessageIcon from '../icons/MessageIcon.vue';
+  import MessageModal from '../MessageModal.vue';
 
   const toggleToaster = ref<ToastToggler>(() => {});
+  const isMessageModalOpen = ref(false);
 
   async function copyToClipboard(value: string, symbol: string, toastValue: string) {
     let success = true;
@@ -118,12 +120,17 @@
       <span class="contact-name">Max</span>
     </a>
 
-    <a class="contact-badge message" style="cursor: pointer">
+    <a class="contact-badge message" style="cursor: pointer" @click="isMessageModalOpen = true">
       <MessageIcon class="icon" />
       <span class="contact-name">Оставить сообщение</span>
     </a>
   </div>
   <Toaster @toggle="(value: ToastToggler) => (toggleToaster = value)" />
+  <message-modal
+    :is-open="isMessageModalOpen"
+    @close="isMessageModalOpen = false"
+    @submit="(value: string) => events.handleClick(EventEnum.user_info_message_send, value)"
+  />
 </template>
 
 <style scoped>

@@ -5,7 +5,8 @@ export const EventEnum = {
   user_info_image_focus: 2001,
   user_info_contact_focus: 2101,
   user_info_contact_click: 2102,
-  user_info_location: 2201,
+  user_info_message_send: 2103,
+  user_info_location_focus: 2201,
 
   resume_technology_focus: 3001,
   resume_projects_block_focus: 3101,
