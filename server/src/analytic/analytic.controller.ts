@@ -3,7 +3,9 @@ import { AnalyticService } from './analytic.service';
 import { UserGroup } from '../../shared/entities/user-group';
 import { UserAnalyticRequest } from '../../shared/entities/user-analytic-request.dto.';
 import { EventAnalyticRequest } from '../../shared/entities/event-analytic-request.dto.';
+import { MessageAnalyticRequest } from '../../shared/entities/message-analytic-request.dto.';
 import { EventGroup } from '../../shared/entities/event-group';
+import { Messages } from '../../shared/entities/messages';
 import { AdminGuard } from '../../shared/guards/admin.guard';
 
 @Controller('analytic')
@@ -26,5 +28,15 @@ export class AnalyticController {
   @Get('event')
   async getAnalyticEvents(@Query() request: EventAnalyticRequest): Promise<EventGroup[]> {
     return await this.loggerService.getEvents(request.dateFrom, request.dateTo);
+  }
+
+  @Get('message')
+  async getAnalyticMessages(@Query() request: MessageAnalyticRequest): Promise<Messages> {
+    return await this.loggerService.getMessages(
+      request.dateFrom,
+      request.dateTo,
+      request.pageSize,
+      request.page
+    );
   }
 }

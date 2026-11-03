@@ -2,6 +2,7 @@
   import UserGroups from '../components/analytics/UserGroups.vue';
   import DateFilter from '../components/analytics/DateFilter.vue';
   import EventGroups from '../components/analytics/EventGroups.vue';
+  import MessageEvents from '../components/analytics/MessageEvents.vue';
 </script>
 
 <template>
@@ -9,6 +10,7 @@
     <DateFilter />
     <UserGroups />
     <EventGroups />
+    <MessageEvents />
   </main>
 </template>
 

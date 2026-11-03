@@ -6,6 +6,8 @@ import { UserAnalyticRequest } from '../../shared/entities/user-analytic-request
 import { EventAnalyticRequest } from '../../shared/entities/event-analytic-request.dto.';
 import { UserGroup } from '../../shared/entities/user-group';
 import { EventGroup } from '../../shared/entities/event-group';
+import { MessageAnalyticRequest } from '../../shared/entities/message-analytic-request.dto.';
+import { Messages } from '../../shared/entities/messages';
 import { ConfigService } from '@nestjs/config';
 import { AdminGuard } from '../../shared/guards/admin.guard';
 
@@ -70,7 +72,8 @@ describe('AnalyticController', () => {
           provide: AnalyticService,
           useValue: {
             getUsers: jest.fn(),
-            getEvents: jest.fn()
+            getEvents: jest.fn(),
+            getMessages: jest.fn()
           }
         },
         {
@@ -389,6 +392,64 @@ describe('AnalyticController', () => {
       const result = await controller.getAnalyticEvents(request);
 
       expect(result[0].description).toBeUndefined();
+    });
+  });
+
+  describe('getAnalyticMessages', () => {
+    const mockMessages: Messages = {
+      messageCount: 2,
+      messages: [
+        {
+          id: 10,
+          userId: 'user1',
+          eventId: 2103,
+          eventName: 'user_info_message_send',
+          description: 'Привет! Хочу обсудить проект',
+          createdAt: new Date('2024-01-03T12:00:00Z')
+        }
+      ]
+    };
+
+    it('должен пробрасывать параметры в сервис сообщений', async () => {
+      const request: MessageAnalyticRequest = {
+        dateFrom: '2024-01-01',
+        dateTo: '2024-12-31',
+        pageSize: 5,
+        page: 2
+      };
+
+      jest.spyOn(analyticService, 'getMessages').mockResolvedValue(mockMessages);
+
+      const result = await controller.getAnalyticMessages(request);
+
+      expect(analyticService.getMessages).toHaveBeenCalledWith(
+        request.dateFrom,
+        request.dateTo,
+        request.pageSize,
+        request.page
+      );
+      expect(result).toEqual(mockMessages);
+      expect(result.messageCount).toBe(2);
+    });
+
+    it('должен возвращать пустой список сообщений', async () => {
+      jest.spyOn(analyticService, 'getMessages').mockResolvedValue({
+        messageCount: 0,
+        messages: []
+      });
+
+      const result = await controller.getAnalyticMessages({});
+
+      expect(result).toEqual({ messageCount: 0, messages: [] });
+    });
+
+    it('должен корректно обрабатывать ошибку сервиса для сообщений', async () => {
+      const error = new Error('Не удалось получить сообщения');
+      jest.spyOn(analyticService, 'getMessages').mockRejectedValue(error);
+
+      await expect(controller.getAnalyticMessages({})).rejects.toThrow(
+        'Не удалось получить сообщения'
+      );
     });
   });
 

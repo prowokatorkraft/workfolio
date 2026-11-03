@@ -29,19 +29,27 @@ describe('useAnalyticsStore', () => {
   let store: ReturnType<typeof useAnalyticsStore>;
   let mockUserGroupsApi: ReturnType<typeof createMockApiResponse>;
   let mockEventGroupsApi: ReturnType<typeof createMockApiResponse>;
+  let mockMessagesApi: ReturnType<typeof createMockApiResponse>;
 
   beforeEach(() => {
     mockUserGroupsApi = createMockApiResponse();
     mockEventGroupsApi = createMockApiResponse();
+    mockMessagesApi = createMockApiResponse();
 
     mockUserGroupsApi.data.value = { eventCount: 0, groupCount: 0, groups: [] };
     mockEventGroupsApi.data.value = [];
+    mockMessagesApi.data.value = { messageCount: 0, messages: [] };
 
     type MockFunction = ReturnType<typeof vi.fn>;
     const mockedUseApi = useApi as unknown as MockFunction;
     mockedUseApi.mockImplementation((defaultValue: unknown) => {
-      if (defaultValue && typeof defaultValue === 'object' && 'groups' in defaultValue) {
-        return mockUserGroupsApi;
+      if (defaultValue && typeof defaultValue === 'object') {
+        if ('messages' in defaultValue) {
+          return mockMessagesApi;
+        }
+        if ('groups' in defaultValue) {
+          return mockUserGroupsApi;
+        }
       }
       return mockEventGroupsApi;
     });
@@ -75,6 +83,9 @@ describe('useAnalyticsStore', () => {
       expect(store.eventGroups).toStrictEqual(getRef([]));
       expect(store.eventGroupsLoading).toStrictEqual(getRef(false));
       expect(store.eventGroupsError).toStrictEqual(getRef(null));
+      expect(store.messages).toStrictEqual(getRef({ messageCount: 0, messages: [] }));
+      expect(store.messagesLoading).toStrictEqual(getRef(false));
+      expect(store.messagesError).toStrictEqual(getRef(null));
     });
 
     it('должен содержать правильные пресеты', () => {
@@ -257,6 +268,42 @@ describe('useAnalyticsStore', () => {
         dateFrom: undefined,
         dateTo: undefined,
       });
+    });
+  });
+
+  describe('fetchMessages', () => {
+    it('должен вызывать messages.get с правильными параметрами', () => {
+      store.setPage(2);
+      store.setPageSize(10);
+      store.setDateFrom('2024-01-01');
+      store.setDateTo('2024-12-31');
+
+      store.fetchMessages();
+
+      expect(mockMessagesApi.get).toHaveBeenCalledWith('analytic/message', {
+        page: 2,
+        pageSize: 10,
+        dateFrom: '2024-01-01',
+        dateTo: '2024-12-31',
+      });
+    });
+
+    it('должен вызывать messages.get с undefined для не установленных параметров', () => {
+      store.fetchMessages();
+
+      expect(mockMessagesApi.get).toHaveBeenCalledWith('analytic/message', {
+        page: 1,
+        pageSize: 5,
+        dateFrom: undefined,
+        dateTo: undefined,
+      });
+    });
+
+    it('не должен затрагивать запросы пользователей и групп событий', () => {
+      store.fetchMessages();
+
+      expect(mockUserGroupsApi.get).not.toHaveBeenCalled();
+      expect(mockEventGroupsApi.get).not.toHaveBeenCalled();
     });
   });
 

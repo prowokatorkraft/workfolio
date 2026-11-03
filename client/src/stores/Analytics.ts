@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import type { Preset } from '../types/Preset.ts';
+import type { Messages } from '../types/Messages.ts';
 import { formatRange } from '../lib/tools.ts';
 import type { UserGroups } from '../types/UserGroups.ts';
 import { useApi } from '../composables/useApi.ts';
@@ -60,6 +61,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
 
   const userGroups = useApi<UserGroups>({ eventCount: 0, groupCount: 0, groups: [] });
   const eventGroups = useApi<EventGroup[]>([]);
+  const messages = useApi<Messages>({ messageCount: 0, messages: [] });
 
   function setPage(value: number) {
     page.value = value;
@@ -92,6 +94,15 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     });
   }
 
+  function fetchMessages() {
+    messages.get('analytic/message', {
+      page: page?.value,
+      pageSize: pageSize?.value,
+      dateFrom: dateFrom.value,
+      dateTo: dateTo.value,
+    });
+  }
+
   return {
     page,
     pageSize,
@@ -108,6 +119,10 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     eventGroupsLoading: eventGroups.loading,
     eventGroupsError: eventGroups.error,
 
+    messages: messages.data,
+    messagesLoading: messages.loading,
+    messagesError: messages.error,
+
     setPage,
     setPageSize,
     setDateFrom,
@@ -116,5 +131,6 @@ export const useAnalyticsStore = defineStore('analytics', () => {
 
     fetchUserGroups,
     fetchEventGroups,
+    fetchMessages,
   };
 });

@@ -20,6 +20,7 @@
       analyticsStore.setDateTo(range.endDate);
       analyticsStore.fetchUserGroups();
       analyticsStore.fetchEventGroups();
+      analyticsStore.fetchMessages();
     }
     closeCustomPicker();
   };
@@ -43,6 +44,7 @@
       analyticsStore.setActivePreset('custom');
       analyticsStore.fetchUserGroups();
       analyticsStore.fetchEventGroups();
+      analyticsStore.fetchMessages();
     }
     closeCustomPicker();
   };

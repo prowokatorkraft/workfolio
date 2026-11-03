@@ -17,6 +17,9 @@ jest.mock('../../shared/entities/event.dto', () => ({
 }));
 
 jest.mock('../../shared/entities/event-enum-type', () => ({
+  EventEnum: {
+    user_info_message_send: 2103
+  },
   getEventKey: jest.fn()
 }));
 
@@ -482,6 +485,132 @@ describe('AnalyticService', () => {
       const result = await service.getEvents('2025-01-01', '2025-12-31');
 
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('getMessages', () => {
+    const buildMessageBuilder = (result: [EventEntity[], number]) => {
+      const builder = {
+        where: jest.fn().mockReturnThis(),
+        andWhere: jest.fn().mockReturnThis(),
+        orderBy: jest.fn().mockReturnThis(),
+        skip: jest.fn().mockReturnThis(),
+        take: jest.fn().mockReturnThis(),
+        getManyAndCount: jest.fn().mockResolvedValue(result)
+      } as unknown as SelectQueryBuilder<EventEntity>;
+      return builder;
+    };
+
+    const messageEntities: EventEntity[] = [
+      {
+        id: 10,
+        userId: 'user1',
+        eventId: 2103,
+        description: 'Привет! Хочу обсудить проект',
+        createdAt: new Date('2024-01-03T12:00:00Z')
+      } as EventEntity,
+      {
+        id: 11,
+        userId: 'user2',
+        eventId: 2103,
+        description: 'Есть вакансия',
+        createdAt: new Date('2024-01-02T09:00:00Z')
+      } as EventEntity
+    ];
+
+    it('должен фильтровать события только по user_info_message_send', async () => {
+      const mockQueryBuilder = buildMessageBuilder([messageEntities, 2]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await service.getMessages();
+
+      expect(eventRepository.createQueryBuilder).toHaveBeenCalledWith('event');
+      expect(mockQueryBuilder.andWhere).toHaveBeenCalledWith('event.eventId = :eventId', {
+        eventId: 2103
+      });
+    });
+
+    it('должен сортировать сообщения по убыванию даты', async () => {
+      const mockQueryBuilder = buildMessageBuilder([messageEntities, 2]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await service.getMessages();
+
+      expect(mockQueryBuilder.orderBy).toHaveBeenCalledWith('event.createdAt', 'DESC');
+    });
+
+    it('должен применять пагинацию по page и pageSize', async () => {
+      const mockQueryBuilder = buildMessageBuilder([messageEntities, 2]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await service.getMessages('2024-01-01', '2024-12-31', 5, 3);
+
+      expect(mockQueryBuilder.skip).toHaveBeenCalledWith(10);
+      expect(mockQueryBuilder.take).toHaveBeenCalledWith(5);
+    });
+
+    it('должен использовать значения пагинации по умолчанию', async () => {
+      const mockQueryBuilder = buildMessageBuilder([[], 0]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await service.getMessages();
+
+      expect(mockQueryBuilder.skip).toHaveBeenCalledWith(0);
+      expect(mockQueryBuilder.take).toHaveBeenCalledWith(100);
+    });
+
+    it('должен возвращать сообщения и их общее количество', async () => {
+      const mockQueryBuilder = buildMessageBuilder([messageEntities, 12]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      const result = await service.getMessages();
+
+      expect(result.messageCount).toBe(12);
+      expect(result.messages).toHaveLength(2);
+      expect(result.messages[0]?.description).toBe('Привет! Хочу обсудить проект');
+      expect(result.messages[0]?.eventId).toBe(2103);
+    });
+
+    it('должен возвращать пустой список, когда сообщений нет', async () => {
+      const mockQueryBuilder = buildMessageBuilder([[], 0]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      const result = await service.getMessages();
+
+      expect(result).toEqual({ messageCount: 0, messages: [] });
+    });
+
+    it('должен применять фильтры по датам, когда они переданы', async () => {
+      const mockQueryBuilder = buildMessageBuilder([[], 0]);
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await service.getMessages('2024-01-01', '2024-12-31');
+
+      expect(mockQueryBuilder.where).toHaveBeenCalledWith(
+        'event.createdAt BETWEEN :dateFrom AND :dateTo',
+        {
+          dateFrom: expect.any(Date) as Date,
+          dateTo: expect.any(Date) as Date
+        }
+      );
+    });
+
+    it('должен корректно обрабатывать ошибку репозитория', async () => {
+      const error = new Error('Ошибка выполнения запроса к базе данных');
+      const mockQueryBuilder = {
+        where: jest.fn().mockReturnThis(),
+        andWhere: jest.fn().mockReturnThis(),
+        orderBy: jest.fn().mockReturnThis(),
+        skip: jest.fn().mockReturnThis(),
+        take: jest.fn().mockReturnThis(),
+        getManyAndCount: jest.fn().mockRejectedValue(error)
+      } as unknown as SelectQueryBuilder<EventEntity>;
+
+      jest.spyOn(eventRepository, 'createQueryBuilder').mockReturnValue(mockQueryBuilder);
+
+      await expect(service.getMessages()).rejects.toThrow(
+        'Ошибка выполнения запроса к базе данных'
+      );
     });
   });
 

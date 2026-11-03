@@ -7,6 +7,7 @@ import { UserGroup } from '../../shared/entities/user-group';
 import { Event } from '../../shared/entities/event';
 import { EventGroup } from '../../shared/entities/event-group';
 import { EventEnum, getEventKey } from '../../shared/entities/event-enum-type';
+import { Messages } from '../../shared/entities/messages';
 import { RawEventResult } from '../../shared/entities/raw-event-result';
 
 @Injectable()
@@ -95,5 +96,27 @@ export class AnalyticService {
         result.count = r.count;
         return result;
       });
+  }
+
+  async getMessages(
+    dateFrom?: string,
+    dateTo?: string,
+    pageSize: number = 100,
+    page: number = 1
+  ): Promise<Messages> {
+    const to = dateTo ? this.parseUTCDate(dateTo) : new Date();
+    const from = dateFrom
+      ? this.parseUTCDate(dateFrom)
+      : new Date(new Date().setDate(new Date().getDate() - 1));
+
+    const [entities, messageCount] = await this.eventRepository
+      .createQueryBuilder('event')
+      .where('event.createdAt BETWEEN :dateFrom AND :dateTo', { dateFrom: from, dateTo: to })
+      .andWhere('event.eventId = :eventId', { eventId: EventEnum.user_info_message_send })
+      .orderBy('event.createdAt', 'DESC')
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+      .getManyAndCount();
+    return { messageCount, messages: Event.fromEntities(entities) };
   }
 }
