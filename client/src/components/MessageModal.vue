@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
+
+  const MAX_DESCRIPTION_LENGTH = 200;
 
   defineProps<{
     isOpen: boolean;
@@ -11,6 +13,11 @@
   }>();
 
   const description = ref('');
+  const descriptionLength = computed(() => description.value.length);
+  const isDescriptionTooLong = computed(() => descriptionLength.value > MAX_DESCRIPTION_LENGTH);
+  const canSubmit = computed(
+    () => description.value.trim().length > 0 && !isDescriptionTooLong.value
+  );
   const isSubmitting = ref(false);
 
   const close = () => {
@@ -19,7 +26,7 @@
   };
 
   const submit = () => {
-    if (!description.value.trim() || isSubmitting.value) return;
+    if (!canSubmit.value || isSubmitting.value) return;
 
     isSubmitting.value = true;
     emit('submit', description.value.trim());
@@ -49,11 +56,18 @@
               placeholder="Введите текст..."
               rows="5"
             />
+            <div
+              class="modal-counter"
+              :class="{ 'counter-exceeded': isDescriptionTooLong }"
+              aria-live="polite"
+            >
+              {{ descriptionLength }}/{{ MAX_DESCRIPTION_LENGTH }}
+            </div>
           </div>
 
           <div class="modal-footer">
             <button class="modal-btn cancel-btn" @click="close">Отмена</button>
-            <button class="modal-btn submit-btn" :disabled="!description.trim()" @click="submit">
+            <button class="modal-btn submit-btn" :disabled="!canSubmit" @click="submit">
               Отправить
             </button>
           </div>
@@ -142,6 +156,19 @@
   .modal-textarea:focus {
     border-color: #42b983;
     box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.15);
+  }
+
+  .modal-counter {
+    margin-top: 6px;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #999;
+    transition: color 0.2s ease;
+  }
+
+  .modal-counter.counter-exceeded {
+    color: #ea4335;
+    font-weight: 500;
   }
 
   .modal-footer {
